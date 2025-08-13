@@ -1,0 +1,2537 @@
+{
+  "papers": [
+    {
+      "pmid": "38648021",
+      "title": "Interstitial Lung Disease: A Review.",
+      "journal": "JAMA",
+      "year": "2024",
+      "authors": [
+        "Maher Toby M"
+      ],
+      "mesh_terms": [
+        {
+          "descriptor": "Humans",
+          "ui": "D006801",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Antifibrotic Agents",
+          "ui": "D000088962",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "therapeutic use",
+              "ui": "Q000627",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Connective Tissue Diseases",
+          "ui": "D003240",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "complications",
+              "ui": "Q000150",
+              "major_topic": false
+            },
+            {
+              "name": "diagnosis",
+              "ui": "Q000175",
+              "major_topic": false
+            },
+            {
+              "name": "therapy",
+              "ui": "Q000628",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Dyspnea",
+          "ui": "D004417",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "etiology",
+              "ui": "Q000209",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Idiopathic Pulmonary Fibrosis",
+          "ui": "D054990",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "complications",
+              "ui": "Q000150",
+              "major_topic": false
+            },
+            {
+              "name": "diagnosis",
+              "ui": "Q000175",
+              "major_topic": false
+            },
+            {
+              "name": "therapy",
+              "ui": "Q000628",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Indoles",
+          "ui": "D007211",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "therapeutic use",
+              "ui": "Q000627",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Lung Diseases, Interstitial",
+          "ui": "D017563",
+          "major_topic": true,
+          "qualifiers": [
+            {
+              "name": "diagnosis",
+              "ui": "Q000175",
+              "major_topic": false
+            },
+            {
+              "name": "etiology",
+              "ui": "Q000209",
+              "major_topic": false
+            },
+            {
+              "name": "therapy",
+              "ui": "Q000628",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Lung Transplantation",
+          "ui": "D016040",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Prognosis",
+          "ui": "D011379",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Pyridones",
+          "ui": "D011728",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "therapeutic use",
+              "ui": "Q000627",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Respiratory System Agents",
+          "ui": "D019141",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "therapeutic use",
+              "ui": "Q000627",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "United States",
+          "ui": "D014481",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Vital Capacity",
+          "ui": "D014797",
+          "major_topic": false,
+          "qualifiers": []
+        }
+      ]
+    },
+    {
+      "pmid": "35964592",
+      "title": "Interstitial lung diseases.",
+      "journal": "Lancet (London, England)",
+      "year": "2022",
+      "authors": [
+        "Wijsenbeek Marlies",
+        "Suzuki Atsushi",
+        "Maher Toby M"
+      ],
+      "mesh_terms": [
+        {
+          "descriptor": "Dyspnea",
+          "ui": "D004417",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "etiology",
+              "ui": "Q000209",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Exercise Tolerance",
+          "ui": "D017079",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Humans",
+          "ui": "D006801",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Lung",
+          "ui": "D008168",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Lung Diseases, Interstitial",
+          "ui": "D017563",
+          "major_topic": true,
+          "qualifiers": [
+            {
+              "name": "diagnosis",
+              "ui": "Q000175",
+              "major_topic": false
+            },
+            {
+              "name": "epidemiology",
+              "ui": "Q000453",
+              "major_topic": false
+            },
+            {
+              "name": "etiology",
+              "ui": "Q000209",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Pulmonary Fibrosis",
+          "ui": "D011658",
+          "major_topic": true,
+          "qualifiers": [
+            {
+              "name": "complications",
+              "ui": "Q000150",
+              "major_topic": false
+            },
+            {
+              "name": "etiology",
+              "ui": "Q000209",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Quality of Life",
+          "ui": "D011788",
+          "major_topic": false,
+          "qualifiers": []
+        }
+      ]
+    },
+    {
+      "pmid": "34559419",
+      "title": "Pulmonary rehabilitation for interstitial lung disease.",
+      "journal": "The Cochrane database of systematic reviews",
+      "year": "2021",
+      "authors": [
+        "Dowman Leona",
+        "Hill Catherine J",
+        "May Anthony",
+        "Holland Anne E"
+      ],
+      "mesh_terms": [
+        {
+          "descriptor": "Adult",
+          "ui": "D000328",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Aged",
+          "ui": "D000368",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Dyspnea",
+          "ui": "D004417",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "etiology",
+              "ui": "Q000209",
+              "major_topic": false
+            },
+            {
+              "name": "rehabilitation",
+              "ui": "Q000534",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Exercise",
+          "ui": "D015444",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Exercise Tolerance",
+          "ui": "D017079",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Humans",
+          "ui": "D006801",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Lung Diseases, Interstitial",
+          "ui": "D017563",
+          "major_topic": true,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Middle Aged",
+          "ui": "D008875",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Quality of Life",
+          "ui": "D011788",
+          "major_topic": true,
+          "qualifiers": []
+        }
+      ]
+    },
+    {
+      "pmid": "36701677",
+      "title": "Differential Diagnosis of Suspected Chronic Obstructive Pulmonary Disease Exacerbations in the Acute Care Setting: Best Practice.",
+      "journal": "American journal of respiratory and critical care medicine",
+      "year": "2023",
+      "authors": [
+        "Celli Bartolome R",
+        "Fabbri Leonardo M",
+        "Aaron Shawn D",
+        "Agusti Alvar",
+        "Brook Robert D",
+        "Criner Gerard J",
+        "Franssen Frits M E",
+        "Humbert Marc",
+        "Hurst John R",
+        "Montes de Oca Maria",
+        "Pantoni Leonardo",
+        "Papi Alberto",
+        "Rodriguez-Roisin Roberto",
+        "Sethi Sanjay",
+        "Stolz Daiana",
+        "Torres Antoni",
+        "Vogelmeier Claus F",
+        "Wedzicha Jadwiga A"
+      ],
+      "mesh_terms": [
+        {
+          "descriptor": "Pulmonary Disease, Chronic Obstructive",
+          "ui": "D029424",
+          "major_topic": true,
+          "qualifiers": [
+            {
+              "name": "diagnosis",
+              "ui": "Q000175",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Humans",
+          "ui": "D006801",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Diagnosis, Differential",
+          "ui": "D003937",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Dyspnea",
+          "ui": "D004417",
+          "major_topic": true,
+          "qualifiers": [
+            {
+              "name": "etiology",
+              "ui": "Q000209",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Cough",
+          "ui": "D003371",
+          "major_topic": false,
+          "qualifiers": []
+        }
+      ]
+    },
+    {
+      "pmid": "38536110",
+      "title": "Epidemiology and Prognostic Significance of Cough in Fibrotic Interstitial Lung Disease.",
+      "journal": "American journal of respiratory and critical care medicine",
+      "year": "2024",
+      "authors": [
+        "Khor Yet H",
+        "Johannson Kerri A",
+        "Marcoux Veronica",
+        "Fisher Jolene H",
+        "Assayag Deborah",
+        "Manganas Helene",
+        "Khalil Nasreen",
+        "Kolb Martin",
+        "Ryerson Christopher J"
+      ],
+      "mesh_terms": [
+        {
+          "descriptor": "Humans",
+          "ui": "D006801",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Cough",
+          "ui": "D003371",
+          "major_topic": true,
+          "qualifiers": [
+            {
+              "name": "etiology",
+              "ui": "Q000209",
+              "major_topic": false
+            },
+            {
+              "name": "physiopathology",
+              "ui": "Q000503",
+              "major_topic": false
+            },
+            {
+              "name": "epidemiology",
+              "ui": "Q000453",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Male",
+          "ui": "D008297",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Female",
+          "ui": "D005260",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Aged",
+          "ui": "D000368",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Middle Aged",
+          "ui": "D008875",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Prognosis",
+          "ui": "D011379",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Lung Diseases, Interstitial",
+          "ui": "D017563",
+          "major_topic": true,
+          "qualifiers": [
+            {
+              "name": "physiopathology",
+              "ui": "Q000503",
+              "major_topic": false
+            },
+            {
+              "name": "epidemiology",
+              "ui": "Q000453",
+              "major_topic": false
+            },
+            {
+              "name": "mortality",
+              "ui": "Q000401",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Severity of Illness Index",
+          "ui": "D012720",
+          "major_topic": true,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Canada",
+          "ui": "D002170",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "epidemiology",
+              "ui": "Q000453",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Idiopathic Pulmonary Fibrosis",
+          "ui": "D054990",
+          "major_topic": true,
+          "qualifiers": [
+            {
+              "name": "epidemiology",
+              "ui": "Q000453",
+              "major_topic": false
+            },
+            {
+              "name": "physiopathology",
+              "ui": "Q000503",
+              "major_topic": false
+            },
+            {
+              "name": "complications",
+              "ui": "Q000150",
+              "major_topic": false
+            },
+            {
+              "name": "mortality",
+              "ui": "Q000401",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Prospective Studies",
+          "ui": "D011446",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Quality of Life",
+          "ui": "D011788",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Disease Progression",
+          "ui": "D018450",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Registries",
+          "ui": "D012042",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Prevalence",
+          "ui": "D015995",
+          "major_topic": false,
+          "qualifiers": []
+        }
+      ]
+    },
+    {
+      "pmid": "28213592",
+      "title": "The evidence of benefits of exercise training in interstitial lung disease: a randomised controlled trial.",
+      "journal": "Thorax",
+      "year": "2017",
+      "authors": [
+        "Dowman Leona M",
+        "McDonald Christine F",
+        "Hill Catherine J",
+        "Lee Annemarie L",
+        "Barker Kathryn",
+        "Boote Claire",
+        "Glaspole Ian",
+        "Goh Nicole S L",
+        "Southcott Anne M",
+        "Burge Angela T",
+        "Gillies Rebecca",
+        "Martin Alicia",
+        "Holland Anne E"
+      ],
+      "mesh_terms": [
+        {
+          "descriptor": "Aged",
+          "ui": "D000368",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Aged, 80 and over",
+          "ui": "D000369",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Asbestosis",
+          "ui": "D001195",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "physiopathology",
+              "ui": "Q000503",
+              "major_topic": false
+            },
+            {
+              "name": "rehabilitation",
+              "ui": "Q000534",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Dyspnea",
+          "ui": "D004417",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "etiology",
+              "ui": "Q000209",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Exercise",
+          "ui": "D015444",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "physiology",
+              "ui": "Q000502",
+              "major_topic": true
+            }
+          ]
+        },
+        {
+          "descriptor": "Exercise Therapy",
+          "ui": "D005081",
+          "major_topic": true,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Female",
+          "ui": "D005260",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Humans",
+          "ui": "D006801",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Idiopathic Pulmonary Fibrosis",
+          "ui": "D054990",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "physiopathology",
+              "ui": "Q000503",
+              "major_topic": false
+            },
+            {
+              "name": "rehabilitation",
+              "ui": "Q000534",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Lung Diseases, Interstitial",
+          "ui": "D017563",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "etiology",
+              "ui": "Q000209",
+              "major_topic": false
+            },
+            {
+              "name": "physiopathology",
+              "ui": "Q000503",
+              "major_topic": true
+            },
+            {
+              "name": "rehabilitation",
+              "ui": "Q000534",
+              "major_topic": true
+            }
+          ]
+        },
+        {
+          "descriptor": "Male",
+          "ui": "D008297",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Middle Aged",
+          "ui": "D008875",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Physical Conditioning, Human",
+          "ui": "D064797",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "physiology",
+              "ui": "Q000502",
+              "major_topic": true
+            }
+          ]
+        },
+        {
+          "descriptor": "Quality of Life",
+          "ui": "D011788",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Single-Blind Method",
+          "ui": "D016037",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Surveys and Questionnaires",
+          "ui": "D011795",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Time Factors",
+          "ui": "D013997",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Walk Test",
+          "ui": "D000070857",
+          "major_topic": false,
+          "qualifiers": []
+        }
+      ]
+    },
+    {
+      "pmid": "36179385",
+      "title": "Qualitative validation of the modified Medical Research Council (mMRC) dyspnoea scale as a patient-reported measure of breathlessness severity.",
+      "journal": "Respiratory medicine",
+      "year": "2022",
+      "authors": [
+        "Sunjaya Anthony",
+        "Poulos Leanne",
+        "Reddel Helen",
+        "Jenkins Christine"
+      ],
+      "mesh_terms": [
+        {
+          "descriptor": "Humans",
+          "ui": "D006801",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Young Adult",
+          "ui": "D055815",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Adult",
+          "ui": "D000328",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Middle Aged",
+          "ui": "D008875",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Aged",
+          "ui": "D000368",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Aged, 80 and over",
+          "ui": "D000369",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Pulmonary Disease, Chronic Obstructive",
+          "ui": "D029424",
+          "major_topic": true,
+          "qualifiers": [
+            {
+              "name": "drug therapy",
+              "ui": "Q000188",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Severity of Illness Index",
+          "ui": "D012720",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Dyspnea",
+          "ui": "D004417",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "diagnosis",
+              "ui": "Q000175",
+              "major_topic": false
+            },
+            {
+              "name": "psychology",
+              "ui": "Q000523",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Biomedical Research",
+          "ui": "D035843",
+          "major_topic": true,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Patient Reported Outcome Measures",
+          "ui": "D000071066",
+          "major_topic": false,
+          "qualifiers": []
+        }
+      ]
+    },
+    {
+      "pmid": "39129185",
+      "title": "Effects of home-based telerehabilitation-assisted inspiratory muscle training in patients with idiopathic pulmonary fibrosis: A randomized controlled trial.",
+      "journal": "Respirology (Carlton, Vic.)",
+      "year": "2024",
+      "authors": [
+        "Aktan Rıdvan",
+        "Tertemiz Kemal Can",
+        "Yiğit Salih",
+        "Özalevli Sevgi",
+        "Ozgen Alpaydin Aylin",
+        "Uçan Eyüp Sabri"
+      ],
+      "mesh_terms": [
+        {
+          "descriptor": "Humans",
+          "ui": "D006801",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Male",
+          "ui": "D008297",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Female",
+          "ui": "D005260",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Idiopathic Pulmonary Fibrosis",
+          "ui": "D054990",
+          "major_topic": true,
+          "qualifiers": [
+            {
+              "name": "rehabilitation",
+              "ui": "Q000534",
+              "major_topic": false
+            },
+            {
+              "name": "physiopathology",
+              "ui": "Q000503",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Aged",
+          "ui": "D000368",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Breathing Exercises",
+          "ui": "D001945",
+          "major_topic": true,
+          "qualifiers": [
+            {
+              "name": "methods",
+              "ui": "Q000379",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Telerehabilitation",
+          "ui": "D000069350",
+          "major_topic": true,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Respiratory Muscles",
+          "ui": "D012132",
+          "major_topic": true,
+          "qualifiers": [
+            {
+              "name": "physiopathology",
+              "ui": "Q000503",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Dyspnea",
+          "ui": "D004417",
+          "major_topic": true,
+          "qualifiers": [
+            {
+              "name": "rehabilitation",
+              "ui": "Q000534",
+              "major_topic": false
+            },
+            {
+              "name": "etiology",
+              "ui": "Q000209",
+              "major_topic": false
+            },
+            {
+              "name": "physiopathology",
+              "ui": "Q000503",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Exercise Tolerance",
+          "ui": "D017079",
+          "major_topic": true,
+          "qualifiers": [
+            {
+              "name": "physiology",
+              "ui": "Q000502",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Middle Aged",
+          "ui": "D008875",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Muscle Strength",
+          "ui": "D053580",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "physiology",
+              "ui": "Q000502",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Treatment Outcome",
+          "ui": "D016896",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Respiratory Function Tests",
+          "ui": "D012129",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Home Care Services",
+          "ui": "D006699",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Walk Test",
+          "ui": "D000070857",
+          "major_topic": false,
+          "qualifiers": []
+        }
+      ]
+    },
+    {
+      "pmid": "28487307",
+      "title": "Aripiprazole-induced hypersensitivity pneumonitis.",
+      "journal": "BMJ case reports",
+      "year": "2017",
+      "authors": [
+        "Gunasekaran Kulothungan",
+        "Murthi Swetha",
+        "Jennings Jeffrey",
+        "Lone Nazir"
+      ],
+      "mesh_terms": [
+        {
+          "descriptor": "Adult",
+          "ui": "D000328",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Alveolitis, Extrinsic Allergic",
+          "ui": "D000542",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "chemically induced",
+              "ui": "Q000139",
+              "major_topic": false
+            },
+            {
+              "name": "diagnosis",
+              "ui": "Q000175",
+              "major_topic": true
+            },
+            {
+              "name": "diagnostic imaging",
+              "ui": "Q000000981",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Antipsychotic Agents",
+          "ui": "D014150",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "adverse effects",
+              "ui": "Q000009",
+              "major_topic": true
+            }
+          ]
+        },
+        {
+          "descriptor": "Aripiprazole",
+          "ui": "D000068180",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "adverse effects",
+              "ui": "Q000009",
+              "major_topic": true
+            }
+          ]
+        },
+        {
+          "descriptor": "Diagnosis, Differential",
+          "ui": "D003937",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Female",
+          "ui": "D005260",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Humans",
+          "ui": "D006801",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Lung Diseases, Interstitial",
+          "ui": "D017563",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "chemically induced",
+              "ui": "Q000139",
+              "major_topic": false
+            },
+            {
+              "name": "diagnosis",
+              "ui": "Q000175",
+              "major_topic": true
+            },
+            {
+              "name": "diagnostic imaging",
+              "ui": "Q000000981",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Schizophrenia",
+          "ui": "D012559",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "drug therapy",
+              "ui": "Q000188",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Tomography, X-Ray Computed",
+          "ui": "D014057",
+          "major_topic": false,
+          "qualifiers": []
+        }
+      ]
+    },
+    {
+      "pmid": "16817954",
+      "title": "Hypersensitivity pneumonitis.",
+      "journal": "Orphanet journal of rare diseases",
+      "year": "2006",
+      "authors": [
+        "Lacasse Yves",
+        "Cormier Yvon"
+      ],
+      "mesh_terms": [
+        {
+          "descriptor": "Adult",
+          "ui": "D000328",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Alveolitis, Extrinsic Allergic",
+          "ui": "D000542",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "classification",
+              "ui": "Q000145",
+              "major_topic": false
+            },
+            {
+              "name": "diagnosis",
+              "ui": "Q000175",
+              "major_topic": true
+            },
+            {
+              "name": "epidemiology",
+              "ui": "Q000453",
+              "major_topic": false
+            },
+            {
+              "name": "therapy",
+              "ui": "Q000628",
+              "major_topic": true
+            }
+          ]
+        },
+        {
+          "descriptor": "Diagnosis, Differential",
+          "ui": "D003937",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Farmer's Lung",
+          "ui": "D005203",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "epidemiology",
+              "ui": "Q000453",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Global Health",
+          "ui": "D014943",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Humans",
+          "ui": "D006801",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Incidence",
+          "ui": "D015994",
+          "major_topic": false,
+          "qualifiers": []
+        },
+        {
+          "descriptor": "Lung Diseases",
+          "ui": "D008171",
+          "major_topic": false,
+          "qualifiers": [
+            {
+              "name": "diagnosis",
+              "ui": "Q000175",
+              "major_topic": false
+            }
+          ]
+        },
+        {
+          "descriptor": "Prevalence",
+          "ui": "D015995",
+          "major_topic": false,
+          "qualifiers": []
+        }
+      ]
+    }
+  ],
+  "mesh_terms": {
+    "D006801": {
+      "name": "Humans",
+      "ui": "D006801",
+      "count": 10,
+      "papers": [
+        "38648021",
+        "35964592",
+        "34559419",
+        "36701677",
+        "38536110",
+        "28213592",
+        "36179385",
+        "39129185",
+        "28487307",
+        "16817954"
+      ],
+      "major_topic_count": 0
+    },
+    "D000088962": {
+      "name": "Antifibrotic Agents",
+      "ui": "D000088962",
+      "count": 1,
+      "papers": [
+        "38648021"
+      ],
+      "major_topic_count": 0
+    },
+    "D003240": {
+      "name": "Connective Tissue Diseases",
+      "ui": "D003240",
+      "count": 1,
+      "papers": [
+        "38648021"
+      ],
+      "major_topic_count": 0
+    },
+    "D004417": {
+      "name": "Dyspnea",
+      "ui": "D004417",
+      "count": 7,
+      "papers": [
+        "38648021",
+        "35964592",
+        "34559419",
+        "36701677",
+        "28213592",
+        "36179385",
+        "39129185"
+      ],
+      "major_topic_count": 2
+    },
+    "D054990": {
+      "name": "Idiopathic Pulmonary Fibrosis",
+      "ui": "D054990",
+      "count": 4,
+      "papers": [
+        "38648021",
+        "38536110",
+        "28213592",
+        "39129185"
+      ],
+      "major_topic_count": 2
+    },
+    "D007211": {
+      "name": "Indoles",
+      "ui": "D007211",
+      "count": 1,
+      "papers": [
+        "38648021"
+      ],
+      "major_topic_count": 0
+    },
+    "D017563": {
+      "name": "Lung Diseases, Interstitial",
+      "ui": "D017563",
+      "count": 6,
+      "papers": [
+        "38648021",
+        "35964592",
+        "34559419",
+        "38536110",
+        "28213592",
+        "28487307"
+      ],
+      "major_topic_count": 4
+    },
+    "D016040": {
+      "name": "Lung Transplantation",
+      "ui": "D016040",
+      "count": 1,
+      "papers": [
+        "38648021"
+      ],
+      "major_topic_count": 0
+    },
+    "D011379": {
+      "name": "Prognosis",
+      "ui": "D011379",
+      "count": 2,
+      "papers": [
+        "38648021",
+        "38536110"
+      ],
+      "major_topic_count": 0
+    },
+    "D011728": {
+      "name": "Pyridones",
+      "ui": "D011728",
+      "count": 1,
+      "papers": [
+        "38648021"
+      ],
+      "major_topic_count": 0
+    },
+    "D019141": {
+      "name": "Respiratory System Agents",
+      "ui": "D019141",
+      "count": 1,
+      "papers": [
+        "38648021"
+      ],
+      "major_topic_count": 0
+    },
+    "D014481": {
+      "name": "United States",
+      "ui": "D014481",
+      "count": 1,
+      "papers": [
+        "38648021"
+      ],
+      "major_topic_count": 0
+    },
+    "D014797": {
+      "name": "Vital Capacity",
+      "ui": "D014797",
+      "count": 1,
+      "papers": [
+        "38648021"
+      ],
+      "major_topic_count": 0
+    },
+    "D017079": {
+      "name": "Exercise Tolerance",
+      "ui": "D017079",
+      "count": 3,
+      "papers": [
+        "35964592",
+        "34559419",
+        "39129185"
+      ],
+      "major_topic_count": 1
+    },
+    "D008168": {
+      "name": "Lung",
+      "ui": "D008168",
+      "count": 1,
+      "papers": [
+        "35964592"
+      ],
+      "major_topic_count": 0
+    },
+    "D011658": {
+      "name": "Pulmonary Fibrosis",
+      "ui": "D011658",
+      "count": 1,
+      "papers": [
+        "35964592"
+      ],
+      "major_topic_count": 1
+    },
+    "D011788": {
+      "name": "Quality of Life",
+      "ui": "D011788",
+      "count": 4,
+      "papers": [
+        "35964592",
+        "34559419",
+        "38536110",
+        "28213592"
+      ],
+      "major_topic_count": 1
+    },
+    "D000328": {
+      "name": "Adult",
+      "ui": "D000328",
+      "count": 4,
+      "papers": [
+        "34559419",
+        "36179385",
+        "28487307",
+        "16817954"
+      ],
+      "major_topic_count": 0
+    },
+    "D000368": {
+      "name": "Aged",
+      "ui": "D000368",
+      "count": 5,
+      "papers": [
+        "34559419",
+        "38536110",
+        "28213592",
+        "36179385",
+        "39129185"
+      ],
+      "major_topic_count": 0
+    },
+    "D015444": {
+      "name": "Exercise",
+      "ui": "D015444",
+      "count": 2,
+      "papers": [
+        "34559419",
+        "28213592"
+      ],
+      "major_topic_count": 0
+    },
+    "D008875": {
+      "name": "Middle Aged",
+      "ui": "D008875",
+      "count": 5,
+      "papers": [
+        "34559419",
+        "38536110",
+        "28213592",
+        "36179385",
+        "39129185"
+      ],
+      "major_topic_count": 0
+    },
+    "D029424": {
+      "name": "Pulmonary Disease, Chronic Obstructive",
+      "ui": "D029424",
+      "count": 2,
+      "papers": [
+        "36701677",
+        "36179385"
+      ],
+      "major_topic_count": 2
+    },
+    "D003937": {
+      "name": "Diagnosis, Differential",
+      "ui": "D003937",
+      "count": 3,
+      "papers": [
+        "36701677",
+        "28487307",
+        "16817954"
+      ],
+      "major_topic_count": 0
+    },
+    "D003371": {
+      "name": "Cough",
+      "ui": "D003371",
+      "count": 2,
+      "papers": [
+        "36701677",
+        "38536110"
+      ],
+      "major_topic_count": 1
+    },
+    "D008297": {
+      "name": "Male",
+      "ui": "D008297",
+      "count": 3,
+      "papers": [
+        "38536110",
+        "28213592",
+        "39129185"
+      ],
+      "major_topic_count": 0
+    },
+    "D005260": {
+      "name": "Female",
+      "ui": "D005260",
+      "count": 4,
+      "papers": [
+        "38536110",
+        "28213592",
+        "39129185",
+        "28487307"
+      ],
+      "major_topic_count": 0
+    },
+    "D012720": {
+      "name": "Severity of Illness Index",
+      "ui": "D012720",
+      "count": 2,
+      "papers": [
+        "38536110",
+        "36179385"
+      ],
+      "major_topic_count": 1
+    },
+    "D002170": {
+      "name": "Canada",
+      "ui": "D002170",
+      "count": 1,
+      "papers": [
+        "38536110"
+      ],
+      "major_topic_count": 0
+    },
+    "D011446": {
+      "name": "Prospective Studies",
+      "ui": "D011446",
+      "count": 1,
+      "papers": [
+        "38536110"
+      ],
+      "major_topic_count": 0
+    },
+    "D018450": {
+      "name": "Disease Progression",
+      "ui": "D018450",
+      "count": 1,
+      "papers": [
+        "38536110"
+      ],
+      "major_topic_count": 0
+    },
+    "D012042": {
+      "name": "Registries",
+      "ui": "D012042",
+      "count": 1,
+      "papers": [
+        "38536110"
+      ],
+      "major_topic_count": 0
+    },
+    "D015995": {
+      "name": "Prevalence",
+      "ui": "D015995",
+      "count": 2,
+      "papers": [
+        "38536110",
+        "16817954"
+      ],
+      "major_topic_count": 0
+    },
+    "D000369": {
+      "name": "Aged, 80 and over",
+      "ui": "D000369",
+      "count": 2,
+      "papers": [
+        "28213592",
+        "36179385"
+      ],
+      "major_topic_count": 0
+    },
+    "D001195": {
+      "name": "Asbestosis",
+      "ui": "D001195",
+      "count": 1,
+      "papers": [
+        "28213592"
+      ],
+      "major_topic_count": 0
+    },
+    "D005081": {
+      "name": "Exercise Therapy",
+      "ui": "D005081",
+      "count": 1,
+      "papers": [
+        "28213592"
+      ],
+      "major_topic_count": 1
+    },
+    "D064797": {
+      "name": "Physical Conditioning, Human",
+      "ui": "D064797",
+      "count": 1,
+      "papers": [
+        "28213592"
+      ],
+      "major_topic_count": 0
+    },
+    "D016037": {
+      "name": "Single-Blind Method",
+      "ui": "D016037",
+      "count": 1,
+      "papers": [
+        "28213592"
+      ],
+      "major_topic_count": 0
+    },
+    "D011795": {
+      "name": "Surveys and Questionnaires",
+      "ui": "D011795",
+      "count": 1,
+      "papers": [
+        "28213592"
+      ],
+      "major_topic_count": 0
+    },
+    "D013997": {
+      "name": "Time Factors",
+      "ui": "D013997",
+      "count": 1,
+      "papers": [
+        "28213592"
+      ],
+      "major_topic_count": 0
+    },
+    "D000070857": {
+      "name": "Walk Test",
+      "ui": "D000070857",
+      "count": 2,
+      "papers": [
+        "28213592",
+        "39129185"
+      ],
+      "major_topic_count": 0
+    },
+    "D055815": {
+      "name": "Young Adult",
+      "ui": "D055815",
+      "count": 1,
+      "papers": [
+        "36179385"
+      ],
+      "major_topic_count": 0
+    },
+    "D035843": {
+      "name": "Biomedical Research",
+      "ui": "D035843",
+      "count": 1,
+      "papers": [
+        "36179385"
+      ],
+      "major_topic_count": 1
+    },
+    "D000071066": {
+      "name": "Patient Reported Outcome Measures",
+      "ui": "D000071066",
+      "count": 1,
+      "papers": [
+        "36179385"
+      ],
+      "major_topic_count": 0
+    },
+    "D001945": {
+      "name": "Breathing Exercises",
+      "ui": "D001945",
+      "count": 1,
+      "papers": [
+        "39129185"
+      ],
+      "major_topic_count": 1
+    },
+    "D000069350": {
+      "name": "Telerehabilitation",
+      "ui": "D000069350",
+      "count": 1,
+      "papers": [
+        "39129185"
+      ],
+      "major_topic_count": 1
+    },
+    "D012132": {
+      "name": "Respiratory Muscles",
+      "ui": "D012132",
+      "count": 1,
+      "papers": [
+        "39129185"
+      ],
+      "major_topic_count": 1
+    },
+    "D053580": {
+      "name": "Muscle Strength",
+      "ui": "D053580",
+      "count": 1,
+      "papers": [
+        "39129185"
+      ],
+      "major_topic_count": 0
+    },
+    "D016896": {
+      "name": "Treatment Outcome",
+      "ui": "D016896",
+      "count": 1,
+      "papers": [
+        "39129185"
+      ],
+      "major_topic_count": 0
+    },
+    "D012129": {
+      "name": "Respiratory Function Tests",
+      "ui": "D012129",
+      "count": 1,
+      "papers": [
+        "39129185"
+      ],
+      "major_topic_count": 0
+    },
+    "D006699": {
+      "name": "Home Care Services",
+      "ui": "D006699",
+      "count": 1,
+      "papers": [
+        "39129185"
+      ],
+      "major_topic_count": 0
+    },
+    "D000542": {
+      "name": "Alveolitis, Extrinsic Allergic",
+      "ui": "D000542",
+      "count": 2,
+      "papers": [
+        "28487307",
+        "16817954"
+      ],
+      "major_topic_count": 0
+    },
+    "D014150": {
+      "name": "Antipsychotic Agents",
+      "ui": "D014150",
+      "count": 1,
+      "papers": [
+        "28487307"
+      ],
+      "major_topic_count": 0
+    },
+    "D000068180": {
+      "name": "Aripiprazole",
+      "ui": "D000068180",
+      "count": 1,
+      "papers": [
+        "28487307"
+      ],
+      "major_topic_count": 0
+    },
+    "D012559": {
+      "name": "Schizophrenia",
+      "ui": "D012559",
+      "count": 1,
+      "papers": [
+        "28487307"
+      ],
+      "major_topic_count": 0
+    },
+    "D014057": {
+      "name": "Tomography, X-Ray Computed",
+      "ui": "D014057",
+      "count": 1,
+      "papers": [
+        "28487307"
+      ],
+      "major_topic_count": 0
+    },
+    "D005203": {
+      "name": "Farmer's Lung",
+      "ui": "D005203",
+      "count": 1,
+      "papers": [
+        "16817954"
+      ],
+      "major_topic_count": 0
+    },
+    "D014943": {
+      "name": "Global Health",
+      "ui": "D014943",
+      "count": 1,
+      "papers": [
+        "16817954"
+      ],
+      "major_topic_count": 0
+    },
+    "D015994": {
+      "name": "Incidence",
+      "ui": "D015994",
+      "count": 1,
+      "papers": [
+        "16817954"
+      ],
+      "major_topic_count": 0
+    },
+    "D008171": {
+      "name": "Lung Diseases",
+      "ui": "D008171",
+      "count": 1,
+      "papers": [
+        "16817954"
+      ],
+      "major_topic_count": 0
+    }
+  },
+  "mesh_hierarchies": {
+    "D006801": {
+      "name": "Humans",
+      "ui": "D006801",
+      "tree_numbers": [
+        "B01.050.150.900.649.313.988.400.112.400.400"
+      ],
+      "count": 10,
+      "major_topic": false
+    },
+    "D004417": {
+      "name": "Dyspnea",
+      "ui": "D004417",
+      "tree_numbers": [
+        "C08.618.326",
+        "C23.888.852.371"
+      ],
+      "count": 7,
+      "major_topic": true
+    },
+    "D017563": {
+      "name": "Lung Diseases, Interstitial",
+      "ui": "D017563",
+      "tree_numbers": [
+        "C08.381.483"
+      ],
+      "count": 6,
+      "major_topic": true
+    },
+    "D000368": {
+      "name": "Aged",
+      "ui": "D000368",
+      "tree_numbers": [
+        "M01.060.116.100"
+      ],
+      "count": 5,
+      "major_topic": false
+    },
+    "D008875": {
+      "name": "Middle Aged",
+      "ui": "D008875",
+      "tree_numbers": [
+        "M01.060.116.630"
+      ],
+      "count": 5,
+      "major_topic": false
+    },
+    "D054990": {
+      "name": "Idiopathic Pulmonary Fibrosis",
+      "ui": "D054990",
+      "tree_numbers": [
+        "C08.381.483.652.500"
+      ],
+      "count": 4,
+      "major_topic": true
+    },
+    "D011788": {
+      "name": "Quality of Life",
+      "ui": "D011788",
+      "tree_numbers": [
+        "I01.800",
+        "K01.752.400.750",
+        "N06.850.505.400.425.837"
+      ],
+      "count": 4,
+      "major_topic": true
+    },
+    "D000328": {
+      "name": "Adult",
+      "ui": "D000328",
+      "tree_numbers": [
+        "M01.060.116"
+      ],
+      "count": 4,
+      "major_topic": false
+    },
+    "D005260": {
+      "name": "Female",
+      "ui": "D005260",
+      "tree_numbers": [
+        "X999999"
+      ],
+      "count": 4,
+      "major_topic": false
+    },
+    "D017079": {
+      "name": "Exercise Tolerance",
+      "ui": "D017079",
+      "tree_numbers": [
+        "G11.427.680.270"
+      ],
+      "count": 3,
+      "major_topic": true
+    },
+    "D003937": {
+      "name": "Diagnosis, Differential",
+      "ui": "D003937",
+      "tree_numbers": [
+        "E01.171"
+      ],
+      "count": 3,
+      "major_topic": false
+    },
+    "D008297": {
+      "name": "Male",
+      "ui": "D008297",
+      "tree_numbers": [
+        "X999998"
+      ],
+      "count": 3,
+      "major_topic": false
+    },
+    "D029424": {
+      "name": "Pulmonary Disease, Chronic Obstructive",
+      "ui": "D029424",
+      "tree_numbers": [
+        "C08.381.495.389",
+        "C23.550.291.500.875"
+      ],
+      "count": 2,
+      "major_topic": true
+    },
+    "D003371": {
+      "name": "Cough",
+      "ui": "D003371",
+      "tree_numbers": [
+        "C08.618.248",
+        "C23.888.852.293"
+      ],
+      "count": 2,
+      "major_topic": true
+    },
+    "D012720": {
+      "name": "Severity of Illness Index",
+      "ui": "D012720",
+      "tree_numbers": [
+        "E05.318.308.980.438.475.456.500",
+        "N05.715.360.300.800.438.375.364.500",
+        "N06.850.520.308.980.438.475.364.500"
+      ],
+      "count": 2,
+      "major_topic": true
+    },
+    "D011379": {
+      "name": "Prognosis",
+      "ui": "D011379",
+      "tree_numbers": [
+        "E01.789"
+      ],
+      "count": 2,
+      "major_topic": false
+    },
+    "D015444": {
+      "name": "Exercise",
+      "ui": "D015444",
+      "tree_numbers": [
+        "G11.427.410.698.277",
+        "I03.350"
+      ],
+      "count": 2,
+      "major_topic": false
+    },
+    "D015995": {
+      "name": "Prevalence",
+      "ui": "D015995",
+      "tree_numbers": [
+        "E05.318.308.985.525.750",
+        "N01.224.935.597.750",
+        "N06.850.505.400.975.525.750",
+        "N06.850.520.308.985.525.750"
+      ],
+      "count": 2,
+      "major_topic": false
+    },
+    "D000369": {
+      "name": "Aged, 80 and over",
+      "ui": "D000369",
+      "tree_numbers": [
+        "M01.060.116.100.080"
+      ],
+      "count": 2,
+      "major_topic": false
+    },
+    "D000070857": {
+      "name": "Walk Test",
+      "ui": "D000070857",
+      "tree_numbers": [
+        "E01.370.370.380.250.500"
+      ],
+      "count": 2,
+      "major_topic": false
+    },
+    "D056890": {
+      "name": "Eukaryota",
+      "ui": "D056890",
+      "tree_numbers": [
+        "B01"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D000818": {
+      "name": "Animals",
+      "ui": "D000818",
+      "tree_numbers": [
+        "B01.050"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D043344": {
+      "name": "Chordata",
+      "ui": "D043344",
+      "tree_numbers": [
+        "B01.050.150"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D014714": {
+      "name": "Vertebrates",
+      "ui": "D014714",
+      "tree_numbers": [
+        "B01.050.150.900"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D008322": {
+      "name": "Mammals",
+      "ui": "D008322",
+      "tree_numbers": [
+        "B01.050.150.900.649"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D000073566": {
+      "name": "Eutheria",
+      "ui": "D000073566",
+      "tree_numbers": [
+        "B01.050.150.900.649.313"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D011323": {
+      "name": "Primates",
+      "ui": "D011323",
+      "tree_numbers": [
+        "B01.050.150.900.649.313.988"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D000882": {
+      "name": "Haplorhini",
+      "ui": "D000882",
+      "tree_numbers": [
+        "B01.050.150.900.649.313.988.400"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D051079": {
+      "name": "Catarrhini",
+      "ui": "D051079",
+      "tree_numbers": [
+        "B01.050.150.900.649.313.988.400.112"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D015186": {
+      "name": "Hominidae",
+      "ui": "D015186",
+      "tree_numbers": [
+        "B01.050.150.900.649.313.988.400.112.400"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D012140": {
+      "name": "Respiratory Tract Diseases",
+      "ui": "D012140",
+      "tree_numbers": [
+        "C08"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D008171": {
+      "name": "Lung Diseases",
+      "ui": "D008171",
+      "tree_numbers": [
+        "C08.381"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D011658": {
+      "name": "Pulmonary Fibrosis",
+      "ui": "D011658",
+      "tree_numbers": [
+        "C08.381.483.652"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D008173": {
+      "name": "Lung Diseases, Obstructive",
+      "ui": "D008173",
+      "tree_numbers": [
+        "C08.381.495"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D012120": {
+      "name": "Respiration Disorders",
+      "ui": "D012120",
+      "tree_numbers": [
+        "C08.618"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D013568": {
+      "name": "Pathological Conditions, Signs and Symptoms",
+      "ui": "D013568",
+      "tree_numbers": [
+        "C23"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D010335": {
+      "name": "Pathologic Processes",
+      "ui": "D010335",
+      "tree_numbers": [
+        "C23.550"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D020969": {
+      "name": "Disease Attributes",
+      "ui": "D020969",
+      "tree_numbers": [
+        "C23.550.291"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D002908": {
+      "name": "Chronic Disease",
+      "ui": "D002908",
+      "tree_numbers": [
+        "C23.550.291.500"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D012816": {
+      "name": "Signs and Symptoms",
+      "ui": "D012816",
+      "tree_numbers": [
+        "C23.888"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D012818": {
+      "name": "Signs and Symptoms, Respiratory",
+      "ui": "D012818",
+      "tree_numbers": [
+        "C23.888.852"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D003933": {
+      "name": "Diagnosis",
+      "ui": "D003933",
+      "tree_numbers": [
+        "E01"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D019937": {
+      "name": "Diagnostic Techniques and Procedures",
+      "ui": "D019937",
+      "tree_numbers": [
+        "E01.370"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D003935": {
+      "name": "Diagnostic Techniques, Cardiovascular",
+      "ui": "D003935",
+      "tree_numbers": [
+        "E01.370.370"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D006334": {
+      "name": "Heart Function Tests",
+      "ui": "D006334",
+      "tree_numbers": [
+        "E01.370.370.380"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D005080": {
+      "name": "Exercise Test",
+      "ui": "D005080",
+      "tree_numbers": [
+        "E01.370.370.380.250"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D008919": {
+      "name": "Investigative Techniques",
+      "ui": "D008919",
+      "tree_numbers": [
+        "E05"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D004812": {
+      "name": "Epidemiologic Methods",
+      "ui": "D004812",
+      "tree_numbers": [
+        "E05.318"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D003625": {
+      "name": "Data Collection",
+      "ui": "D003625",
+      "tree_numbers": [
+        "E05.318.308"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D011795": {
+      "name": "Surveys and Questionnaires",
+      "ui": "D011795",
+      "tree_numbers": [
+        "E05.318.308.980"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D006306": {
+      "name": "Health Surveys",
+      "ui": "D006306",
+      "tree_numbers": [
+        "E05.318.308.980.438"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D006305": {
+      "name": "Health Status Indicators",
+      "ui": "D006305",
+      "tree_numbers": [
+        "E05.318.308.980.438.475"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D062072": {
+      "name": "Patient Acuity",
+      "ui": "D062072",
+      "tree_numbers": [
+        "E05.318.308.980.438.475.456"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D014798": {
+      "name": "Vital Statistics",
+      "ui": "D014798",
+      "tree_numbers": [
+        "E05.318.308.985"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D009017": {
+      "name": "Morbidity",
+      "ui": "D009017",
+      "tree_numbers": [
+        "E05.318.308.985.525"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D055687": {
+      "name": "Musculoskeletal and Neural Physiological Phenomena",
+      "ui": "D055687",
+      "tree_numbers": [
+        "G11"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D009142": {
+      "name": "Musculoskeletal Physiological Phenomena",
+      "ui": "D009142",
+      "tree_numbers": [
+        "G11.427"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D009068": {
+      "name": "Movement",
+      "ui": "D009068",
+      "tree_numbers": [
+        "G11.427.410"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D009043": {
+      "name": "Motor Activity",
+      "ui": "D009043",
+      "tree_numbers": [
+        "G11.427.410.698"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D010807": {
+      "name": "Physical Endurance",
+      "ui": "D010807",
+      "tree_numbers": [
+        "G11.427.680"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D012942": {
+      "name": "Social Sciences",
+      "ui": "D012942",
+      "tree_numbers": [
+        "I01"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D006802": {
+      "name": "Human Activities",
+      "ui": "D006802",
+      "tree_numbers": [
+        "I03"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D006809": {
+      "name": "Humanities",
+      "ui": "D006809",
+      "tree_numbers": [
+        "K01"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D010684": {
+      "name": "Philosophy",
+      "ui": "D010684",
+      "tree_numbers": [
+        "K01.752"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D019369": {
+      "name": "Life",
+      "ui": "D019369",
+      "tree_numbers": [
+        "K01.752.400"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D009272": {
+      "name": "Persons",
+      "ui": "D009272",
+      "tree_numbers": [
+        "M01"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D009273": {
+      "name": "Age Groups",
+      "ui": "D009273",
+      "tree_numbers": [
+        "M01.060"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D011154": {
+      "name": "Population Characteristics",
+      "ui": "D011154",
+      "tree_numbers": [
+        "N01"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D003710": {
+      "name": "Demography",
+      "ui": "D003710",
+      "tree_numbers": [
+        "N01.224"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D017530": {
+      "name": "Health Care Quality, Access, and Evaluation",
+      "ui": "D017530",
+      "tree_numbers": [
+        "N05"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D011787": {
+      "name": "Quality of Health Care",
+      "ui": "D011787",
+      "tree_numbers": [
+        "N05.715"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D017531": {
+      "name": "Health Care Evaluation Mechanisms",
+      "ui": "D017531",
+      "tree_numbers": [
+        "N05.715.360"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D004778": {
+      "name": "Environment and Public Health",
+      "ui": "D004778",
+      "tree_numbers": [
+        "N06"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D011634": {
+      "name": "Public Health",
+      "ui": "D011634",
+      "tree_numbers": [
+        "N06.850"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D015991": {
+      "name": "Epidemiologic Measurements",
+      "ui": "D015991",
+      "tree_numbers": [
+        "N06.850.505"
+      ],
+      "count": 0,
+      "major_topic": false
+    },
+    "D006304": {
+      "name": "Health Status",
+      "ui": "D006304",
+      "tree_numbers": [
+        "N06.850.505.400.425"
+      ],
+      "count": 0,
+      "major_topic": false
+    }
+  }
+}
