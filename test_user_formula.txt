@@ -1,0 +1,44 @@
+1. exp Lung Diseases, Interstitial/
+2. (Interstitial adj3 (lung$ or pulmonary or pneumon$)).tw.
+3. ILD.ti,ab.
+4. ((pulmonary or lung$) adj3 (fibros$ or fibrot$)).tw.
+5. exp Alveolitis, Extrinsic Allergic/
+6. alveolitis$.tw.
+7. (pulmonary adj3 sarcoidosis$).tw.
+8. (hypersensitiv$ pneumoni$).tw.
+9. 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8
+10. exp Disease Progression/
+11. (acute adj3 exacerbation?).tw.
+12. (disease adj3 progression?).tw.
+13. (disease adj3 exacerbation?).tw.
+14. deterioration?.tw.
+15. flare$.tw.
+16. 10 or 11 or 12 or 13 or 14 or 15
+17. exp Dyspnea/
+18. (dyspnea or dyspnoea or dyspneic or dyspnoeic or breathlessness? or (shortness of breath?)).tw.
+19. exp Cough/
+20. cough$.tw.
+21. exp Fatigue/
+22. (fatigue? or tiredness?).tw.
+23. exp Chest pain/
+24. (chest? adj3 (symptom? or pain? or pressure? or discomfort?)).tw.
+25. exp Sleep Deprivation/ or exp Dyssomnias/
+26. (sleep disturbance? or sleep disorder? or sleep disruption? or sleep loss? or sleeplessness or insomnia$).tw.
+27. exp Anxiety/
+28. (anxiet$ or anxious or insecurit$).tw.
+29. exp Fear/
+30. (fear or phobia or phobic or fright$).tw.
+31. exp Depression/
+32. (depression or depressed or depressive).tw.
+33. (treatment burden$ or symptom burden$ or financial toxicit$ or financial burden$ or economic burden$).tw.
+34. (cope or coping).tw.
+35. exp Psychological Well-Being/
+36. (well-being? or wellbeing? or well being?).tw.
+37. exp Quality of Life/ or exp Health Status/
+38. (quality of life or QOL or health status).tw.
+39. exp Patient Reported Outcomes/
+40. (patient reported outcome? or PRO or PROs or PROM or PROMs).tw.
+41. 17 or 18 or 19 or 20 or 21 or 22 or 23 or 24 or 25 or 26 or 27 or 28 or 29 or 30 or 31 or 32 or 33 or 34 or 35 or 36 or 37 or 38 or 39 or 40
+42. 9 AND 16 AND 41
+43. exp animals/ not exp humans/
+44. 42 NOT 43
