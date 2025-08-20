@@ -1,15 +1,51 @@
 # rule
 As an information specialist, you are tasked with translating search formulas from PubMed into dialog style. Here are the translation rules:
-Convert [Title/Abstract] to TI() and AB(). For example, transplant*[Title/Abstract] becomes TI(transplant*) OR AB(transplant*).
-Replace [MeSH Terms] with EMB.EXACT.EXPLODE(). For example, "Stem Cell Transplantation"[MeSH Terms] becomes EMB.EXACT.EXPLODE("allogeneic stem cell transplantation").
-Similarly, convert [tiab] to TI() and AB(). For example, transplant*[tiab] becomes TI(transplant*) OR AB(transplant*).
-Replace [mh] with EMB.EXACT.EXPLODE(). 
-For example, "Stem Cell Transplantation"[mh] becomes EMB.EXACT.EXPLODE("allogeneic stem cell transplantation").
-Replace the numbered lines with the logical designation number. For example, replace #1 with S1.
-Please show the translated search formula in the code block.
-For date limit, use the followin format: 2018/12/1:2024/9/30[DP] should be translated as PD(20181201-20240930)
+
+## Basic Conversion Rules
+- Convert [Title/Abstract] to TI() and AB(). For example, transplant*[Title/Abstract] becomes TI(transplant*) OR AB(transplant*).
+- Replace [MeSH Terms] with EMB.EXACT.EXPLODE(). For example, "Stem Cell Transplantation"[MeSH Terms] becomes EMB.EXACT.EXPLODE("allogeneic stem cell transplantation").
+- Similarly, convert [tiab] to TI() and AB(). For example, transplant*[tiab] becomes TI(transplant*) OR AB(transplant*).
+- Replace [mh] with EMB.EXACT.EXPLODE(). For example, "Stem Cell Transplantation"[mh] becomes EMB.EXACT.EXPLODE("allogeneic stem cell transplantation").
+
+## PubMed Standard Format Support (NEW)
+- `exp Term/` → `EMB.EXACT.EXPLODE("term")` (MeSH terms in standard format)
+- `.tw.` → `(TI() OR AB())` (text words in title/abstract)
+- `.ti,ab.` → `(TI() OR AB())` (title and abstract fields)
+- `adj3` → `NEAR/3` (proximity operators)
+
+## Input Format Support
+- Standard PubMed format: `1. exp Term/` (automatically normalized)
+- Internal format: `#1 exp Term/` (existing format)
+- Line numbering: Replace numbered lines with S1, S2, etc.
+
+## Other Rules
+- For date limit, use the following format: 2018/12/1:2024/9/30[DP] should be translated as PD(20181201-20240930)
+- Please show the translated search formula in the code block.
+
+## Important Notes
+⚠️ **Dialog format vs. Regular Embase format**
+- **Dialog format**: Command-line style using `EMB.EXACT.EXPLODE("term")`
+- **Regular Embase format**: Web interface style using `'term'/exp`
 
 # translated search formula
+
+## Example: Standard PubMed Format Conversion
+
+### Input (PubMed Standard Format)
+```
+1. exp Lung Diseases, Interstitial/
+2. (Interstitial adj3 (lung$ or pulmonary)).tw.
+3. ILD.ti,ab.
+4. 1 or 2 or 3
+```
+
+### Output (Dialog Format)
+```
+S1 EMB.EXACT.EXPLODE("lung diseases, interstitial")
+S2 (TI(Interstitial NEAR/3 (lung$ or pulmonary)) OR AB(Interstitial NEAR/3 (lung$ or pulmonary)))
+S3 (TI(ILD) OR AB(ILD))
+S4 S1 OR S2 OR S3
+```
 
 # Breast Cancer
 S1 EMB.EXACT.EXPLODE("breast cancer")

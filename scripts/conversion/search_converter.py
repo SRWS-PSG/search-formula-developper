@@ -3,6 +3,7 @@ import os
 import sys
 import argparse
 from datetime import datetime
+from typing import List
 
 def convert_line_to_central(line_content: str) -> str:
     """PubMed形式の行内容をCochrane CENTRAL形式に変換する"""
@@ -91,9 +92,70 @@ def convert_to_central(pubmed_query: str) -> str:
             central_lines.append(line) 
     return '\n'.join(central_lines)
 
+def normalize_pubmed_input(text: str) -> str:
+    """PubMed標準形式を内部処理形式に正規化"""
+    lines = text.strip().split('\n')
+    normalized = []
+    for line in lines:
+        line = line.strip()
+        if not line:
+            normalized.append('')
+            continue
+        match = re.match(r'^(\d+)\.?\s+(.*)$', line)
+        if match:
+            normalized.append(f"#{match.group(1)} {match.group(2)}")
+        else:
+            normalized.append(line)
+    return '\n'.join(normalized)
+
+def validate_search_syntax(text: str) -> List[str]:
+    """検索式の構文エラーをチェック"""
+    errors = []
+    lines = text.strip().split('\n')
+    for i, line in enumerate(lines, 1):
+        line = line.strip()
+        if not line:
+            continue
+        if re.match(r'^\d+\s+', line):
+            errors.append(f"Line {i}: Missing period after line number '{line[:20]}...'")
+        if 'exp ' in line and not line.endswith('/'):
+            if not re.search(r'EMB\.EXACT\.EXPLODE', line):
+                errors.append(f"Line {i}: MeSH term may be missing trailing slash: '{line[:30]}...'")
+    return errors
+
 def convert_line_to_dialog(line_content: str) -> str:
     """PubMed形式の行内容をDialog (Embase)形式に変換する"""
     processed_content = line_content
+    
+    exp_pattern = re.compile(r'exp\s+([^/]+)/')
+    exp_matches = list(exp_pattern.finditer(processed_content))
+    for match in reversed(exp_matches):
+        term = match.group(1).strip()
+        term_lower = term.lower()
+        transformed_term = f'EMB.EXACT.EXPLODE("{term_lower}")'
+        start, end = match.span()
+        processed_content = processed_content[:start] + transformed_term + processed_content[end:]
+    
+    tw_pattern = re.compile(r'([^.]+)\.tw\.')
+    tw_matches = list(tw_pattern.finditer(processed_content))
+    for match in reversed(tw_matches):
+        term = match.group(1).strip()
+        if term.startswith('(') and term.endswith(')'):
+            transformed_tw = f'(TI{term} OR AB{term})'
+        else:
+            transformed_tw = f'(TI({term}) OR AB({term}))'
+        start, end = match.span()
+        processed_content = processed_content[:start] + transformed_tw + processed_content[end:]
+    
+    tiab_simple_pattern = re.compile(r'([^.]+)\.ti,ab\.')
+    tiab_simple_matches = list(tiab_simple_pattern.finditer(processed_content))
+    for match in reversed(tiab_simple_matches):
+        term = match.group(1).strip()
+        transformed_tiab = f'(TI({term}) OR AB({term}))'
+        start, end = match.span()
+        processed_content = processed_content[:start] + transformed_tiab + processed_content[end:]
+    
+    processed_content = re.sub(r'adj(\d+)', r'NEAR/\1', processed_content)
     
     # 1. 近接検索変換
     proximity_pattern = re.compile(r'("[^"]+")\[(ti|tiab|ad|Title|Title/Abstract|Affiliation):~(\d+)\]')
@@ -164,7 +226,16 @@ def convert_line_to_dialog(line_content: str) -> str:
     return processed_content
 
 def convert_to_dialog(pubmed_query: str) -> str:
-    lines = pubmed_query.strip().split('\n')
+    normalized_query = normalize_pubmed_input(pubmed_query)
+    
+    syntax_errors = validate_search_syntax(pubmed_query)
+    if syntax_errors:
+        print("⚠️  構文エラーが検出されました:")
+        for error in syntax_errors:
+            print(f"   {error}")
+        print("   変換を続行しますが、結果を確認してください。\n")
+    
+    lines = normalized_query.strip().split('\n')
     dialog_lines = []
     line_counter = 1
     line_mapping = {} 
@@ -231,6 +302,7 @@ def main():
     parser = argparse.ArgumentParser(description='PubMed検索式をCENTRALとDialog形式に変換するツール')
     parser.add_argument('input', nargs='?', help='PubMed検索式のテキストファイル（指定がなければ標準入力から読み込み）')
     parser.add_argument('--project', '-p', default=None, help='プロジェクト名（search_formula/配下のディレクトリ名）')
+    parser.add_argument('--validate-only', action='store_true', help='構文チェックのみ実行（変換は行わない）')
     args = parser.parse_args()
     text = ""
     if args.input:
@@ -243,6 +315,18 @@ def main():
     else:
         print("PubMed検索式を入力してください（終了するには Ctrl+D または Ctrl+Z を押してください）:")
         text = sys.stdin.read()
+    
+    if args.validate_only:
+        print("🔍 構文チェックを実行中...")
+        syntax_errors = validate_search_syntax(text)
+        if syntax_errors:
+            print("❌ 構文エラーが検出されました:")
+            for error in syntax_errors:
+                print(f"   {error}")
+            return
+        else:
+            print("✅ 構文エラーは検出されませんでした。")
+            return
     
     project_name = args.project if args.project else f"project_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
     project_dir = os.path.join("search_formula", project_name)
