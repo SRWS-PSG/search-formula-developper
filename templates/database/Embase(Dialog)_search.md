@@ -107,41 +107,7 @@ S5 AND S11 AND S19
 
 # RCT filter for Embase (Dialog)
 ```
-EMB.EXACT.EXPLODE("randomized controlled trial")
-EMB.EXACT.EXPLODE("controlled clinical trial")
-TI(random*) OR AB(random*)
-EMB.EXACT.EXACT("randomization")
-EMB.EXACT.EXACT("intermethod comparison")
-TI(placebo) OR AB(placebo)
-TI(compare OR compared OR comparison) OR AB(compare OR compared OR comparison)
-AB(evaluated OR evaluate OR evaluating OR assessed OR assess) AND AB(compare OR compared OR comparing OR comparison)
-TI(open NEAR/1 label) OR AB(open NEAR/1 label)
-(TI(double OR single OR doubly OR singly) NEAR/1  TI(blind OR blinded OR blindly)) OR (AB(double OR single OR doubly OR singly) NEAR/1 OR AB(blind OR blinded OR blindly))
-EMB.EXACT.EXACT("double blind procedure")
-TI(parallel NEAR/1 group*) OR AB(parallel NEAR/1 group*)
-TI(crossover OR "cross over") OR AB(crossover OR "cross over")
-(TI(assign* OR match OR matched OR allocation) NEAR/6 TI(alternate OR group OR groups OR intervention OR interventions OR patient OR patients OR subject OR subjects OR participant OR participants)) OR  (AB(assign* OR match OR matched OR allocation) NEAR/6 AB(alternate OR group OR groups OR intervention OR interventions OR patient OR patients OR subject OR subjects OR participant OR participants))
-TI(assigned OR allocated) OR AB(assigned OR allocated)
-(TI(controlled) NEAR/8 TI(study OR design OR trial)) OR (AB(controlled) NEAR/8 AB(study OR design OR trial))
-TI(volunteer OR volunteers) OR AB(volunteer OR volunteers)
-EMB.EXACT.EXACT("human experiment")
-TI(trial)
-S1 OR S2 OR S3 OR S4 OR S5 OR S6 OR S7 OR S8 OR S9 OR S10 OR S11 OR S12 OR S13 OR S14 OR S15 OR S16 OR S17 OR S18 OR S19
-(TI(random* NEAR/1 sampl* NEAR/8 ("cross section*" OR questionnaire* OR survey OR surveys OR database OR databases)) OR AB(random* NEAR/1 sampl* NEAR/8 ("cross section*" OR questionnaire* OR survey OR surveys OR database OR databases))) NOT (EMB.EXACT.EXPLODE("comparative study") OR EMB.EXACT.EXPLODE("controlled study") OR TI("randomised controlled") OR AB("randomised controlled") OR TI("randomized controlled") OR AB("randomized controlled") OR TI("randomly assigned") OR AB("randomly assigned"))
-EMB.EXACT.EXACT("cross-sectional study") NOT (EMB.EXACT.EXPLODE("randomized controlled trial") OR EMB.EXACT.EXACT("controlled clinical study") OR EMB.EXACT.EXACT("controlled study") OR TI("randomised controlled") OR AB("randomised controlled") OR TI("randomized controlled") OR AB("randomized controlled") OR TI("control group") OR AB("control group") OR TI("control groups") OR AB("control groups"))
-(TI("case control*") OR AB("case control*")) AND (TI(random*) OR AB(random*)) NOT (TI("randomised controlled") OR AB("randomised controlled") OR TI("randomized controlled") OR AB("randomized controlled"))
-TI("systematic review") NOT TI(trial OR study)
-(TI(nonrandom*) OR AB(nonrandom*)) NOT (TI(random*) OR AB(random*))
-TI("random field*") OR AB("random field*")
-TI("random cluster" NEAR/4 sampl*) OR AB("random cluster" NEAR/4 sampl*)
-(AB(review) AND TI(review)) NOT TI(trial)
-AB("we searched") AND (TI(review) OR RTYPE(review))
-AB("update review")
-AB(databases NEAR/5 searched)
-((TI(rat OR rats OR mouse OR mice OR swine OR porcine OR murine OR sheep OR lambs OR pigs OR piglets OR rabbit OR rabbits OR cat OR cats OR dog OR dogs OR cattle OR bovine OR monkey OR monkeys OR trout OR marmoset*) OR AB(rat OR rats OR mouse OR mice OR swine OR porcine OR murine OR sheep OR lambs OR pigs OR piglets OR rabbit OR rabbits OR cat OR cats OR dog OR dogs OR cattle OR bovine OR monkey OR monkeys OR trout OR marmoset*)) AND EMB.EXACT.EXACT("animal experiment"))
-EMB.EXACT.EXACT("animal experiment") NOT (EMB.EXACT.EXACT("human experiment") OR EMB.EXACT.EXACT("human"))
-S21 OR S22 OR S23 OR S24 OR S25 OR S26 OR S27 OR S28 OR S29 OR S30 OR S31 OR S32 OR S33
-S20 NOT S34
+( EMB.EXACT.EXPLODE("randomized controlled trial") OR EMB.EXACT.EXPLODE("controlled clinical trial") OR TI(random*) OR AB(random*) OR EMB.EXACT.EXACT("randomization") OR EMB.EXACT.EXACT("intermethod comparison") OR TI(placebo) OR AB(placebo) OR TI(compare OR compared OR comparison) OR AB(compare OR compared OR comparison) OR ( AB(evaluated OR evaluate OR evaluating OR assessed OR assess) AND AB(compare OR compared OR comparing OR comparison) ) OR TI(open NEAR/1 label) OR AB(open NEAR/1 label) OR ( ( TI(double OR single OR doubly OR singly) NEAR/1 TI(blind OR blinded OR blindly) ) OR ( AB(double OR single OR doubly OR singly) NEAR/1 AB(blind OR blinded OR blindly) ) ) OR EMB.EXACT.EXACT("double blind procedure") OR TI(parallel NEAR/1 group*) OR AB(parallel NEAR/1 group*) OR TI(crossover OR "cross over") OR AB(crossover OR "cross over") OR ( ( TI(assign* OR match OR matched OR allocation) NEAR/6 TI(alternate OR group OR groups OR intervention OR interventions OR patient OR patients OR subject OR subjects OR participant OR participants) ) OR ( AB(assign* OR match OR matched OR allocation) NEAR/6 AB(alternate OR group OR groups OR intervention OR interventions OR patient OR patients OR subject OR subjects OR participant OR participants) ) ) OR TI(assigned OR allocated) OR AB(assigned OR allocated) OR ( ( TI(controlled) NEAR/8 TI(study OR design OR trial) ) OR ( AB(controlled) NEAR/8 AB(study OR design OR trial) ) ) OR TI(volunteer OR volunteers) OR AB(volunteer OR volunteers) OR EMB.EXACT.EXACT("human experiment") OR TI(trial) ) NOT ( ( ( TI(random* NEAR/1 sampl*) OR AB(random* NEAR/1 sampl*) ) AND ( TI("cross section*" OR questionnaire* OR survey OR surveys OR database OR databases) OR AB("cross section*" OR questionnaire* OR survey OR surveys OR database OR databases) ) ) OR ( EMB.EXACT.EXACT("cross-sectional study") AND NOT ( EMB.EXACT.EXPLODE("randomized controlled trial") OR EMB.EXACT.EXACT("controlled clinical study") OR EMB.EXACT.EXACT("controlled study") OR TI("randomised controlled") OR AB("randomised controlled") OR TI("randomized controlled") OR AB("randomized controlled") OR TI("control group") OR AB("control group") OR TI("control groups") OR AB("control groups") ) ) OR ( ( TI("case control*") OR AB("case control*") ) AND ( TI(random*) OR AB(random*) ) AND NOT ( TI("randomised controlled") OR AB("randomised controlled") OR TI("randomized controlled") OR AB("randomized controlled") ) ) OR ( ( TI(nonrandom*) OR AB(nonrandom*)) AND NOT ( TI(random*) OR AB(random*) ) ) OR TI("random field*") OR AB("random field*") OR TI("random cluster" NEAR/4 sampl*) OR AB("random cluster" NEAR/4 sampl*) OR ( AB(review) AND TI(review) AND NOT TI(trial) ) OR ( AB("we searched") AND ( TI(review) OR RTYPE(review) ) ) OR AB("update review") OR ( AB(databases NEAR/5 searched) ) OR ( TI("systematic review") NOT TI(trial OR study) ) OR ( ( ( TI(rat OR rats OR mouse OR mice OR swine OR porcine OR murine OR sheep OR lambs OR pigs OR piglets OR rabbit OR rabbits OR cat OR cats OR dog OR dogs OR cattle OR bovine OR monkey OR monkeys OR trout OR marmoset*) OR AB(rat OR rats OR mouse OR mice OR swine OR porcine OR murine OR sheep OR lambs OR pigs OR piglets OR rabbit OR rabbits OR cat OR cats OR dog OR dogs OR cattle OR bovine OR monkey OR monkeys OR trout OR marmoset*) ) AND EMB.EXACT.EXACT("animal experiment") ) OR ( EMB.EXACT.EXACT("animal experiment") NOT ( EMB.EXACT.EXACT("human experiment") OR EMB.EXACT.EXACT("human") ) ) ) )
 ```
 
 ソース
