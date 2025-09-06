@@ -1,0 +1,10 @@
+# Seed PMIDs for lupus nephritis prognosis overview of reviews validation
+# These are example PMIDs that should be captured by the search formula
+# Users should replace with actual known relevant PMIDs for their specific review
+
+# Example PMIDs for lupus nephritis prognosis reviews (placeholder)
+32123456
+31987654
+30456789
+29876543
+28765432
