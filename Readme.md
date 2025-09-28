@@ -11,6 +11,7 @@
 - **MeSH用語分析**: 確定論文のPMIDからMeSH情報を抽出し、階層性を図示して最適なMeSH用語を選定
 - **検索式の実行**: 全体の検索式を実行して結果を評価
 - **データベース間変換**: PubMed検索式をCochrane CENTRAL、Embase(Dialog)、ClinicalTrials.gov、ICTRP形式に変換
+- **Ovid→PubMed変換**: MEDLINE via Ovidの検索式をPubMed形式に変換し、既存のチェックフローへ取り込む
 
 ### 1.2 対象読者
 
@@ -367,6 +368,35 @@ PubMed検索式をICTRP形式に変換します。
 # ICTRP形式
 ("essential tremor" OR "benign tremor" OR "familial tremor") OR (tremor AND therapy)
 ```
+
+### 3.7 Ovid検索式のPubMed形式への変換
+
+#### 3.7.1 概要
+
+- `scripts/conversion/ovid/converter.py` には、MEDLINE via Ovid の検索式をPubMed形式へ変換するユーティリティが含まれています。
+- フィールドタグ、MeSH展開（`exp`）、フォーカス指定（`*`）、サブヘッディング、近接演算子（`adjN`）、主要なワイルドカードに対応し、PubMedで表現できない構文は警告として通知します。
+- 変換結果は既存のPubMedチェックフロー（ヒット件数確認、MeSH分析、他データベース変換など）へそのまま組み込めます。
+
+#### 3.7.2 使用方法
+
+Python REPL あるいはスクリプトから `convert_ovid_to_pubmed` 関数を呼び出します。
+
+```python
+from scripts.conversion.ovid.converter import convert_ovid_to_pubmed
+
+ovid_query = '(heart adj3 failure).ti,ab. OR exp Cardiomyopathies/.'
+pubmed_query, warnings = convert_ovid_to_pubmed(ovid_query)
+print(pubmed_query)
+# => "heart failure"[tiab:~3] OR Cardiomyopathies[mh]
+print(warnings)
+# => 変換時の注意点（必要な場合のみ）
+```
+
+#### 3.7.3 自動テスト
+
+- 変換ロジックは `tests/test_ovid_to_pubmed.py` で網羅的に検証しています。
+- ユニットテストのみ実行する場合は `pytest tests/test_ovid_to_pubmed.py -q` を利用してください。
+- プロジェクト全体のテストは `pytest -q` で実行でき、外部依存パッケージが未インストールの場合は該当テストが自動的にスキップされます。
 
 ## 4. 既存Pythonスクリプトの詳細と利用ガイド
 

@@ -3,13 +3,22 @@
 
 import os
 import json
+
+import pytest
 from dotenv import load_dotenv
-import google.generativeai as genai
+
+try:
+    import google.generativeai as genai
+except ImportError:  # pragma: no cover - optional dependency
+    genai = None
 
 # .envファイルから環境変数を読み込む
 load_dotenv()
 
 def test_gemini_api():
+    if genai is None:
+        pytest.skip("google.generativeai がインストールされていません")
+
     # APIキーの設定
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
