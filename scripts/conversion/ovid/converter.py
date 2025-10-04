@@ -21,7 +21,10 @@ FIELD_MAP = {
     "ti": "ti",
     "ab": "ab",
     "ti,ab": "tiab",
-    "tw": "tiab",  # MEDLINE via Ovid treats .tw. as Title + Abstract
+    "ti,ab,kw": "tiab",
+    "tw": "tiab",
+    "tw,kw": "tiab",
+    "kw": "ot",
     "mp": "tw",
     "jn": "ta",
     "au": "au",
@@ -51,6 +54,21 @@ def _strip_outer_parentheses(text: str) -> str:
             if depth == 0 and index != len(text) - 1:
                 return text
     return text[1:-1]
+
+
+def _is_fully_parenthesized(text: str) -> bool:
+    text = text.strip()
+    if not (text.startswith("(") and text.endswith(")")):
+        return False
+    depth = 0
+    for i, char in enumerate(text):
+        if char == "(":
+            depth += 1
+        elif char == ")":
+            depth -= 1
+            if depth == 0 and i < len(text) - 1:
+                return False
+    return depth == 0
 
 
 def _needs_quotes(term: str) -> bool:
@@ -150,14 +168,45 @@ def _convert_adjacent(phrase: str, label: Optional[str]) -> str:
     if len(parts) < 3:
         return phrase
 
-    tokens = [parts[0].strip()]
-    distance = parts[1]
-    for index in range(2, len(parts), 2):
-        tokens.append(parts[index].strip())
-
     field = _choose_prox_field(label)
-    prox_terms = _quote_if_needed(" ".join(filter(None, tokens)))
-    return f"{prox_terms}[{field}:~{distance}]"
+    distance = parts[1]
+    
+    if len(parts) > 3:
+        tokens = [parts[0].strip()]
+        for index in range(2, len(parts), 2):
+            tokens.append(parts[index].strip())
+        prox_terms = _quote_if_needed(" ".join(filter(None, tokens)))
+        return f"{prox_terms}[{field}:~{distance}]"
+    
+    left_part = parts[0].strip()
+    right_part = parts[2].strip()
+    
+    or_pattern = re.compile(r'\(([^)]+)\)', re.IGNORECASE)
+    
+    def extract_or_options(text: str) -> List[str]:
+        match = or_pattern.search(text)
+        if match:
+            inner = match.group(1)
+            if re.search(r'\bor\b', inner, re.IGNORECASE):
+                prefix = text[:match.start()].strip()
+                suffix = text[match.end():].strip()
+                options = re.split(r'\s+or\s+', inner, flags=re.IGNORECASE)
+                return [f"{prefix} {opt.strip()} {suffix}".strip() for opt in options]
+        return [text]
+    
+    left_options = extract_or_options(left_part)
+    right_options = extract_or_options(right_part)
+    
+    combinations = []
+    for left in left_options:
+        for right in right_options:
+            combined = f"{left} {right}".strip()
+            prox_terms = _quote_if_needed(combined)
+            combinations.append(f"{prox_terms}[{field}:~{distance}]")
+    
+    if len(combinations) == 1:
+        return combinations[0]
+    return f"({' OR '.join(combinations)})"
 
 
 def _format_leaf(token: str, tag: str, warnings: List[str], *, force_quotes: bool = False) -> str:
@@ -182,28 +231,91 @@ def _apply_field(atom: str, label: str, warnings: List[str]) -> str:
     if re.search(r"\[[^\]]+\]$", atom.strip()):
         return atom
 
-    if re.search(_ADJ_RE, atom):
-        return _convert_adjacent(atom, label)
-
     stripped = atom.strip()
     boolean_pattern = re.compile(r"\b(AND|OR|NOT)\b", re.IGNORECASE)
+    
+    def has_top_level_boolean(text: str) -> bool:
+        depth = 0
+        for i, char in enumerate(text):
+            if char == '(':
+                depth += 1
+            elif char == ')':
+                depth -= 1
+            elif depth == 0:
+                match = boolean_pattern.match(text, i)
+                if match:
+                    return True
+        return False
+    
+    def split_on_boolean_respecting_parens(text: str) -> List[str]:
+        result: List[str] = []
+        current: List[str] = []
+        depth = 0
+        i = 0
+        
+        while i < len(text):
+            if text[i] == '(':
+                depth += 1
+                current.append(text[i])
+                i += 1
+            elif text[i] == ')':
+                depth -= 1
+                current.append(text[i])
+                i += 1
+            elif depth == 0:
+                match = boolean_pattern.match(text, i)
+                if match:
+                    if current:
+                        result.append(''.join(current))
+                        current = []
+                    result.append(match.group(0))
+                    i = match.end()
+                else:
+                    current.append(text[i])
+                    i += 1
+            else:
+                current.append(text[i])
+                i += 1
+        
+        if current:
+            result.append(''.join(current))
+        
+        return result
+    
+    if re.search(_ADJ_RE, stripped):
+        if not has_top_level_boolean(stripped):
+            return _convert_adjacent(stripped, label)
+    
     if boolean_pattern.search(stripped):
-        segments = re.split(r"(\bAND\b|\bOR\b|\bNOT\b)", atom, flags=re.IGNORECASE)
+        segments = split_on_boolean_respecting_parens(stripped)
         rebuilt: List[str] = []
+        
         for segment in segments:
-            if segment is None:
-                continue
             if not segment.strip():
                 rebuilt.append(segment)
                 continue
+            
             if boolean_pattern.fullmatch(segment.strip()):
                 rebuilt.append(segment.strip().upper())
                 continue
+            
             leading = segment[: len(segment) - len(segment.lstrip())]
             trailing = segment[len(segment.rstrip()):]
             token = segment.strip()
+            
+            if re.search(r"\[[^\]]+\]$", token):
+                rebuilt.append(f"{leading}{token}{trailing}")
+                continue
+            
+            if re.search(_ADJ_RE, token):
+                inner = _strip_outer_parentheses(token)
+                converted = _convert_adjacent(inner, label)
+                rebuilt.append(f"{leading}{converted}{trailing}")
+                continue
+            
             formatted = _format_leaf(token, tag, warnings, force_quotes=True)
             rebuilt.append(f"{leading}{formatted}[{tag}]{trailing}")
+        
         return "".join(rebuilt)
 
     formatted = _format_leaf(stripped, tag, warnings)
@@ -235,13 +347,17 @@ class OvidToPubMed:
 
         text = _MESH_RE.sub(_convert_mesh, text)
 
-        group_pattern = re.compile(r"(\([^()]+\))\s*(\.[A-Za-z,]+\.)", re.IGNORECASE)
+        group_pattern = re.compile(
+            r"(\((?:[^()]|\((?:[^()]|\((?:[^()]|\([^()]*\))*\))*\))*\))\s*(\.[A-Za-z,]+\.)",
+            re.IGNORECASE
+        )
         def _replace_group(match: Match[str]) -> str:
             inner = _strip_outer_parentheses(match.group(1))
             label = match.group(2)
             converted_inner = _apply_field(inner, label, warnings)
             if re.search(r"\b(AND|OR|NOT)\b", converted_inner, re.IGNORECASE):
-                return f"({converted_inner})"
+                if not _is_fully_parenthesized(converted_inner):
+                    return f"({converted_inner})"
             return converted_inner
 
         text = _replace_iter(text, group_pattern, _replace_group)
