@@ -73,3 +73,73 @@ def test_truncation_minlen_warning() -> None:
     query, warnings = convert_ovid_to_pubmed("cov*.tw.")
     assert query == "cov*[tiab]"
     assert any("4文字未満" in warning for warning in warnings)
+
+
+def test_field_ti_ab_kw_mapping() -> None:
+    query, warnings = convert_ovid_to_pubmed("colonoscopy.ti,ab,kw.")
+    assert query == "colonoscopy[tiab]"
+    assert warnings == []
+
+
+def test_field_tw_kw_mapping() -> None:
+    query, warnings = convert_ovid_to_pubmed("endoscopy.tw,kw.")
+    assert query == "endoscopy[tiab]"
+    assert warnings == []
+
+
+def test_adj_with_or_in_parentheses() -> None:
+    query, warnings = convert_ovid_to_pubmed("(narrow adj3 band).ti,ab.")
+    assert query == '"narrow band"[tiab:~3]'
+    assert warnings == []
+
+
+def test_adj_with_or_options_right() -> None:
+    query, warnings = convert_ovid_to_pubmed("(linked adj3 (color or colour)).ti,ab.")
+    assert query == '("linked color"[tiab:~3] OR "linked colour"[tiab:~3])'
+    assert warnings == []
+
+
+def test_adj_with_or_options_both_sides() -> None:
+    query, warnings = convert_ovid_to_pubmed("((color or colour) adj3 (enhance* or imag*)).ti,ab.")
+    expected = (
+        '("color enhance*"[tiab:~3] OR "color imag*"[tiab:~3] OR '
+        '"colour enhance*"[tiab:~3] OR "colour imag*"[tiab:~3])'
+    )
+    assert query == expected
+    assert warnings == []
+
+
+def test_complex_boolean_with_adj_in_parens() -> None:
+    query, warnings = convert_ovid_to_pubmed("((narrow adj3 band) or NBI).ti,ab,kw.")
+    assert query == '("narrow band"[tiab:~3] OR "NBI"[tiab])'
+    assert warnings == []
+
+
+def test_multiple_adj_with_or_in_boolean() -> None:
+    query, warnings = convert_ovid_to_pubmed(
+        "((blue adj3 (laser or light)) or BLI).ti,ab,kw."
+    )
+    expected = '(("blue laser"[tiab:~3] OR "blue light"[tiab:~3]) OR "BLI"[tiab])'
+    assert query == expected
+    assert warnings == []
+
+
+def test_wildcard_in_adj_with_or() -> None:
+    query, warnings = convert_ovid_to_pubmed(
+        "((textur* adj3 (color or colour)) or TXI).ti,ab,kw."
+    )
+    expected = '(("textur* color"[tiab:~3] OR "textur* colour"[tiab:~3]) OR "TXI"[tiab])'
+    assert query == expected
+    assert len(warnings) > 0
+
+
+def test_complex_nested_adj_pattern() -> None:
+    query, warnings = convert_ovid_to_pubmed(
+        "((fujinon adj3 (intelligent* or color or colour)) or FICE).ti,ab,kw."
+    )
+    expected = (
+        '(("fujinon intelligent*"[tiab:~3] OR "fujinon color"[tiab:~3] OR '
+        '"fujinon colour"[tiab:~3]) OR "FICE"[tiab])'
+    )
+    assert query == expected
+    assert warnings == []
