@@ -1,0 +1,201 @@
+import requests
+import time
+from typing import List, Dict
+import argparse
+import os
+
+def get_pubmed_details(pmid: str) -> Dict:
+    """
+    PubMed APIから論文の詳細を取得
+    """
+    base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+    fetch_url = f"{base_url}/efetch.fcgi"
+
+    params = {
+        'db': 'pubmed',
+        'id': pmid,
+        'retmode': 'xml'
+    }
+
+    try:
+        response = requests.get(fetch_url, params=params)
+        response.raise_for_status()
+
+        # 簡易的なタイトル抽出
+        if '<ArticleTitle>' in response.text:
+            title_start = response.text.find('<ArticleTitle>') + 14
+            title_end = response.text.find('</ArticleTitle>')
+            title = response.text[title_start:title_end]
+        else:
+            title = "N/A"
+
+        return {
+            'pmid': pmid,
+            'title': title,
+            'found': True
+        }
+    except Exception as e:
+        return {
+            'pmid': pmid,
+            'title': f"Error: {str(e)}",
+            'found': False
+        }
+
+def check_pmid_in_query(pmid: str, query: str) -> bool:
+    """
+    指定されたPMIDがクエリの結果に含まれているかチェック
+    """
+    base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+    search_url = f"{base_url}/esearch.fcgi"
+
+    # クエリにPMIDフィルターを追加
+    filtered_query = f"({query}) AND {pmid}[PMID]"
+
+    params = {
+        'db': 'pubmed',
+        'term': filtered_query,
+        'retmode': 'json'
+    }
+
+    try:
+        response = requests.get(search_url, params=params)
+        response.raise_for_status()
+        data = response.json()
+
+        count = int(data['esearchresult'].get('count', 0))
+        return count > 0
+
+    except Exception as e:
+        print(f"  Error checking PMID {pmid}: {str(e)}")
+        return False
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="最適化版検索式でシード論文が検索できるか確認します。"
+    )
+    parser.add_argument(
+        "-p", "--pmid-file",
+        type=str,
+        required=True,
+        help="PMIDリストファイルのパス"
+    )
+    parser.add_argument(
+        "-o", "--output",
+        type=str,
+        required=True,
+        help="結果を保存するMarkdownファイルのパス"
+    )
+
+    args = parser.parse_args()
+
+    # PMIDリストを読み込む
+    pmids = []
+    with open(args.pmid_file, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith('#'):
+                pmids.append(line)
+
+    print(f"\nシード論文数: {len(pmids)}")
+    print(f"最適化版検索式で各論文が検索できるか確認します...\n")
+
+    # 最適化版の検索式
+    physician = '("Physicians"[Mesh] OR physician*[tiab] OR doctor*[tiab] OR "general practitioner*"[tiab] OR clinician*[tiab])'
+
+    concepts = [
+        '("Personal Satisfaction"[Mesh] OR "Job Satisfaction"[Mesh] OR "Motivation"[Mesh] OR "Professional Role"[Mesh] OR "Professional Autonomy"[Mesh] OR "Career Choice"[Mesh])',
+        '("meaningful work"[tiab] OR "work meaningfulness"[tiab] OR "meaningfulness of work"[tiab] OR "meaning in work"[tiab] OR "work meaning"[tiab] OR "sense of meaning"[tiab])',
+        '("work engagement"[tiab] OR vigor[tiab] OR dedication[tiab] OR absorption[tiab])',
+        '(calling[tiab] OR vocation*[tiab])',
+        '("intrinsic motivation"[tiab] OR motivat*[tiab])',
+        '("job satisfaction"[tiab] OR "work satisfaction"[tiab] OR "career satisfaction"[tiab] OR "professional satisfaction"[tiab] OR "compassion satisfaction"[tiab])',
+        '("professional fulfillment"[tiab] OR "professional quality of life"[tiab] OR "quality of professional life"[tiab] OR fulfillment[tiab] OR fulfilment[tiab])',
+        '(ikigai[tiab])',
+        '("psychological need*"[tiab] OR autonomy[tiab] OR competence[tiab] OR relatedness[tiab] OR "thriving at work"[tiab] OR thriving[tiab])',
+        '("task significance"[tiab] OR "meaningful task*"[tiab] OR "work significance"[tiab])'
+    ]
+
+    all_concepts = ' OR '.join(concepts)
+    full_query = f'{physician} AND ({all_concepts})'
+
+    results = []
+
+    for idx, pmid in enumerate(pmids, 1):
+        print(f"[{idx}/{len(pmids)}] PMID {pmid} をチェック中...")
+
+        # 論文の詳細を取得
+        time.sleep(0.4)
+        details = get_pubmed_details(pmid)
+
+        # 検索式で見つかるかチェック
+        time.sleep(0.4)
+        found_in_query = check_pmid_in_query(pmid, full_query)
+
+        results.append({
+            'pmid': pmid,
+            'title': details['title'],
+            'found_in_query': found_in_query
+        })
+
+        status = "[OK] 検索される" if found_in_query else "[NG] 検索されない"
+        print(f"  {status}")
+        title_preview = details['title'][:80] if len(details['title']) > 80 else details['title']
+        print(f"  タイトル: {title_preview}...\n")
+
+    # レポートを生成
+    with open(args.output, 'w', encoding='utf-8') as f:
+        f.write("# Seed Paper Validation - Optimized Formula\n\n")
+        f.write(f"Analysis Date: {time.strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+        f.write(f"Total seed papers: {len(pmids)}\n\n")
+
+        # 統計
+        found_count = sum(1 for r in results if r['found_in_query'])
+        not_found_count = len(results) - found_count
+
+        f.write("## Summary\n\n")
+        f.write(f"- **Papers found by optimized formula**: {found_count}/{len(pmids)} ({found_count/len(pmids)*100:.1f}%)\n")
+        f.write(f"- **Papers NOT found**: {not_found_count}/{len(pmids)} ({not_found_count/len(pmids)*100:.1f}%)\n\n")
+
+        if found_count == len(pmids):
+            f.write("[OK] **All seed papers are captured by the optimized formula!**\n\n")
+        else:
+            f.write("[WARNING] **Some seed papers are NOT captured. Review may be needed.**\n\n")
+
+        # 詳細リスト
+        f.write("## Detailed Results\n\n")
+        f.write("| PMID | Status | Title |\n")
+        f.write("|------|--------|-------|\n")
+
+        for r in results:
+            status_icon = "OK" if r['found_in_query'] else "NG"
+            title_short = r['title'][:80] + "..." if len(r['title']) > 80 else r['title']
+            f.write(f"| [{r['pmid']}](https://pubmed.ncbi.nlm.nih.gov/{r['pmid']}/) | {status_icon} | {title_short} |\n")
+
+        # 検索されなかった論文の詳細
+        if not_found_count > 0:
+            f.write("\n## Papers NOT Found by Optimized Formula\n\n")
+            for r in results:
+                if not r['found_in_query']:
+                    f.write(f"### PMID: {r['pmid']}\n\n")
+                    f.write(f"**Title**: {r['title']}\n\n")
+                    f.write(f"**URL**: https://pubmed.ncbi.nlm.nih.gov/{r['pmid']}/\n\n")
+                    f.write("**Action needed**: Review this paper's MeSH terms and keywords to determine which concept block should be modified.\n\n")
+
+        # 検索式の記載
+        f.write("\n## Search Formula Used\n\n")
+        f.write("```\n")
+        f.write(f"#1 (Physicians):\n{physician}\n\n")
+        f.write(f"#2 (Concepts):\n{all_concepts}\n\n")
+        f.write(f"Final: #1 AND #2\n")
+        f.write("```\n")
+
+    print(f"\n[OK] 検証完了! 結果を {args.output} に保存しました。")
+    print(f"\n検索される論文: {found_count}/{len(pmids)} ({found_count/len(pmids)*100:.1f}%)")
+
+    if found_count == len(pmids):
+        print("[OK] すべてのシード論文が最適化版で検索されます!")
+    else:
+        print(f"[WARNING] {not_found_count}本の論文が検索されません。レビューが必要です。")
+
+if __name__ == "__main__":
+    main()

@@ -116,6 +116,53 @@ Compare original vs modified search formulas:
 python scripts/validation/result_validator/check_modified_search.py --original original.md --modified modified.md --pmids seed_pmids.txt
 ```
 
+### Block Overlap Analysis
+
+Analyze overlap and effectiveness of search terms within a single block (e.g., checking if OR-connected terms actually add new results):
+
+```bash
+# From a text file containing the search block
+python scripts/search/term_validator/check_block_overlap.py \
+  -i block_input.txt \
+  -o tests/block_overlap_YYYYMMDD/block_analysis.md \
+  --block-name "Block Description"
+
+# From standard input (paste block and press Ctrl+Z on Windows / Ctrl+D on Unix)
+python scripts/search/term_validator/check_block_overlap.py \
+  -o tests/block_overlap_YYYYMMDD/block_analysis.md \
+  --block-name "Block Description"
+```
+
+**Input format** (text file or stdin):
+```
+#### #2A Block Name
+```
+"Term1"[Mesh] OR
+"Term2"[Mesh] OR
+term3[tiab] OR
+term4[tiab]
+```
+```
+
+**Output**: Markdown report showing:
+- Individual hit count for each term
+- Cumulative hit count as terms are OR-ed together
+- Number of papers added by each term
+- Percentage contribution to total
+- Identification of low-value terms (< 1% contribution)
+- Identification of high-overlap terms (> 80% already covered)
+
+**Organization**:
+- Results should be saved in dated folders: `tests/block_overlap_YYYYMMDD/`
+- Input `.txt` files are gitignored (pattern: `tests/block_overlap_*/*.txt`)
+- Output `.md` reports are tracked in git
+
+**Use cases**:
+- Identify redundant search terms that don't add new results
+- Optimize search strategies by removing low-value terms
+- Validate that each term in an OR chain contributes meaningfully
+- Detect overly broad terms that dominate results (e.g., `absorption[tiab]` capturing 96.9% of results)
+
 ### Testing
 
 Run all tests:
@@ -170,6 +217,7 @@ PubMed field tags used throughout:
 - Seed PMIDs: `seed_pmids.txt` (one PMID per line, `#` for comments)
 - MeSH analysis output: `mesh_analysis.md`, `mesh_analysis_results.json`
 - Search results: `log/search_results_YYYYMMDD_HHMMSS.ris`
+- Block overlap session logs use `block_overlap_*_YYYYMMDD.md` and stay untracked via `.gitignore`; keep narrative reports like `physician_concept_optimized.md` committed.
 
 ### PICO Framework
 
