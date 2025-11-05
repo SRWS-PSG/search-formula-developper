@@ -58,7 +58,10 @@ def main():
     """メイン処理"""
 
     # 修正した#1 (医師のみ)
-    population = '"Physicians"[Mesh] OR physician*[tiab]'
+    population = (
+        '"Physicians"[Mesh] OR physician*[tiab] OR doctor*[tiab] OR '
+        '"general practitioner*"[tiab] OR clinician*[tiab]'
+    )
 
     # フィルター（10年 vs 5年）
     filters_10y = '("2015/01/01"[PDAT] : "3000"[PDAT]) NOT (animals[Mesh] NOT humans[Mesh])'
@@ -66,7 +69,7 @@ def main():
 
     # 各ブロックのクエリ定義
     blocks = {
-        '#2A MeSH': '"Personal Satisfaction"[Mesh] OR "Job Satisfaction"[Mesh] OR "Motivation"[Mesh] OR "Professional Role"[Mesh] OR "Professional Autonomy"[Mesh] OR "Career Choice"[Mesh]',
+        '#2A MeSH': '"Personal Satisfaction"[Majr] OR "Job Satisfaction"[Majr] OR "Motivation"[Majr:noexp] OR "Work Engagement"[Mesh] OR "Professional Autonomy"[Majr]',
 
         '#2B Meaningful Work': '"meaningful work"[tiab] OR "work meaningfulness"[tiab] OR "meaningfulness of work"[tiab] OR "meaning in work"[tiab] OR "work meaning"[tiab] OR "sense of meaning"[tiab]',
 
@@ -74,7 +77,11 @@ def main():
 
         '#2D Calling': 'calling[tiab] OR vocation*[tiab]',
 
-        '#2E Motivation': '"intrinsic motivation"[tiab] OR motivat*[tiab]',
+        '#2E Motivation': (
+            '"prosocial motivation"[tiab] OR "intrinsic motivation"[tiab] OR '
+            '"work motivation"[tiab] OR (motivat*[tiab] AND (work*[tiab] OR job*[tiab] OR '
+            'career*[tiab] OR professional*[tiab] OR workplace[tiab]))'
+        ),
 
         '#2F Satisfaction': '"job satisfaction"[tiab] OR "work satisfaction"[tiab] OR "career satisfaction"[tiab] OR "professional satisfaction"[tiab] OR "compassion satisfaction"[tiab]',
 
@@ -82,7 +89,11 @@ def main():
 
         '#2H Japanese': 'ikigai[tiab]',
 
-        '#2I Psych Needs': '"psychological need*"[tiab] OR autonomy[tiab] OR competence[tiab] OR relatedness[tiab] OR "thriving at work"[tiab] OR thriving[tiab]',
+        '#2I Psych Needs': (
+            '"psychological need*"[tiab] OR ((autonomy[tiab] OR competence[tiab] OR relatedness[tiab]) '
+            'AND (work*[tiab] OR job*[tiab] OR professional*[tiab] OR workplace[tiab])) OR '
+            '"thriving at work"[tiab] OR "workplace thriving"[tiab]'
+        ),
 
         '#2J Task Significance': '"task significance"[tiab] OR "meaningful task*"[tiab] OR "work significance"[tiab]'
     }
@@ -190,7 +201,11 @@ def generate_markdown_report(results: Dict, count_pop_10y: int, count_pop_5y: in
     lines.append("")
     lines.append("**共通フィルター:**")
     lines.append("- Animal除外: `NOT (animals[Mesh] NOT humans[Mesh])`")
-    lines.append("- #1（医師のみ）: `\"Physicians\"[Mesh] OR physician*[tiab]`")
+    lines.append(
+        "- #1（医師のみ）: "
+        "`\"Physicians\"[Mesh] OR physician*[tiab] OR doctor*[tiab] OR "
+        "\"general practitioner*\"[tiab] OR clinician*[tiab]`"
+    )
     lines.append("")
     lines.append("---")
     lines.append("")
