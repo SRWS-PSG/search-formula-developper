@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python scripts/utils/find_pmid_from_doi.py:*)"
+      "Bash(python scripts/utils/find_pmid_from_doi.py:*)",
+      "Bash(python:*)"
     ],
     "deny": [],
     "ask": []
