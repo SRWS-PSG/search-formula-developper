@@ -26,6 +26,7 @@ var/
 # Logs
 logs/
 *.log
+*.txt
 
 # IDE files
 .vscode/
