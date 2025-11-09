@@ -3,7 +3,12 @@
     "allow": [
       "Bash(python scripts/utils/find_pmid_from_doi.py:*)",
       "Bash(python:*)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(python3:*)",
+      "Bash(chmod:*)",
+      "Bash(./tests/yarigai_line_counts_refined_20251109/run_all_analyses.sh:*)",
+      "Bash(./tests/yarigai_line_counts_refined_20251109/recount_slow/run_all.sh:*)",
+      "Bash(tee:*)"
     ],
     "deny": [],
     "ask": []
