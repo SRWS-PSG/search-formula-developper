@@ -8,7 +8,8 @@
       "Bash(chmod:*)",
       "Bash(./tests/yarigai_line_counts_refined_20251109/run_all_analyses.sh:*)",
       "Bash(./tests/yarigai_line_counts_refined_20251109/recount_slow/run_all.sh:*)",
-      "Bash(tee:*)"
+      "Bash(tee:*)",
+      "Bash(./run_all_experiments.sh:*)"
     ],
     "deny": [],
     "ask": []
