@@ -1,0 +1,85 @@
+{
+  "generated_at": "2025-11-10 18:29:37",
+  "data": [
+    {
+      "block": "#2A MeSH Terms",
+      "queries": {
+        "all": 13511,
+        "5y": 2339,
+        "3y": 1242
+      }
+    },
+    {
+      "block": "#2B Meaningful Work",
+      "queries": {
+        "all": 149,
+        "5y": 70,
+        "3y": 40
+      }
+    },
+    {
+      "block": "#2C Work Engagement",
+      "queries": {
+        "all": 1412,
+        "5y": 357,
+        "3y": 218
+      }
+    },
+    {
+      "block": "#2D Calling/Vocation",
+      "queries": {
+        "all": 1941,
+        "5y": 390,
+        "3y": 228
+      }
+    },
+    {
+      "block": "#2E Motivation",
+      "queries": {
+        "all": 4133,
+        "5y": 1461,
+        "3y": 865
+      }
+    },
+    {
+      "block": "#2F Satisfaction",
+      "queries": {
+        "all": 3041,
+        "5y": 980,
+        "3y": 626
+      }
+    },
+    {
+      "block": "#2G Professional Fulfillment",
+      "queries": {
+        "all": 733,
+        "5y": 339,
+        "3y": 221
+      }
+    },
+    {
+      "block": "#2H Japanese Concepts",
+      "queries": {
+        "all": 3,
+        "5y": 3,
+        "3y": 2
+      }
+    },
+    {
+      "block": "#2I Psychological Needs",
+      "queries": {
+        "all": 3699,
+        "5y": 1215,
+        "3y": 763
+      }
+    },
+    {
+      "block": "#2J Task Significance",
+      "queries": {
+        "all": 54,
+        "5y": 27,
+        "3y": 18
+      }
+    }
+  ]
+}
