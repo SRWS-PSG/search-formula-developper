@@ -1,0 +1,485 @@
+{
+  "generated_at": "2025-11-10 18:26:57",
+  "results": [
+    {
+      "block": "#1 Population (Physicians only)",
+      "line": 1,
+      "term": "\"Physicians\"[Mesh]",
+      "display_term": "\"Physicians\"[Mesh]",
+      "three_year_count": 22611,
+      "query": "(\"Physicians\"[Mesh]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#1 Population (Physicians only)",
+      "line": 2,
+      "term": "physician*[tiab]",
+      "display_term": "physician*[tiab]",
+      "three_year_count": 63597,
+      "query": "(physician*[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2A MeSH Terms",
+      "line": 1,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"Personal Satisfaction\"[Mesh])",
+      "display_term": "#1 AND \"Personal Satisfaction\"[Mesh]",
+      "three_year_count": 142,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"Personal Satisfaction\"[Mesh]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2A MeSH Terms",
+      "line": 2,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"Job Satisfaction\"[Mesh])",
+      "display_term": "#1 AND \"Job Satisfaction\"[Mesh]",
+      "three_year_count": 495,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"Job Satisfaction\"[Mesh]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2A MeSH Terms",
+      "line": 3,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"Motivation\"[Mesh])",
+      "display_term": "#1 AND \"Motivation\"[Mesh]",
+      "three_year_count": 666,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"Motivation\"[Mesh]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2A MeSH Terms",
+      "line": 4,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"Work Engagement\"[Mesh])",
+      "display_term": "#1 AND \"Work Engagement\"[Mesh]",
+      "three_year_count": 30,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"Work Engagement\"[Mesh]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2B Meaningful Work",
+      "line": 1,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"meaningful work\"[tiab])",
+      "display_term": "#1 AND \"meaningful work\"[tiab]",
+      "three_year_count": 18,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"meaningful work\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2B Meaningful Work",
+      "line": 2,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"work meaningfulness\"[tiab])",
+      "display_term": "#1 AND \"work meaningfulness\"[tiab]",
+      "three_year_count": 0,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"work meaningfulness\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2B Meaningful Work",
+      "line": 3,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"meaningfulness of work\"[tiab])",
+      "display_term": "#1 AND \"meaningfulness of work\"[tiab]",
+      "three_year_count": 2,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"meaningfulness of work\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2B Meaningful Work",
+      "line": 4,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"meaning in work\"[tiab])",
+      "display_term": "#1 AND \"meaning in work\"[tiab]",
+      "three_year_count": 11,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"meaning in work\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2B Meaningful Work",
+      "line": 5,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"work meaning\"[tiab])",
+      "display_term": "#1 AND \"work meaning\"[tiab]",
+      "three_year_count": 1,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"work meaning\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2B Meaningful Work",
+      "line": 6,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"sense of meaning\"[tiab])",
+      "display_term": "#1 AND \"sense of meaning\"[tiab]",
+      "three_year_count": 12,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"sense of meaning\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2C Work Engagement",
+      "line": 1,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"work engagement\"[tiab])",
+      "display_term": "#1 AND \"work engagement\"[tiab]",
+      "three_year_count": 43,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"work engagement\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2C Work Engagement",
+      "line": 2,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND vigor[tiab])",
+      "display_term": "#1 AND vigor[tiab]",
+      "three_year_count": 8,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND vigor[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2C Work Engagement",
+      "line": 3,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND dedication[tiab])",
+      "display_term": "#1 AND dedication[tiab]",
+      "three_year_count": 80,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND dedication[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2C Work Engagement",
+      "line": 4,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND absorption[tiab])",
+      "display_term": "#1 AND absorption[tiab]",
+      "three_year_count": 98,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND absorption[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2C Work Engagement",
+      "line": 5,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"engaged at work\"[tiab])",
+      "display_term": "#1 AND \"engaged at work\"[tiab]",
+      "three_year_count": 0,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"engaged at work\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2D Calling/Vocation",
+      "line": 1,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND calling[tiab])",
+      "display_term": "#1 AND calling[tiab]",
+      "three_year_count": 123,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND calling[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2D Calling/Vocation",
+      "line": 2,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"career calling\"[tiab])",
+      "display_term": "#1 AND \"career calling\"[tiab]",
+      "three_year_count": 1,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"career calling\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2D Calling/Vocation",
+      "line": 3,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"vocational calling\"[tiab])",
+      "display_term": "#1 AND \"vocational calling\"[tiab]",
+      "three_year_count": 0,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"vocational calling\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2D Calling/Vocation",
+      "line": 4,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND vocation*[tiab])",
+      "display_term": "#1 AND vocation*[tiab]",
+      "three_year_count": 106,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND vocation*[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2D Calling/Vocation",
+      "line": 5,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"calling orientation\"[tiab])",
+      "display_term": "#1 AND \"calling orientation\"[tiab]",
+      "three_year_count": 0,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"calling orientation\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2E Motivation",
+      "line": 1,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"prosocial motivation\"[tiab])",
+      "display_term": "#1 AND \"prosocial motivation\"[tiab]",
+      "three_year_count": 1,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"prosocial motivation\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2E Motivation",
+      "line": 2,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"intrinsic motivation\"[tiab])",
+      "display_term": "#1 AND \"intrinsic motivation\"[tiab]",
+      "three_year_count": 38,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"intrinsic motivation\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2E Motivation",
+      "line": 3,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"work motivation\"[tiab])",
+      "display_term": "#1 AND \"work motivation\"[tiab]",
+      "three_year_count": 13,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"work motivation\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2E Motivation",
+      "line": 4,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND (motivat*[tiab] AND (work*[tiab] OR job*[tiab] OR career*[tiab] OR professional*[tiab] OR workplace[tiab])))",
+      "display_term": "#1 AND (motivat*[tiab] AND (work*[tiab] OR job*[tiab] OR career*[tiab] OR professional*[tiab] OR workplace[tiab])",
+      "three_year_count": 852,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND (motivat*[tiab] AND (work*[tiab] OR job*[tiab] OR career*[tiab] OR professional*[tiab] OR workplace[tiab]))) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2F Satisfaction",
+      "line": 1,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"job satisfaction\"[tiab])",
+      "display_term": "#1 AND \"job satisfaction\"[tiab]",
+      "three_year_count": 465,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"job satisfaction\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2F Satisfaction",
+      "line": 2,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"career satisfaction\"[tiab])",
+      "display_term": "#1 AND \"career satisfaction\"[tiab]",
+      "three_year_count": 87,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"career satisfaction\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2F Satisfaction",
+      "line": 3,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"professional satisfaction\"[tiab])",
+      "display_term": "#1 AND \"professional satisfaction\"[tiab]",
+      "three_year_count": 54,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"professional satisfaction\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2F Satisfaction",
+      "line": 4,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"work satisfaction\"[tiab])",
+      "display_term": "#1 AND \"work satisfaction\"[tiab]",
+      "three_year_count": 48,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"work satisfaction\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2F Satisfaction",
+      "line": 5,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"workplace satisfaction\"[tiab])",
+      "display_term": "#1 AND \"workplace satisfaction\"[tiab]",
+      "three_year_count": 11,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"workplace satisfaction\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2G Professional Fulfillment",
+      "line": 1,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"professional fulfillment\"[tiab])",
+      "display_term": "#1 AND \"professional fulfillment\"[tiab]",
+      "three_year_count": 99,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"professional fulfillment\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2G Professional Fulfillment",
+      "line": 2,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"career fulfillment\"[tiab])",
+      "display_term": "#1 AND \"career fulfillment\"[tiab]",
+      "three_year_count": 4,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"career fulfillment\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2G Professional Fulfillment",
+      "line": 3,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND fulfillment[tiab])",
+      "display_term": "#1 AND fulfillment[tiab]",
+      "three_year_count": 183,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND fulfillment[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2G Professional Fulfillment",
+      "line": 4,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"professional well-being\"[tiab])",
+      "display_term": "#1 AND \"professional well-being\"[tiab]",
+      "three_year_count": 43,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"professional well-being\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2G Professional Fulfillment",
+      "line": 5,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"professional wellbeing\"[tiab])",
+      "display_term": "#1 AND \"professional wellbeing\"[tiab]",
+      "three_year_count": 6,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"professional wellbeing\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2H Japanese Concepts",
+      "line": 1,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND ikigai[tiab])",
+      "display_term": "#1 AND ikigai[tiab]",
+      "three_year_count": 2,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND ikigai[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2H Japanese Concepts",
+      "line": 2,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"iki-gai\"[tiab])",
+      "display_term": "#1 AND \"iki-gai\"[tiab]",
+      "three_year_count": 0,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"iki-gai\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2H Japanese Concepts",
+      "line": 3,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND yarigai[tiab])",
+      "display_term": "#1 AND yarigai[tiab]",
+      "three_year_count": 1,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND yarigai[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2H Japanese Concepts",
+      "line": 4,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"yari-gai\"[tiab])",
+      "display_term": "#1 AND \"yari-gai\"[tiab]",
+      "three_year_count": 0,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"yari-gai\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2I Psychological Needs",
+      "line": 1,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND (autonomy[tiab] AND work*[tiab]))",
+      "display_term": "#1 AND (autonomy[tiab] AND work*[tiab])",
+      "three_year_count": 331,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND (autonomy[tiab] AND work*[tiab])) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2I Psychological Needs",
+      "line": 2,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND (competence[tiab] AND work*[tiab]))",
+      "display_term": "#1 AND (competence[tiab] AND work*[tiab])",
+      "three_year_count": 377,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND (competence[tiab] AND work*[tiab])) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2I Psychological Needs",
+      "line": 3,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND (relatedness[tiab] AND work*[tiab]))",
+      "display_term": "#1 AND (relatedness[tiab] AND work*[tiab])",
+      "three_year_count": 15,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND (relatedness[tiab] AND work*[tiab])) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2I Psychological Needs",
+      "line": 4,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"self-determination\"[tiab])",
+      "display_term": "#1 AND \"self-determination\"[tiab]",
+      "three_year_count": 76,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"self-determination\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2J Task Significance",
+      "line": 1,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"task significance\"[tiab])",
+      "display_term": "#1 AND \"task significance\"[tiab]",
+      "three_year_count": 0,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"task significance\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2J Task Significance",
+      "line": 2,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"work significance\"[tiab])",
+      "display_term": "#1 AND \"work significance\"[tiab]",
+      "three_year_count": 0,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"work significance\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2J Task Significance",
+      "line": 3,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"job significance\"[tiab])",
+      "display_term": "#1 AND \"job significance\"[tiab]",
+      "three_year_count": 0,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"job significance\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    },
+    {
+      "block": "#2J Task Significance",
+      "line": 4,
+      "term": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"meaningful work\"[tiab])",
+      "display_term": "#1 AND \"meaningful work\"[tiab]",
+      "three_year_count": 18,
+      "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"meaningful work\"[tiab]) AND (\"2023\"[Date - Publication] : \"3000\"[Date - Publication])",
+      "success": true,
+      "error": null
+    }
+  ]
+}

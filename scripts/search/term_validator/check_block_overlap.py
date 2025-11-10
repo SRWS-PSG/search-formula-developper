@@ -82,6 +82,13 @@ def _format_count_for_log(value: Any) -> str:
     return format_count(value)
 
 
+def _should_use_post(search_url: str, params: Dict[str, str]) -> bool:
+    """Return True when the GET URL would exceed common length limits."""
+    prepared = requests.Request("GET", search_url, params=params).prepare()
+    # E-utilities starts rejecting >~2000 char URLs with HTTP 414
+    return len(prepared.url) >= 1900
+
+
 def get_pubmed_count(query: str) -> Dict[str, Any]:
     """Call PubMed E-utilities and return the hit count with retry logic."""
 
@@ -93,7 +100,19 @@ def get_pubmed_count(query: str) -> Dict[str, Any]:
     for attempt in range(1, MAX_RETRIES + 1):
         try:
             _respect_rate_limit()
-            response = requests.get(search_url, params=params, timeout=REQUEST_TIMEOUT)
+            use_post = _should_use_post(search_url, params)
+            if use_post:
+                response = requests.post(
+                    search_url,
+                    data=params,
+                    timeout=REQUEST_TIMEOUT,
+                )
+            else:
+                response = requests.get(
+                    search_url,
+                    params=params,
+                    timeout=REQUEST_TIMEOUT,
+                )
             if response.status_code == 429:
                 last_error = "HTTP 429: API rate limit exceeded"
                 backoff = RETRY_BACKOFF_SECONDS * (2 ** (attempt - 1))
