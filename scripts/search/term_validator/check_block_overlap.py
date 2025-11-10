@@ -205,8 +205,12 @@ def analyze_block_overlap(search_terms: List[str], block_name: str = "Block") ->
         # 個別のヒット件数を取得
         individual_result = get_pubmed_count(term)
         if not individual_result.get('success'):
-            print(f"  [WARN] 個別検索でエラー: {individual_result['message']}")
-        individual_count = individual_result['count']
+            print(f"  [ERROR] 個別検索でエラー: {individual_result['message']}")
+            print(f"  このエラーは致命的です。処理を継続できません。")
+            # 個別検索が失敗した場合はNoneを記録（0ではない）
+            individual_count = None
+        else:
+            individual_count = individual_result['count']
 
         # 累積クエリを構築
         cumulative_query_parts.append(f"({term})")
@@ -214,16 +218,30 @@ def analyze_block_overlap(search_terms: List[str], block_name: str = "Block") ->
 
         # 累積ヒット件数を取得
         cumulative_result = get_pubmed_count(cumulative_query)
-        if not cumulative_result.get('success'):
-            print(f"  [WARN] 累積検索でエラー: {cumulative_result['message']}")
         previous_cumulative = results[-1]['cumulative_count'] if results else 0
-        cumulative_count = cumulative_result['count'] if cumulative_result['count'] is not None else previous_cumulative
 
-        # 追加された件数を計算
-        added_count = cumulative_count - previous_cumulative if cumulative_count >= previous_cumulative else 0
+        # *** バグ修正: エラー時に前の値を使わない ***
+        if not cumulative_result.get('success') or cumulative_result['count'] is None:
+            print(f"  [ERROR] 累積検索でエラー: {cumulative_result.get('message', 'Unknown error')}")
+            print(f"  累積カウントを取得できませんでした。")
+            # エラー時はNoneを記録（デフォルト値を使わない）
+            cumulative_count = None
+            added_count = None
+        else:
+            cumulative_count = cumulative_result['count']
+            # 追加された件数を計算
+            if cumulative_count >= previous_cumulative:
+                added_count = cumulative_count - previous_cumulative
+            else:
+                # 累積が減少する異常ケース（本来起きないはず）
+                print(f"  [WARN] 累積カウントが減少: {previous_cumulative} → {cumulative_count}")
+                added_count = 0
+
+        # 最初の行の場合は previous_cumulative を調整
         if idx == 1:
             previous_cumulative = 0
-            added_count = cumulative_count
+            if cumulative_count is not None:
+                added_count = cumulative_count
 
         results.append({
             'line': idx,
@@ -231,11 +249,15 @@ def analyze_block_overlap(search_terms: List[str], block_name: str = "Block") ->
             'individual_count': individual_count,
             'cumulative_count': cumulative_count,
             'added_count': added_count,
-            'previous_cumulative': previous_cumulative
+            'previous_cumulative': previous_cumulative,
+            'individual_error': not individual_result.get('success'),
+            'cumulative_error': not cumulative_result.get('success'),
         })
 
         individual_display = _format_count_for_log(individual_count)
-        print(f"  個別: {individual_display} | 累積: {cumulative_count:,} | 追加: {added_count:,}")
+        cumulative_display = f"{cumulative_count:,}" if cumulative_count is not None else "ERROR"
+        added_display = f"{added_count:,}" if added_count is not None else "ERROR"
+        print(f"  個別: {individual_display} | 累積: {cumulative_display} | 追加: {added_display}")
 
     # Markdownレポートを生成
     report = generate_markdown_report(results, block_name, cumulative_query)
@@ -248,11 +270,21 @@ def generate_markdown_report(results: List[Dict], block_name: str, final_query: 
     """
     report = f"## {block_name} - Hit Count Analysis\n\n"
 
+    # エラーチェック
+    has_errors = any(r.get('individual_error') or r.get('cumulative_error') for r in results)
+    if has_errors:
+        report += "⚠️ **WARNING**: Some queries encountered errors during execution. See details below.\n\n"
+
     # テーブルヘッダー
     report += "| Line | Term | Individual Count | Cumulative (OR) | Added | % of Total |\n"
     report += "|------|------|------------------|-----------------|-------|------------|\n"
 
-    total_count = results[-1]['cumulative_count'] if results else 0
+    # 最後の有効な累積カウントを取得
+    total_count = None
+    for result in reversed(results):
+        if result['cumulative_count'] is not None:
+            total_count = result['cumulative_count']
+            break
 
     # 各行の結果
     for result in results:
@@ -261,25 +293,48 @@ def generate_markdown_report(results: List[Dict], block_name: str, final_query: 
         cumulative = result['cumulative_count']
         added = result['added_count']
 
-        # 全体に対する追加分の割合
-        if total_count > 0:
-            pct = (added / total_count) * 100
-        else:
-            pct = 0
+        # エラーフラグの表示
+        error_marker = ""
+        if result.get('individual_error'):
+            error_marker = " ⚠️IND"
+        if result.get('cumulative_error'):
+            error_marker += " ⚠️CUM"
 
-        report += f"| {result['line']} | `{term_display}` | {format_count(individual)} | {cumulative:,} | **+{added:,}** | {pct:.1f}% |\n"
+        # 全体に対する追加分の割合
+        if total_count and added is not None:
+            pct = (added / total_count) * 100
+            pct_display = f"{pct:.1f}%"
+        else:
+            pct_display = "N/A"
+
+        # None値を適切に表示
+        individual_display = format_count(individual) if individual is not None else "ERROR"
+        cumulative_display = f"{cumulative:,}" if cumulative is not None else "ERROR"
+        added_display = f"**+{added:,}**" if added is not None else "**ERROR**"
+
+        report += f"| {result['line']} | `{term_display}` | {individual_display} | {cumulative_display} | {added_display} | {pct_display}{error_marker} |\n"
 
     # サマリー
     report += f"\n### Summary\n\n"
-    report += f"- **Total unique papers**: {total_count:,}\n"
+    if total_count is not None:
+        report += f"- **Total unique papers**: {total_count:,}\n"
+    else:
+        report += f"- **Total unique papers**: ERROR (all cumulative queries failed)\n"
 
-    # 最も効果的な行
-    if results and total_count > 0:
-        max_added = max(results, key=lambda x: x['added_count'])
+    # エラーサマリー
+    if has_errors:
+        error_lines = [r['line'] for r in results if r.get('individual_error') or r.get('cumulative_error')]
+        report += f"- **Lines with errors**: {', '.join(map(str, error_lines))}\n"
+        report += f"- **Error types**: ⚠️IND = Individual query error, ⚠️CUM = Cumulative query error\n"
+
+    # 最も効果的な行（エラーがない場合のみ）
+    valid_results = [r for r in results if r['added_count'] is not None]
+    if valid_results and total_count and total_count > 0:
+        max_added = max(valid_results, key=lambda x: x['added_count'])
         report += f"- **Most effective term**: Line {max_added['line']} (+{max_added['added_count']:,} papers, {(max_added['added_count']/total_count*100):.1f}% of total)\n"
 
         # 低効果の行（全体の1%未満）
-        low_value_terms = [r for r in results if total_count > 0 and (r['added_count'] / total_count) < 0.01]
+        low_value_terms = [r for r in valid_results if (r['added_count'] / total_count) < 0.01 and r['added_count'] > 0]
         if low_value_terms:
             report += f"- **Low-value terms** (Added < 1% of total): Lines "
             report += ", ".join([str(r['line']) for r in low_value_terms])
@@ -287,8 +342,9 @@ def generate_markdown_report(results: List[Dict], block_name: str, final_query: 
 
         # 重複率が高い行（追加件数が個別件数の20%未満）
         high_overlap_terms = [
-            r for r in results[1:]
-            if isinstance(r['individual_count'], int) and r['individual_count'] > 0
+            r for r in valid_results[1:]
+            if r['individual_count'] is not None and r['individual_count'] > 0
+            and r['added_count'] is not None
             and (r['added_count'] / r['individual_count']) < 0.2
         ]
         if high_overlap_terms:

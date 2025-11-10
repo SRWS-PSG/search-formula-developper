@@ -1,0 +1,218 @@
+[
+  {
+    "id": "2B_L1",
+    "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"meaningful work\"[tiab])",
+    "expected": "unknown",
+    "block": "#2B Meaningful Work",
+    "success": true,
+    "status_code": 200,
+    "raw_response": {
+      "header": {
+        "type": "esearch",
+        "version": "0.3"
+      },
+      "esearchresult": {
+        "count": "50",
+        "retmax": "0",
+        "retstart": "0",
+        "idlist": [],
+        "translationset": [],
+        "querytranslation": "(\"Physicians\"[MeSH Terms] OR \"physician*\"[Title/Abstract]) AND \"meaningful work\"[Title/Abstract]"
+      }
+    },
+    "parsed_count": 50,
+    "response_time": 0.7942249774932861,
+    "error_message": null,
+    "count_field_path": "esearchresult.count",
+    "timestamp": "2025-11-10T12:55:00.197653"
+  },
+  {
+    "id": "2B_L2",
+    "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"work meaningfulness\"[tiab])",
+    "expected": "unknown",
+    "block": "#2B Meaningful Work",
+    "success": true,
+    "status_code": 200,
+    "raw_response": {
+      "header": {
+        "type": "esearch",
+        "version": "0.3"
+      },
+      "esearchresult": {
+        "count": "3",
+        "retmax": "0",
+        "retstart": "0",
+        "idlist": [],
+        "translationset": [],
+        "querytranslation": "(\"Physicians\"[MeSH Terms] OR \"physician*\"[Title/Abstract]) AND \"work meaningfulness\"[Title/Abstract]"
+      }
+    },
+    "parsed_count": 3,
+    "response_time": 0.7155745029449463,
+    "error_message": null,
+    "count_field_path": "esearchresult.count",
+    "timestamp": "2025-11-10T12:55:01.414547"
+  },
+  {
+    "id": "2C_L1",
+    "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"work engagement\"[tiab])",
+    "expected": "unknown",
+    "block": "#2C Work Engagement",
+    "success": true,
+    "status_code": 200,
+    "raw_response": {
+      "header": {
+        "type": "esearch",
+        "version": "0.3"
+      },
+      "esearchresult": {
+        "count": "151",
+        "retmax": "0",
+        "retstart": "0",
+        "idlist": [],
+        "translationset": [],
+        "querytranslation": "(\"Physicians\"[MeSH Terms] OR \"physician*\"[Title/Abstract]) AND \"work engagement\"[Title/Abstract]"
+      }
+    },
+    "parsed_count": 151,
+    "response_time": 0.6943113803863525,
+    "error_message": null,
+    "count_field_path": "esearchresult.count",
+    "timestamp": "2025-11-10T12:55:02.609364"
+  },
+  {
+    "id": "2C_L2",
+    "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND vigor[tiab])",
+    "expected": "unknown",
+    "block": "#2C Work Engagement",
+    "success": true,
+    "status_code": 200,
+    "raw_response": {
+      "header": {
+        "type": "esearch",
+        "version": "0.3"
+      },
+      "esearchresult": {
+        "count": "78",
+        "retmax": "0",
+        "retstart": "0",
+        "idlist": [],
+        "translationset": [],
+        "querytranslation": "(\"Physicians\"[MeSH Terms] OR \"physician*\"[Title/Abstract]) AND \"vigor\"[Title/Abstract]"
+      }
+    },
+    "parsed_count": 78,
+    "response_time": 0.8277637958526611,
+    "error_message": null,
+    "count_field_path": "esearchresult.count",
+    "timestamp": "2025-11-10T12:55:03.938001"
+  },
+  {
+    "id": "2D_L1",
+    "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND calling[tiab])",
+    "expected": "unknown",
+    "block": "#2D Calling",
+    "success": true,
+    "status_code": 200,
+    "raw_response": {
+      "header": {
+        "type": "esearch",
+        "version": "0.3"
+      },
+      "esearchresult": {
+        "count": "948",
+        "retmax": "0",
+        "retstart": "0",
+        "idlist": [],
+        "translationset": [],
+        "querytranslation": "(\"Physicians\"[MeSH Terms] OR \"physician*\"[Title/Abstract]) AND \"calling\"[Title/Abstract]"
+      }
+    },
+    "parsed_count": 948,
+    "response_time": 0.6422848701477051,
+    "error_message": null,
+    "count_field_path": "esearchresult.count",
+    "timestamp": "2025-11-10T12:55:05.080845"
+  },
+  {
+    "id": "2F_L1",
+    "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"job satisfaction\"[tiab])",
+    "expected": "unknown",
+    "block": "#2F Satisfaction",
+    "success": true,
+    "status_code": 200,
+    "raw_response": {
+      "header": {
+        "type": "esearch",
+        "version": "0.3"
+      },
+      "esearchresult": {
+        "count": "2141",
+        "retmax": "0",
+        "retstart": "0",
+        "idlist": [],
+        "translationset": [],
+        "querytranslation": "(\"Physicians\"[MeSH Terms] OR \"physician*\"[Title/Abstract]) AND \"job satisfaction\"[Title/Abstract]"
+      }
+    },
+    "parsed_count": 2141,
+    "response_time": 1.1363146305084229,
+    "error_message": null,
+    "count_field_path": "esearchresult.count",
+    "timestamp": "2025-11-10T12:55:08.463413"
+  },
+  {
+    "id": "2A_L2_success",
+    "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"Job Satisfaction\"[Mesh])",
+    "expected": "2314",
+    "block": "#2A MeSH (known success)",
+    "success": true,
+    "status_code": 200,
+    "raw_response": {
+      "header": {
+        "type": "esearch",
+        "version": "0.3"
+      },
+      "esearchresult": {
+        "count": "4968",
+        "retmax": "0",
+        "retstart": "0",
+        "idlist": [],
+        "translationset": [],
+        "querytranslation": "(\"Physicians\"[MeSH Terms] OR \"physician*\"[Title/Abstract]) AND \"Job Satisfaction\"[MeSH Terms]"
+      }
+    },
+    "parsed_count": 4968,
+    "response_time": 1.353797435760498,
+    "error_message": null,
+    "count_field_path": "esearchresult.count",
+    "timestamp": "2025-11-10T12:55:10.317711"
+  },
+  {
+    "id": "2E_L4_success",
+    "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND (motivat*[tiab] AND (work*[tiab] OR job*[tiab] OR career*[tiab] OR professional*[tiab] OR workplace[tiab])))",
+    "expected": "4081",
+    "block": "#2E Motivation (known success)",
+    "success": true,
+    "status_code": 200,
+    "raw_response": {
+      "header": {
+        "type": "esearch",
+        "version": "0.3"
+      },
+      "esearchresult": {
+        "count": "4081",
+        "retmax": "0",
+        "retstart": "0",
+        "idlist": [],
+        "translationset": [],
+        "querytranslation": "(\"Physicians\"[MeSH Terms] OR \"physician*\"[Title/Abstract]) AND (\"motivat*\"[Title/Abstract] AND (\"work*\"[Title/Abstract] OR \"job\"[Title/Abstract] OR \"career*\"[Title/Abstract] OR \"professional*\"[Title/Abstract] OR \"workplace\"[Title/Abstract]))"
+      }
+    },
+    "parsed_count": 4081,
+    "response_time": 0.7301318645477295,
+    "error_message": null,
+    "count_field_path": "esearchresult.count",
+    "timestamp": "2025-11-10T12:55:11.548600"
+  }
+]
