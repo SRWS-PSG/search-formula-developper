@@ -12,6 +12,7 @@ This directory contains test files and analysis results for the search formula d
 - `yarigai_comprehensive_line_counts_20251110.md` - Comprehensive analysis of all search blocks with detailed hit counts
 - `final_concept_block_count_20251110.md` - Summary of final concept block counts
 - `three_year_counts_2023plus.md` - Three-year period analysis (2023+)
+- `yarigai_sr_filter_counts_20251110/` - SR filter combination test assets (script, plan, and output placeholder)
 
 ### Analysis Subdirectories
 - `block_overlap_20251105/` - Block overlap analysis results (identifying redundant search terms)
