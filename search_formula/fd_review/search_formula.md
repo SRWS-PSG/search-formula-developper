@@ -26,65 +26,11 @@
 
 ### 検索式構造
 ```
-#### #1 Population - 医師・臨床教育者
-"Faculty, Medical"[Mesh] OR
-"Physicians"[Mesh] OR
-"Clinical Competence"[Mesh] OR
-clinical educator*[tiab] OR
-clinician educator*[tiab] OR
-physician educator*[tiab] OR
-medical educator*[tiab] OR
-clinical teacher*[tiab] OR
-clinical teaching[tiab] OR
-clinical faculty[tiab] OR
-clinician teacher*[tiab] OR
-"physician as educator"[tiab] OR
-"physicians as educators"[tiab]
+#1 "Faculty, Medical"[Mesh] OR medical faculty[tiab] OR clinical faculty[tiab] OR clinical educator*[tiab] OR clinician educator*[tiab] OR physician educator*[tiab] OR medical educator*[tiab] OR clinical teacher*[tiab] OR clinical teaching[tiab]
 
-#### #2 Concept - Faculty Development
-"Staff Development"[Mesh] OR
-"Inservice Training"[Mesh] OR
-"Education, Continuing"[Mesh] OR
-"Professional Development"[Mesh] OR
-faculty development[tiab] OR
-"faculty development"[tiab] OR
-educator development[tiab] OR
-teacher development[tiab] OR
-teacher training[tiab] OR
-teaching program*[tiab] OR
-educational program*[tiab] OR
-faculty training[tiab] OR
-professional development[tiab] OR
-educator training[tiab] OR
-teaching workshop*[tiab] OR
-educational workshop*[tiab] OR
-teaching seminar*[tiab] OR
-longitudinal program*[tiab] OR
-peer learning[tiab] OR
-mentorship[tiab] OR
-online module*[tiab] OR
-e-learning[tiab] OR
-educator competenc*[tiab] OR
-teaching competenc*[tiab] OR
-educational competenc*[tiab] OR
-teaching skill*[tiab] OR
-instructional design[tiab] OR
-instructional method*[tiab] OR
-assessment strateg*[tiab] OR
-"program design"[tiab] OR
-"program evaluation"[tiab] OR
-"program goal*"[tiab] OR
-"program content"[tiab] OR
-"delivery method*"[tiab] OR
-"evaluation approach*"[tiab] OR
-"specialty-specific teaching"[tiab] OR
-"clinical educator role*"[tiab] OR
-"professional identity formation"[tiab]
+#2 "Staff Development"[Mesh] OR "Program Development"[Mesh] OR teaching[MeSH] OR faculty development*[tiab] OR academic development*[tiab] OR faculty training*[tiab] OR teacher training*[tiab] OR professional development*[tiab] OR teaching program*[tiab] OR educational program*[tiab] OR educator training[tiab] OR educator development[tiab] OR teacher development[tiab] OR teaching workshop*[tiab] OR educational workshop*[tiab] OR teaching seminar*[tiab] OR longitudinal program*[tiab] OR peer learning[tiab] OR educator competenc*[tiab] OR teaching competenc*[tiab] OR educational competenc*[tiab] OR teaching skill*[tiab] OR assessment strateg*[tiab] OR "program design"[tiab] OR "program evaluation"[tiab] OR "program goal*"[tiab] OR "program content"[tiab] OR "delivery method*"[tiab] OR "evaluation approach*"[tiab]
 
-
-#### #3 Final Query
-#1 AND #2
-
+#3 #1 AND #2
 ```
 
 ## シード論文（必須捕捉対象）
