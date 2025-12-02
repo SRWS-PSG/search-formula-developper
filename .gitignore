@@ -39,6 +39,8 @@ logs/
 search_formula/*
 # README.mdだけは除外しない（追跡する）
 !search_formula/README.md
+!search_formula/fd_review
+
 # サンプルフォルダだけは除外しない（追跡する）
 !search_formula/sample/
 
