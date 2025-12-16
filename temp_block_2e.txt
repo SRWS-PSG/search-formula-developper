@@ -1,7 +1,0 @@
-#### #2E Motivation関連 with 10y + Animal filters
-```
-("Physicians"[Mesh] OR physician*[tiab] OR doctor*[tiab] OR "general practitioner*"[tiab] OR clinician*[tiab]) AND ("2015/01/01"[PDAT] : "3000"[PDAT]) NOT (animals[Mesh] NOT humans[Mesh]) AND (
-"intrinsic motivation"[tiab] OR
-motivat*[tiab]
-)
-```
