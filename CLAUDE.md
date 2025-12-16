@@ -33,9 +33,105 @@ scripts/
 ├── search_results_to_review/  # Post-search processing
 └── utils/              # Analysis utilities
 
-search_formula/         # Project workspace (one dir per research project)
+projects/               # Project workspace (one directory per research project)
+├── PROJECT_NAME/
+│   ├── protocol.md     # Research protocol with PICO/RQ definition
+│   ├── seed_papers/    # Key papers bibliography (RIS, NBIB, or text)
+│   ├── seed_pmids.txt  # PMIDs extracted from seed papers
+│   ├── search_formula.md  # Main search formula
+│   ├── mesh_analysis.md   # MeSH extraction results (optional)
+│   └── log/            # Validation and search results
 templates/              # Templates for PICO, RQ, and database searches
 ```
+
+## Project Setup Workflow
+
+### Standard Project Structure
+
+Each systematic review project should follow this structure in `projects/PROJECT_NAME/`:
+
+1. **protocol.md** - Research protocol defining:
+   - Research question (RQ)
+   - PICO framework (Population, Intervention, Comparison, Outcome)
+   - Inclusion/exclusion criteria
+   - Study design requirements
+
+2. **seed_papers/** (optional) - Bibliography files of key papers:
+   - RIS format (`.ris`)
+   - NBIB format (`.nbib`)
+   - Plain text with DOIs/PMIDs
+   - RTF or Word documents with references
+
+3. **seed_pmids.txt** - Extracted PMIDs (one per line):
+   ```
+   12345678
+   23456789
+   # Comments allowed with #
+   34567890
+   ```
+
+4. **search_formula.md** - Main search formula developed iteratively
+
+5. **log/** (auto-created) - Validation results and search outputs
+
+### Starting a New Project
+
+**Step 1: Create project folder**
+```bash
+mkdir -p projects/PROJECT_NAME/seed_papers
+```
+
+**Step 2: Create protocol from template**
+```bash
+cp templates/rq_template.md projects/PROJECT_NAME/protocol.md
+# Edit protocol.md to define RQ and PICO
+```
+
+**Step 3: Prepare seed papers**
+- Place key papers bibliography in `seed_papers/`
+- Extract PMIDs to `seed_pmids.txt` (manual or scripted)
+
+**Step 4: Interactive search formula development**
+- Use external AI assistant (VS Code Copilot, ChatGPT, etc.) to:
+  - Analyze protocol and seed papers
+  - Suggest initial search terms based on PICO
+  - Iteratively refine search formula
+- Save results to `projects/PROJECT_NAME/search_formula.md`
+
+**Step 5: Validate with automated tools**
+```bash
+# Validate seed paper capture
+python scripts/search/query_executor/check_final_query.py \
+  --formula-file projects/PROJECT_NAME/search_formula.md \
+  --pmid-file projects/PROJECT_NAME/seed_pmids.txt \
+  --output-dir projects/PROJECT_NAME/
+
+# Extract MeSH terms from seeds
+python scripts/search/extract_mesh.py \
+  --pmid-file projects/PROJECT_NAME/seed_pmids.txt \
+  --output-dir projects/PROJECT_NAME/
+```
+
+### AI-Assisted Development (External to Repository)
+
+This repository provides **validation and conversion tools** only. The actual search formula development is expected to be done interactively with AI assistants **outside this repository**:
+
+- **VS Code Copilot Chat** - Context-aware suggestions within IDE
+- **ChatGPT / Claude** - Iterative dialogue for search strategy
+- **GitHub Copilot** - Inline term suggestions
+
+**Recommended workflow**:
+1. Share `protocol.md` and seed paper bibliography with AI assistant
+2. Iteratively develop search formula through dialogue
+3. Paste resulting formula into `projects/PROJECT_NAME/search_formula.md`
+4. Validate with repository scripts
+5. Refine based on validation results → return to step 2
+
+**Benefits of this approach**:
+- Leverage AI's medical knowledge and synonym generation
+- Maintain human oversight for clinical relevance
+- Use repository tools for objective validation
+- Keep iterative dialogue history outside version control
 
 ### Key Workflows
 
@@ -54,12 +150,12 @@ templates/              # Templates for PICO, RQ, and database searches
 
 Check individual search lines and terms:
 ```bash
-python scripts/search/term_validator/check_search_lines.py --input-formula search_formula/PROJECT_NAME/search_formula.md --output search_formula/PROJECT_NAME/search_lines_results.md
+python scripts/search/term_validator/check_search_lines.py --input-formula projects/PROJECT_NAME/search_formula.md --output projects/PROJECT_NAME/log/search_lines_results.md
 ```
 
 Execute final query with seed paper validation:
 ```bash
-python scripts/search/query_executor/check_final_query.py --formula-file search_formula/PROJECT_NAME/search_formula.md --pmid-file search_formula/PROJECT_NAME/seed_pmids.txt --output-dir search_formula/PROJECT_NAME/
+python scripts/search/query_executor/check_final_query.py --formula-file projects/PROJECT_NAME/search_formula.md --pmid-file projects/PROJECT_NAME/seed_pmids.txt --output-dir projects/PROJECT_NAME/
 ```
 
 **Important**: This script validates seed papers efficiently by checking each PMID individually (`query AND pmid[PMID]`) rather than retrieving all search results. This ensures accurate validation even for large result sets (>10,000 hits), as older papers may not appear in the first batch of results returned by PubMed API.
@@ -75,7 +171,7 @@ python scripts/search/query_executor/check_final_query.py --formula-file search_
 
 Extract and analyze MeSH terms from seed papers:
 ```bash
-python scripts/search/extract_mesh.py --pmid-file search_formula/PROJECT_NAME/seed_pmids.txt --output-dir search_formula/PROJECT_NAME/
+python scripts/search/extract_mesh.py --pmid-file projects/PROJECT_NAME/seed_pmids.txt --output-dir projects/PROJECT_NAME/
 ```
 
 Check specific MeSH terms:
@@ -92,7 +188,7 @@ python scripts/search/mesh_analyzer/check_mesh_overlap.py --terms "Term1,Term2,T
 
 Convert PubMed formula to all supported database formats:
 ```bash
-python scripts/conversion/generate_all_database_search.py --input search_formula/PROJECT_NAME/search_formula.md --output-dir search_formula/PROJECT_NAME/
+python scripts/conversion/generate_all_database_search.py --input projects/PROJECT_NAME/search_formula.md --output-dir projects/PROJECT_NAME/
 ```
 
 Convert individual format using search_converter.py:
@@ -110,14 +206,14 @@ pubmed_query, warnings = convert_ovid_to_pubmed(ovid_query)
 
 Process search results from multiple databases for Rayyan:
 ```bash
-python scripts/search_results_to_review/search_results_processor.py --input-dir search_formula/PROJECT_NAME/ --output-dir search_formula/PROJECT_NAME/processed/
+python scripts/search_results_to_review/search_results_processor.py --input-dir projects/PROJECT_NAME/ --output-dir projects/PROJECT_NAME/processed/
 ```
 
 ### Validation and Analysis
 
 Analyze which search components match specific papers:
 ```bash
-python scripts/validation/seed_analyzer/check_specific_papers.py --formula-file search_formula/PROJECT_NAME/search_formula.md --pmid-file search_formula/PROJECT_NAME/seed_pmids.txt
+python scripts/validation/seed_analyzer/check_specific_papers.py --formula-file projects/PROJECT_NAME/search_formula.md --pmid-file projects/PROJECT_NAME/seed_pmids.txt
 ```
 
 Compare original vs modified search formulas:
@@ -255,11 +351,14 @@ Finds citations where "faculty" and "development" appear within 3 words of each 
 
 ### File Naming
 
-- Project directories: `search_formula/project_name/`
-- Search formula: `search_formula.md`
+- Project directories: `projects/project_name/`
+- Research protocol: `protocol.md`
+- Seed papers folder: `seed_papers/` (RIS, NBIB, RTF, etc.)
 - Seed PMIDs: `seed_pmids.txt` (one PMID per line, `#` for comments)
+- Search formula: `search_formula.md`
 - MeSH analysis output: `mesh_analysis.md`, `mesh_analysis_results.json`
 - Search results: `log/search_results_YYYYMMDD_HHMMSS.ris`
+- Validation reports: `log/validation_YYYYMMDD_HHMMSS.md`
 - Block overlap session logs use `block_overlap_*_YYYYMMDD.md` and stay untracked via `.gitignore`; keep narrative reports like `physician_concept_optimized.md` committed.
 
 ### PICO Framework
@@ -364,14 +463,27 @@ Generated on: 2025-11-05 14:19:13
 ## Project-Specific Context
 
 This repository is designed for medical/health sciences researchers conducting systematic reviews and meta-analyses. The typical user:
-- Has a research question with PICO elements
-- Has identified 5-10 "seed papers" that should be captured by the search
+- Has a research question with PICO elements documented in `protocol.md`
+- Has identified 5-10 "seed papers" (key papers that should be captured)
+- **Uses external AI assistants (ChatGPT, Claude, Copilot) for interactive search formula development**
+- Uses this repository's scripts for **validation and conversion** only
 - Needs to search multiple databases (PubMed, CENTRAL, Embase, trial registries)
 - Must document the search strategy for publication/peer review
 - Requires reproducible, validated search formulas
 
+### Repository Role
+
+This system is **NOT** an end-to-end AI search assistant. Instead, it provides:
+- ✅ Validation tools (seed paper capture, MeSH checking)
+- ✅ Database format converters (PubMed ↔ CENTRAL ↔ Embase, etc.)
+- ✅ Analysis utilities (term overlap, block optimization)
+- ❌ NOT: Interactive search formula generation (use external AI)
+- ❌ NOT: PICO extraction from protocol text (use external AI)
+
 When developing features, prioritize:
-1. Search sensitivity (capturing all relevant papers) over specificity
-2. Clear documentation of conversion rules and limitations
-3. Validation against seed papers
-4. PRISMA-compliant reporting
+1. **Tool reliability** - Scripts should be deterministic and testable
+2. **Interoperability** - Easy input/output with external AI tools
+3. Search sensitivity (capturing all relevant papers) over specificity
+4. Clear documentation of conversion rules and limitations
+5. Validation against seed papers
+6. PRISMA-compliant reporting
