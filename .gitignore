@@ -22,10 +22,12 @@ var/
 
 # dotenv
 .env
+.claude/
 
 # Logs
 logs/
 *.log
+*.txt
 
 # IDE files
 .vscode/
@@ -34,10 +36,12 @@ logs/
 # OS specific
 .DS_Store
 
-# search_formulaフォルダ以下の全ての下位フォルダを除外
-search_formula/*
+# search_formulaフォルダ以下の全ての下位フォルダを除外（直下のファイルは追跡対象）
+search_formula/*/
 # README.mdだけは除外しない（追跡する）
 !search_formula/README.md
+!search_formula/fd_review
+
 # サンプルフォルダだけは除外しない（追跡する）
 !search_formula/sample/
 

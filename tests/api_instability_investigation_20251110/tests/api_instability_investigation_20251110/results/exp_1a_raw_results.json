@@ -1,0 +1,626 @@
+[
+  {
+    "id": "L1_simple_phrase",
+    "query": "\"meaningful work\"[tiab]",
+    "complexity": "Level 1: Simple",
+    "description": "Single phrase search",
+    "query_length": 23,
+    "num_repetitions": 3,
+    "num_successful": 3,
+    "num_failed": 0,
+    "success_rate": 1.0,
+    "avg_response_time": 0.6503748099009196,
+    "min_response_time": 0.6228578090667725,
+    "max_response_time": 0.6791071891784668,
+    "most_common_count": 415,
+    "most_common_error": null,
+    "all_repetitions": [
+      {
+        "success": true,
+        "count": 415,
+        "status_code": 200,
+        "response_time": 0.6491594314575195,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 1,
+        "timestamp": "2025-11-10T12:56:52.298735"
+      },
+      {
+        "success": true,
+        "count": 415,
+        "status_code": 200,
+        "response_time": 0.6791071891784668,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 2,
+        "timestamp": "2025-11-10T12:56:53.478440"
+      },
+      {
+        "success": true,
+        "count": 415,
+        "status_code": 200,
+        "response_time": 0.6228578090667725,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 3,
+        "timestamp": "2025-11-10T12:56:54.601873"
+      }
+    ]
+  },
+  {
+    "id": "L1_simple_word",
+    "query": "calling[tiab]",
+    "complexity": "Level 1: Simple",
+    "description": "Single word search",
+    "query_length": 13,
+    "num_repetitions": 3,
+    "num_successful": 3,
+    "num_failed": 0,
+    "success_rate": 1.0,
+    "avg_response_time": 0.8075598080952963,
+    "min_response_time": 0.6533453464508057,
+    "max_response_time": 1.0815730094909668,
+    "most_common_count": 19890,
+    "most_common_error": null,
+    "all_repetitions": [
+      {
+        "success": true,
+        "count": 19890,
+        "status_code": 200,
+        "response_time": 0.6877610683441162,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 1,
+        "timestamp": "2025-11-10T12:56:55.790572"
+      },
+      {
+        "success": true,
+        "count": 19890,
+        "status_code": 200,
+        "response_time": 1.0815730094909668,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 2,
+        "timestamp": "2025-11-10T12:56:57.372632"
+      },
+      {
+        "success": true,
+        "count": 19890,
+        "status_code": 200,
+        "response_time": 0.6533453464508057,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 3,
+        "timestamp": "2025-11-10T12:56:58.526708"
+      }
+    ]
+  },
+  {
+    "id": "L1_simple_mesh",
+    "query": "\"Job Satisfaction\"[Mesh]",
+    "complexity": "Level 1: Simple",
+    "description": "Single MeSH term",
+    "query_length": 24,
+    "num_repetitions": 3,
+    "num_successful": 3,
+    "num_failed": 0,
+    "success_rate": 1.0,
+    "avg_response_time": 0.7863506476084391,
+    "min_response_time": 0.6559915542602539,
+    "max_response_time": 1.0354626178741455,
+    "most_common_count": 31355,
+    "most_common_error": null,
+    "all_repetitions": [
+      {
+        "success": true,
+        "count": 31355,
+        "status_code": 200,
+        "response_time": 0.667597770690918,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 1,
+        "timestamp": "2025-11-10T12:56:59.695043"
+      },
+      {
+        "success": true,
+        "count": 31355,
+        "status_code": 200,
+        "response_time": 0.6559915542602539,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 2,
+        "timestamp": "2025-11-10T12:57:00.851530"
+      },
+      {
+        "success": true,
+        "count": 31355,
+        "status_code": 200,
+        "response_time": 1.0354626178741455,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 3,
+        "timestamp": "2025-11-10T12:57:02.387338"
+      }
+    ]
+  },
+  {
+    "id": "L2_pop_mesh",
+    "query": "\"Physicians\"[Mesh]",
+    "complexity": "Level 2: Population only",
+    "description": "Physicians MeSH only",
+    "query_length": 18,
+    "num_repetitions": 3,
+    "num_successful": 3,
+    "num_failed": 0,
+    "success_rate": 1.0,
+    "avg_response_time": 0.6615359783172607,
+    "min_response_time": 0.6343567371368408,
+    "max_response_time": 0.7078762054443359,
+    "most_common_count": 194632,
+    "most_common_error": null,
+    "all_repetitions": [
+      {
+        "success": true,
+        "count": 194632,
+        "status_code": 200,
+        "response_time": 0.6423749923706055,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 1,
+        "timestamp": "2025-11-10T12:57:03.530534"
+      },
+      {
+        "success": true,
+        "count": 194632,
+        "status_code": 200,
+        "response_time": 0.6343567371368408,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 2,
+        "timestamp": "2025-11-10T12:57:04.665217"
+      },
+      {
+        "success": true,
+        "count": 194632,
+        "status_code": 200,
+        "response_time": 0.7078762054443359,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 3,
+        "timestamp": "2025-11-10T12:57:05.873499"
+      }
+    ]
+  },
+  {
+    "id": "L2_pop_tiab",
+    "query": "physician*[tiab]",
+    "complexity": "Level 2: Population only",
+    "description": "Physicians text word with wildcard",
+    "query_length": 16,
+    "num_repetitions": 3,
+    "num_successful": 3,
+    "num_failed": 0,
+    "success_rate": 1.0,
+    "avg_response_time": 0.8890881538391113,
+    "min_response_time": 0.719200611114502,
+    "max_response_time": 1.1092026233673096,
+    "most_common_count": 510319,
+    "most_common_error": null,
+    "all_repetitions": [
+      {
+        "success": true,
+        "count": 510319,
+        "status_code": 200,
+        "response_time": 1.1092026233673096,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 1,
+        "timestamp": "2025-11-10T12:57:07.483348"
+      },
+      {
+        "success": true,
+        "count": 510319,
+        "status_code": 200,
+        "response_time": 0.8388612270355225,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 2,
+        "timestamp": "2025-11-10T12:57:08.822861"
+      },
+      {
+        "success": true,
+        "count": 510319,
+        "status_code": 200,
+        "response_time": 0.719200611114502,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 3,
+        "timestamp": "2025-11-10T12:57:10.042818"
+      }
+    ]
+  },
+  {
+    "id": "L2_pop_combined",
+    "query": "(\"Physicians\"[Mesh] OR physician*[tiab])",
+    "complexity": "Level 2: Population only",
+    "description": "Combined population filter",
+    "query_length": 40,
+    "num_repetitions": 3,
+    "num_successful": 3,
+    "num_failed": 0,
+    "success_rate": 1.0,
+    "avg_response_time": 1.2004270553588867,
+    "min_response_time": 0.9519999027252197,
+    "max_response_time": 1.3518753051757812,
+    "most_common_count": 625538,
+    "most_common_error": null,
+    "all_repetitions": [
+      {
+        "success": true,
+        "count": 625538,
+        "status_code": 200,
+        "response_time": 0.9519999027252197,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 1,
+        "timestamp": "2025-11-10T12:57:11.495557"
+      },
+      {
+        "success": true,
+        "count": 625538,
+        "status_code": 200,
+        "response_time": 1.3518753051757812,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 2,
+        "timestamp": "2025-11-10T12:57:13.348067"
+      },
+      {
+        "success": true,
+        "count": 625538,
+        "status_code": 200,
+        "response_time": 1.2974059581756592,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 3,
+        "timestamp": "2025-11-10T12:57:15.145981"
+      }
+    ]
+  },
+  {
+    "id": "L3_pop_and_phrase",
+    "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"meaningful work\"[tiab])",
+    "complexity": "Level 3: Pop AND concept",
+    "description": "Population AND phrase",
+    "query_length": 70,
+    "num_repetitions": 3,
+    "num_successful": 3,
+    "num_failed": 0,
+    "success_rate": 1.0,
+    "avg_response_time": 0.9024020036061605,
+    "min_response_time": 0.6969778537750244,
+    "max_response_time": 1.2810370922088623,
+    "most_common_count": 50,
+    "most_common_error": null,
+    "all_repetitions": [
+      {
+        "success": true,
+        "count": 50,
+        "status_code": 200,
+        "response_time": 1.2810370922088623,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 1,
+        "timestamp": "2025-11-10T12:57:16.927887"
+      },
+      {
+        "success": true,
+        "count": 50,
+        "status_code": 200,
+        "response_time": 0.7291910648345947,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 2,
+        "timestamp": "2025-11-10T12:57:18.158151"
+      },
+      {
+        "success": true,
+        "count": 50,
+        "status_code": 200,
+        "response_time": 0.6969778537750244,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 3,
+        "timestamp": "2025-11-10T12:57:19.355783"
+      }
+    ]
+  },
+  {
+    "id": "L3_pop_and_word",
+    "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND calling[tiab])",
+    "complexity": "Level 3: Pop AND concept",
+    "description": "Population AND single word",
+    "query_length": 60,
+    "num_repetitions": 3,
+    "num_successful": 3,
+    "num_failed": 0,
+    "success_rate": 1.0,
+    "avg_response_time": 1.2797927061716716,
+    "min_response_time": 0.6754837036132812,
+    "max_response_time": 2.4138331413269043,
+    "most_common_count": 948,
+    "most_common_error": null,
+    "all_repetitions": [
+      {
+        "success": true,
+        "count": 948,
+        "status_code": 200,
+        "response_time": 0.7500612735748291,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 1,
+        "timestamp": "2025-11-10T12:57:20.606981"
+      },
+      {
+        "success": true,
+        "count": 948,
+        "status_code": 200,
+        "response_time": 2.4138331413269043,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 2,
+        "timestamp": "2025-11-10T12:57:23.521570"
+      },
+      {
+        "success": true,
+        "count": 948,
+        "status_code": 200,
+        "response_time": 0.6754837036132812,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 3,
+        "timestamp": "2025-11-10T12:57:24.697576"
+      }
+    ]
+  },
+  {
+    "id": "L3_pop_and_mesh",
+    "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND \"Job Satisfaction\"[Mesh])",
+    "complexity": "Level 3: Pop AND concept",
+    "description": "Population AND MeSH",
+    "query_length": 71,
+    "num_repetitions": 3,
+    "num_successful": 3,
+    "num_failed": 0,
+    "success_rate": 1.0,
+    "avg_response_time": 0.8402464389801025,
+    "min_response_time": 0.7068662643432617,
+    "max_response_time": 1.0929882526397705,
+    "most_common_count": 4968,
+    "most_common_error": null,
+    "all_repetitions": [
+      {
+        "success": true,
+        "count": 4968,
+        "status_code": 200,
+        "response_time": 1.0929882526397705,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 1,
+        "timestamp": "2025-11-10T12:57:26.291111"
+      },
+      {
+        "success": true,
+        "count": 4968,
+        "status_code": 200,
+        "response_time": 0.7068662643432617,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 2,
+        "timestamp": "2025-11-10T12:57:27.498290"
+      },
+      {
+        "success": true,
+        "count": 4968,
+        "status_code": 200,
+        "response_time": 0.7208847999572754,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 3,
+        "timestamp": "2025-11-10T12:57:28.719657"
+      }
+    ]
+  },
+  {
+    "id": "L4_pop_and_3terms",
+    "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND (calling[tiab] OR vocation[tiab] OR \"career calling\"[tiab]))",
+    "complexity": "Level 4: Pop AND multi-OR",
+    "description": "Population AND 3 OR terms",
+    "query_length": 106,
+    "num_repetitions": 3,
+    "num_successful": 3,
+    "num_failed": 0,
+    "success_rate": 1.0,
+    "avg_response_time": 0.7265360355377197,
+    "min_response_time": 0.66658616065979,
+    "max_response_time": 0.7811007499694824,
+    "most_common_count": 1091,
+    "most_common_error": null,
+    "all_repetitions": [
+      {
+        "success": true,
+        "count": 1091,
+        "status_code": 200,
+        "response_time": 0.7319211959838867,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 1,
+        "timestamp": "2025-11-10T12:57:29.952711"
+      },
+      {
+        "success": true,
+        "count": 1091,
+        "status_code": 200,
+        "response_time": 0.66658616065979,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 2,
+        "timestamp": "2025-11-10T12:57:31.120138"
+      },
+      {
+        "success": true,
+        "count": 1091,
+        "status_code": 200,
+        "response_time": 0.7811007499694824,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 3,
+        "timestamp": "2025-11-10T12:57:32.401795"
+      }
+    ]
+  },
+  {
+    "id": "L4_pop_and_5terms",
+    "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND (autonomy[tiab] OR competence[tiab] OR relatedness[tiab] OR \"self determination\"[tiab] OR \"psychological needs\"[tiab]))",
+    "complexity": "Level 4: Pop AND multi-OR",
+    "description": "Population AND 5 OR terms",
+    "query_length": 165,
+    "num_repetitions": 3,
+    "num_successful": 3,
+    "num_failed": 0,
+    "success_rate": 1.0,
+    "avg_response_time": 0.745006799697876,
+    "min_response_time": 0.6472010612487793,
+    "max_response_time": 0.9111311435699463,
+    "most_common_count": 11864,
+    "most_common_error": null,
+    "all_repetitions": [
+      {
+        "success": true,
+        "count": 11864,
+        "status_code": 200,
+        "response_time": 0.9111311435699463,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 1,
+        "timestamp": "2025-11-10T12:57:33.813629"
+      },
+      {
+        "success": true,
+        "count": 11864,
+        "status_code": 200,
+        "response_time": 0.6472010612487793,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 2,
+        "timestamp": "2025-11-10T12:57:34.961208"
+      },
+      {
+        "success": true,
+        "count": 11864,
+        "status_code": 200,
+        "response_time": 0.6766881942749023,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 3,
+        "timestamp": "2025-11-10T12:57:36.138728"
+      }
+    ]
+  },
+  {
+    "id": "L5_nested_moderate",
+    "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND (motivat*[tiab] AND (work*[tiab] OR job*[tiab])))",
+    "complexity": "Level 5: Nested AND/OR",
+    "description": "Population AND (term AND 2-OR)",
+    "query_length": 95,
+    "num_repetitions": 3,
+    "num_successful": 3,
+    "num_failed": 0,
+    "success_rate": 1.0,
+    "avg_response_time": 0.8165602684020996,
+    "min_response_time": 0.8018038272857666,
+    "max_response_time": 0.8323440551757812,
+    "most_common_count": 2788,
+    "most_common_error": null,
+    "all_repetitions": [
+      {
+        "success": true,
+        "count": 2788,
+        "status_code": 200,
+        "response_time": 0.8323440551757812,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 1,
+        "timestamp": "2025-11-10T12:57:37.471941"
+      },
+      {
+        "success": true,
+        "count": 2788,
+        "status_code": 200,
+        "response_time": 0.8018038272857666,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 2,
+        "timestamp": "2025-11-10T12:57:38.774270"
+      },
+      {
+        "success": true,
+        "count": 2788,
+        "status_code": 200,
+        "response_time": 0.815532922744751,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 3,
+        "timestamp": "2025-11-10T12:57:40.090633"
+      }
+    ]
+  },
+  {
+    "id": "L5_nested_complex",
+    "query": "((\"Physicians\"[Mesh] OR physician*[tiab]) AND ((autonomy[tiab] OR competence[tiab] OR relatedness[tiab]) AND (work*[tiab] OR job*[tiab] OR professional*[tiab] OR workplace[tiab])))",
+    "complexity": "Level 5: Nested AND/OR",
+    "description": "Population AND (3-OR AND 4-OR)",
+    "query_length": 180,
+    "num_repetitions": 3,
+    "num_successful": 3,
+    "num_failed": 0,
+    "success_rate": 1.0,
+    "avg_response_time": 0.7561445236206055,
+    "min_response_time": 0.7192752361297607,
+    "max_response_time": 0.7809774875640869,
+    "most_common_count": 5642,
+    "most_common_error": null,
+    "all_repetitions": [
+      {
+        "success": true,
+        "count": 5642,
+        "status_code": 200,
+        "response_time": 0.7809774875640869,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 1,
+        "timestamp": "2025-11-10T12:57:41.372410"
+      },
+      {
+        "success": true,
+        "count": 5642,
+        "status_code": 200,
+        "response_time": 0.7192752361297607,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 2,
+        "timestamp": "2025-11-10T12:57:42.592535"
+      },
+      {
+        "success": true,
+        "count": 5642,
+        "status_code": 200,
+        "response_time": 0.7681808471679688,
+        "error_type": null,
+        "error_message": null,
+        "repetition": 3,
+        "timestamp": "2025-11-10T12:57:43.861275"
+      }
+    ]
+  }
+]
