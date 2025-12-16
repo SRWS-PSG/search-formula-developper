@@ -1,0 +1,5 @@
+Nair BR, Gilligan C, Jolly B. Measuring the Impact of a Faculty Development Program on Clinical Educators. Adv Med Educ Pract. 2022 Feb 9;13:129-136. PMID: 35173512
+Johansson J, Skeff K, Stratos G. Clinical teaching improvement: The transportability of the Stanford Faculty Development Program. Med Teach. 2009 Aug;31(8):e377-82. PMID: 19811202
+Peyre SE, Frankl SE, Thorndike M, Breen EM. Observation of clinical teaching: interest in a faculty development program for surgeons. J Surg Educ. 2011 Sep-Oct;68(5):372-6. PMID: 21821215.
+Mahan JD, Kaczmarczyk JM, Miller Juve AK, Cymet T, Shah BJ, Daniel R, Edgar L. Clinician Educator Milestones: Assessing and Improving Educators' Skills. Acad Med. 2024 Jun 1;99(6):592-598. PMID: 38442199
+Srinivasan M, Li ST, Meyers FJ, Pratt DD, Collins JB, Braddock C, Skeff KM, West DC, Henderson M, Hales RE, Hilty DM. "Teaching as a Competency": competencies for medical educators. Acad Med. 2011 Oct;86(10):1211-20. PMID: 21869655
