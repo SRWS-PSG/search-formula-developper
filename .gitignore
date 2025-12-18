@@ -28,6 +28,8 @@ var/
 logs/
 *.log
 *.txt
+*.zip
+
 
 # IDE files
 .vscode/
@@ -44,6 +46,10 @@ search_formula/*/
 
 # サンプルフォルダだけは除外しない（追跡する）
 !search_formula/sample/
+
+# projectsフォルダ配下はReadme.mdのみ追跡
+projects/*
+!projects/Readme.md
 
 # Block overlap analysis input files
 tests/block_overlap_*/*.txt
