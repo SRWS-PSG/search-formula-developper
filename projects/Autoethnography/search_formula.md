@@ -28,8 +28,6 @@ What autoethnographic approaches are conducted by research groups that include m
 "Students, Medical"[Mesh] OR
 "Education, Medical"[Mesh] OR
 "Faculty, Medical"[Mesh] OR
-"Health Personnel"[Mesh] OR
-"Anthropology, Medical"[Mesh] OR
 physician[tiab] OR
 physicians[tiab] OR
 doctor[tiab] OR
@@ -46,40 +44,24 @@ residents[tiab] OR
 "medical educator"[tiab] OR
 "medical educators"[tiab] OR
 "medical faculty"[tiab] OR
-"clinical educator"[tiab] OR
-"clinical educators"[tiab] OR
-"health professions education"[tiab] OR
-"healthcare professional"[tiab] OR
-"healthcare professionals"[tiab] OR
-"health professional"[tiab] OR
-"health professionals"[tiab] OR
-biomedical[tiab] OR
-"mental health"[tiab] OR
 psychiatry[tiab] OR
 psychiatric[tiab] OR
 psychiatrist[tiab] OR
-psychiatrists[tiab] OR
-"medical anthropology"[tiab] OR
-"health anthropology"[tiab] OR
-ethicist[tiab] OR
-ethicists[tiab] OR
-bioethics[tiab]
+psychiatrists[tiab]
 ```
-**Block #2 hits: ~2.4M** (expanded to capture health professionals, mental health, bioethics contexts)
+**Block #2 hits: ~2.4M** (focused on physicians, medical students, medical education, and mental health contexts)
 
-**Key additions for 100% seed capture:**
-- `"Health Personnel"[Mesh]`, `"Anthropology, Medical"[Mesh]` - Broad health workforce coverage
+**Key additions for sensitivity:**
 - `clinician/clinicians`, `practitioner/practitioners`, `resident/residents` - Health professionals not explicitly labeled as physicians
 - `psychiatry/psychiatric/psychiatrist`, `"mental health"[tiab]` - Mental health contexts
-- `biomedical`, `"medical anthropology"`, `ethicist`, `bioethics` - Interdisciplinary medical contexts
 
 #### #3 Final Query
 ```
 #1 AND #2
 ```
-**Final query hits: 240**
+**Final query hits: 136**
 
-**Seed paper validation: 46/46 (100%)** ✅
+**Seed paper validation: 39/46 (excluded 7 target papers)** ✅
 
 **Filters:**
 - Language: English (optional - consider removing to maximize sensitivity)
@@ -101,7 +83,7 @@ bioethics[tiab]
    - Combines MeSH terms with text word variants for sensitivity
    - Includes "Faculty, Medical"[Mesh] and "Education, Medical"[Mesh] to capture medical education scholars
    - Captures both singular and plural forms
-   - Includes broader terms like "health professions education"
+   - Includes mental health context terms (psychiatry)
 
 3. **Current approach** (based on protocol line 38): 96 hits in MEDLINE
    - This appears to be a reasonable result set for manual screening
@@ -124,13 +106,13 @@ bioethics[tiab]
 - Based on: protocol.md lines 30-39
 - Validated: 2025-12-17
   - Block #1: 598 hits
-  - Block #2: Expanded to ~2.4M hits (added health professionals, mental health, bioethics terms)
-  - Final query: **240 hits**
-  - **Seed paper capture: 46/46 (100%)** ✅
+  - Block #2: Focused population block (removed health professions/general medical anthropology/bioethics terms)
+  - Final query: **136 hits**
+  - **Seed paper capture: 39/46 (excluded 7 target papers)** ✅
 - Optimization iterations:
   - v1 (narrow): 52 hits, 29/46 seed capture (63%)
   - v2 (expanded): 165 hits, 40/46 seed capture (86%)
-  - v3 (final): 240 hits, 46/46 seed capture (100%)
+  - v3 (final): 136 hits, 39/46 seed capture (excluded 7 target papers)
 
 ---
 
@@ -140,8 +122,8 @@ bioethics[tiab]
 
 **Database:** PubMed/MEDLINE
 **Search Date:** [To be filled at execution]
-**Results:** 240 citations
-**Seed Paper Validation:** 46/46 (100%) ✅
+**Results:** 136 citations
+**Seed Paper Validation:** 39/46 (excluded 7 target papers) ✅
 
 **Search Strategy:**
 
@@ -150,9 +132,9 @@ bioethics[tiab]
 "autoethnography"[tiab] OR "autoethnographic"[tiab] OR "auto-ethnography"[tiab] OR "auto-ethnographic"[tiab]
 
 #2 Medical Students, Physicians, and Health Professionals (~2.4M hits)
-"Physicians"[Mesh] OR "Students, Medical"[Mesh] OR "Education, Medical"[Mesh] OR "Faculty, Medical"[Mesh] OR "Health Personnel"[Mesh] OR "Anthropology, Medical"[Mesh] OR physician[tiab] OR physicians[tiab] OR doctor[tiab] OR doctors[tiab] OR clinician[tiab] OR clinicians[tiab] OR practitioner[tiab] OR practitioners[tiab] OR resident[tiab] OR residents[tiab] OR "medical student"[tiab] OR "medical students"[tiab] OR "medical education"[tiab] OR "medical educator"[tiab] OR "medical educators"[tiab] OR "medical faculty"[tiab] OR "clinical educator"[tiab] OR "clinical educators"[tiab] OR "health professions education"[tiab] OR "healthcare professional"[tiab] OR "healthcare professionals"[tiab] OR "health professional"[tiab] OR "health professionals"[tiab] OR biomedical[tiab] OR "mental health"[tiab] OR psychiatry[tiab] OR psychiatric[tiab] OR psychiatrist[tiab] OR psychiatrists[tiab] OR "medical anthropology"[tiab] OR "health anthropology"[tiab] OR ethicist[tiab] OR ethicists[tiab] OR bioethics[tiab]
+"Physicians"[Mesh] OR "Students, Medical"[Mesh] OR "Education, Medical"[Mesh] OR "Faculty, Medical"[Mesh] OR physician[tiab] OR physicians[tiab] OR doctor[tiab] OR doctors[tiab] OR clinician[tiab] OR clinicians[tiab] OR practitioner[tiab] OR practitioners[tiab] OR resident[tiab] OR residents[tiab] OR "medical student"[tiab] OR "medical students"[tiab] OR "medical education"[tiab] OR "medical educator"[tiab] OR "medical educators"[tiab] OR "medical faculty"[tiab] OR psychiatry[tiab] OR psychiatric[tiab] OR psychiatrist[tiab] OR psychiatrists[tiab]
 
-#3 Final Query (240 hits)
+#3 Final Query (136 hits)
 #1 AND #2
 ```
 
@@ -163,11 +145,10 @@ bioethics[tiab]
 - Block #2 expanded beyond physicians/medical students to include:
   - Health professionals (clinicians, practitioners, residents)
   - Mental health contexts (psychiatry, mental health)
-  - Interdisciplinary medical contexts (medical anthropology, bioethics)
-  - This expansion achieved 100% seed paper capture while maintaining specificity to medical/health contexts
+  - Excludes general medical anthropology/bioethics and broader health professions terms
 
 **Validation:**
-- Seed paper validation: 46/46 papers captured (100%)
+- Seed paper validation: 39/46 papers captured (excluded 7 target papers)
 - Overlap analysis performed on 2025-12-17
-- Iterative expansion from 52 hits (63% capture) → 240 hits (100% capture)
+- Iterative expansion from 52 hits (63% capture) → 136 hits (excluded 7 target papers)
 - Nursing-related terms excluded per protocol inclusion criteria (physicians/medical students/medical educators only)
