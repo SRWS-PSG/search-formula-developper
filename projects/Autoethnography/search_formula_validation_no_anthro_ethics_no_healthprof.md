@@ -1,3 +1,0 @@
-#1 "autoethnography"[tiab] OR "autoethnographic"[tiab] OR "auto-ethnography"[tiab] OR "auto-ethnographic"[tiab]
-#2 "Physicians"[Mesh] OR "Students, Medical"[Mesh] OR "Education, Medical"[Mesh] OR "Faculty, Medical"[Mesh] OR physician[tiab] OR physicians[tiab] OR doctor[tiab] OR doctors[tiab] OR clinician[tiab] OR clinicians[tiab] OR practitioner[tiab] OR practitioners[tiab] OR resident[tiab] OR residents[tiab] OR "medical student"[tiab] OR "medical students"[tiab] OR "medical education"[tiab] OR "medical educator"[tiab] OR "medical educators"[tiab] OR "medical faculty"[tiab] OR psychiatrist[tiab] OR psychiatrists[tiab] OR "mental health"[tiab] OR psychiatry[tiab] OR psychiatric[tiab]
-#3 #1 AND #2
