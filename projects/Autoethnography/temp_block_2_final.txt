@@ -1,0 +1,50 @@
+#### #2 Medical and Health Professionals (FINAL - 100% Target)
+```
+"Physicians"[Mesh] OR
+"Students, Medical"[Mesh] OR
+"Education, Medical"[Mesh] OR
+"Faculty, Medical"[Mesh] OR
+"Health Personnel"[Mesh] OR
+"Nurses"[Mesh] OR
+"Students, Nursing"[Mesh] OR
+"Anthropology, Medical"[Mesh] OR
+physician[tiab] OR
+physicians[tiab] OR
+doctor[tiab] OR
+doctors[tiab] OR
+clinician[tiab] OR
+clinicians[tiab] OR
+practitioner[tiab] OR
+practitioners[tiab] OR
+resident[tiab] OR
+residents[tiab] OR
+"medical student"[tiab] OR
+"medical students"[tiab] OR
+"medical education"[tiab] OR
+"medical educator"[tiab] OR
+"medical educators"[tiab] OR
+"medical faculty"[tiab] OR
+"clinical educator"[tiab] OR
+"clinical educators"[tiab] OR
+"health professions education"[tiab] OR
+"healthcare professional"[tiab] OR
+"healthcare professionals"[tiab] OR
+"health professional"[tiab] OR
+"health professionals"[tiab] OR
+nurse[tiab] OR
+nurses[tiab] OR
+nursing[tiab] OR
+"nursing student"[tiab] OR
+"nursing students"[tiab] OR
+biomedical[tiab] OR
+"mental health"[tiab] OR
+psychiatry[tiab] OR
+psychiatric[tiab] OR
+psychiatrist[tiab] OR
+psychiatrists[tiab] OR
+"medical anthropology"[tiab] OR
+"health anthropology"[tiab] OR
+ethicist[tiab] OR
+ethicists[tiab] OR
+bioethics[tiab]
+```
