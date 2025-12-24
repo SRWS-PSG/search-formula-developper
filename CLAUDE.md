@@ -22,6 +22,11 @@ scripts/
 │   ├── term_validator/  # Individual term and line validation
 │   ├── mesh_analyzer/   # MeSH term analysis and hierarchy
 │   ├── query_executor/  # Final query execution and RIS export
+│   ├── eric/           # ERIC database integration
+│   │   ├── eric_api.py         # ERIC API client
+│   │   ├── search_eric.py      # ERIC search CLI
+│   │   ├── eric_thesaurus.py   # Thesaurus scraper
+│   │   └── check_eric_thesaurus.py  # Thesaurus CLI
 │   └── extract_mesh.py  # MeSH extraction from seed PMIDs
 ├── conversion/          # Database format converters
 │   ├── ovid/           # Ovid → PubMed conversion
@@ -182,6 +187,35 @@ python scripts/search/mesh_analyzer/check_mesh.py --terms "Term1,Term2,Term3"
 Analyze MeSH overlap between terms:
 ```bash
 python scripts/search/mesh_analyzer/check_mesh_overlap.py --terms "Term1,Term2,Term3"
+```
+
+### ERIC Search (Education Database)
+
+Search ERIC database for education research:
+```bash
+# Basic search
+python scripts/search/eric/search_eric.py -q "medical education" -r 20
+
+# Thesaurus (descriptor) + free word search
+python scripts/search/eric/search_eric.py -q "subject:Medical School Faculty AND burnout"
+
+# Peer-reviewed only
+python scripts/search/eric/search_eric.py -q "faculty development AND peerreviewed:T"
+
+# Export to RIS
+python scripts/search/eric/search_eric.py -q "medical education" -o results.ris
+```
+
+Lookup ERIC Thesaurus terms:
+```bash
+# Get term info (category, related terms)
+python scripts/search/eric/check_eric_thesaurus.py -t "Medical School Faculty"
+
+# Generate search query with related terms
+python scripts/search/eric/check_eric_thesaurus.py -t "Faculty Development" --build-query
+
+# Check if term exists
+python scripts/search/eric/check_eric_thesaurus.py -t "Some Term" --check-only
 ```
 
 ### Database Conversion

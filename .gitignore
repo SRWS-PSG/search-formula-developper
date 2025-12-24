@@ -27,7 +27,6 @@ var/
 # Logs
 logs/
 *.log
-*.txt
 *.zip
 
 
