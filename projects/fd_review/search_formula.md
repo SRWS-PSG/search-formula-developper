@@ -35,7 +35,7 @@
 ```
 #1 "Faculty, Medical"[Mesh] OR medical faculty[tiab] OR clinical educator*[tiab] OR clinician educator*[tiab] OR medical educator*[tiab] OR clinical teacher*[tiab] OR clinical teaching[tiab]
 
-#2 "Staff Development"[Mesh] OR "Program Development"[Mesh] OR teaching[MeSH] OR faculty development*[tiab] OR academic development*[tiab] OR faculty training*[tiab] OR teacher training*[tiab] OR professional development*[tiab] OR teaching program*[tiab] OR educational program*[tiab] OR educator training[tiab] OR educator development[tiab] OR teacher development[tiab] OR teaching workshop*[tiab] OR educational workshop*[tiab] OR teaching seminar*[tiab] OR longitudinal program*[tiab] OR peer learning[tiab] OR educator competenc*[tiab] OR teaching competenc*[tiab] OR educational competenc*[tiab] OR teaching skill*[tiab] OR assessment strateg*[tiab] OR "program design"[tiab] OR "program evaluation"[tiab] OR "program goal*"[tiab] OR "program content"[tiab] OR "delivery method*"[tiab] OR "evaluation approach*"[tiab]
+#2 "Staff Development"[Mesh] OR "Program Development"[Mesh] OR faculty development*[tiab] OR professional development*[tiab] OR teaching skill*[tiab] OR "program design"[tiab]
 
 #3 #1 AND #2
 ```
