@@ -165,6 +165,35 @@
 
 ---
 
+## CENTRAL (Cochrane Library)
+
+### 検索式
+
+```
+#1 MeSH descriptor: [Faculty, Medical] explode all trees
+#2 ("medical faculty" OR "clinical educator*" OR "clinician educator*" OR "medical educator*" OR "clinical teacher*" OR "clinical teaching"):ti,ab
+
+#3 MeSH descriptor: [Staff Development] explode all trees
+#4 MeSH descriptor: [Program Development] explode all trees
+#5 ("faculty development*" OR "professional development*" OR "staff development" OR "program development" OR "teaching skill*" OR "program design"):ti,ab
+
+#6 #1 OR #2
+#7 #3 OR #4 OR #5
+#8 #6 AND #7
+```
+
+### CENTRAL構文メモ
+
+| 要素 | 構文 | 例 |
+|------|------|-----|
+| MeSH（展開） | `MeSH descriptor: [Term] explode all trees` | `MeSH descriptor: [Faculty, Medical] explode all trees` |
+| タイトル・抄録 | `(term):ti,ab` | `("faculty development"):ti,ab` |
+| ワイルドカード | `*` | `educator*` |
+| フレーズ | `"phrase"` | `"faculty development"` |
+| 年代 | Publication Year filter | 検索画面で設定 |
+
+---
+
 ## データベース別サマリー
 
 | Database | 検索式 | 予想件数 |
@@ -172,3 +201,4 @@
 | **PubMed/MEDLINE** | v2 (Majr) | 2,832 |
 | **ERIC** | v2 | 225 |
 | **Dialog** | v2 | TBD |
+| **CENTRAL** | v2 | TBD |
