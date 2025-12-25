@@ -95,8 +95,80 @@
 
 ## 調整予定事項
 
-- [ ] MeSH用語の階層確認と最適化
+- [x] MeSH用語の階層確認と最適化
+- [x] シード論文100%捕捉の確認
 - [ ] テキストワードのバリエーション追加
-- [ ] 各ブロックのヒット件数確認
-- [ ] シード論文100%捕捉の確認
 - [ ] 必要に応じてブロック構造の再編成
+
+---
+
+# 他データベース向け検索式
+
+## ERIC (Education Resources Information Center)
+
+### 検索式 (v2 - 2025-12-25)
+
+```
+#1 (subject:"Medical School Faculty" OR title:"medical faculty" OR title:"clinical educator" OR title:"clinician educator" OR title:"medical educator" OR title:"clinical teacher" OR title:"clinical teaching")
+
+#2 (subject:"Faculty Development" OR subject:"Professional Development" OR subject:"Staff Development" OR subject:"Program Development" OR subject:"Program Design" OR title:"faculty development" OR title:"professional development" OR title:"teaching skill" OR title:"program design")
+
+#3 #1 AND #2
+```
+
+### 件数
+
+| Block | Hits |
+|-------|------|
+| #3 (Combined) | 225 |
+| #4 (+ 10年フィルター) | 47 |
+
+> **注**: `College Faculty` は除外（医学部focus維持のため）
+
+### 年代フィルター構文
+
+```
+#4 #3 AND publicationdateyear:[2015 TO 2025]
+```
+
+---
+
+## Dialog (ProQuest)
+
+### 検索式
+
+```
+#1 MESH.EXACT("Faculty, Medical") OR TI("medical faculty" OR "clinical educator*" OR "clinician educator*" OR "medical educator*" OR "clinical teacher*" OR "clinical teaching") OR AB("medical faculty" OR "clinical educator*" OR "clinician educator*" OR "medical educator*" OR "clinical teacher*" OR "clinical teaching")
+
+#2 MESH.EXACT("Staff Development") OR MESH.EXACT("Program Development") OR TI("faculty development*" OR "professional development*" OR "staff development" OR "program development" OR "teaching skill*" OR "program design") OR AB("faculty development*" OR "professional development*" OR "staff development" OR "program development" OR "teaching skill*" OR "program design")
+
+#3 #1 AND #2
+```
+
+### Dialog構文メモ
+
+| 要素 | 構文 | 例 |
+|------|------|-----|
+| MeSH（完全一致） | `MESH.EXACT("term")` | `MESH.EXACT("Faculty, Medical")` |
+| 件名（Subject） | `SU("term")` | `SU("faculty development")` |
+| タイトル | `TI(term)` | `TI("medical faculty")` |
+| 抄録 | `AB(term)` | `AB("clinical educator")` |
+| ワイルドカード | `*` | `educator*` |
+| フレーズ | `"phrase"` | `"faculty development"` |
+| 年代 | `yr(YYYY-YYYY)` | `yr(2015-2025)` |
+
+### 年代フィルター付き
+
+```
+#4 #3 AND yr(2015-2025)
+```
+
+---
+
+## データベース別サマリー
+
+| Database | 検索式 | 予想件数 |
+|----------|--------|----------|
+| **PubMed/MEDLINE** | v2 (Majr) | 2,832 |
+| **ERIC** | v2 | 225 |
+| **Dialog** | v2 | TBD |
