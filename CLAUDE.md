@@ -197,13 +197,83 @@ Search ERIC database for education research:
 python scripts/search/eric/search_eric.py -q "medical education" -r 20
 
 # Thesaurus (descriptor) + free word search
-python scripts/search/eric/search_eric.py -q "subject:Medical School Faculty AND burnout"
+python scripts/search/eric/search_eric.py -q "subject:\"Medical School Faculty\" AND burnout"
 
-# Peer-reviewed only
-python scripts/search/eric/search_eric.py -q "faculty development AND peerreviewed:T"
+# Peer-reviewed only (using --peer-reviewed flag)
+python scripts/search/eric/search_eric.py -q "faculty development" --peer-reviewed --count-only
+
+# Year range filter (2020 onwards)
+python scripts/search/eric/search_eric.py -q "faculty development" --year-min 2020 --count-only
+
+# Full filter combination
+python scripts/search/eric/search_eric.py -q "medical education" --peer-reviewed --year-min 2020 --year-max 2025 --count-only
+
+# IES Funded research only
+python scripts/search/eric/search_eric.py -q "reading" --ies-funded --count-only
+
+# WWC (What Works Clearinghouse) reviewed only
+python scripts/search/eric/search_eric.py -q "reading" --wwc-reviewed y --count-only
 
 # Export to RIS
 python scripts/search/eric/search_eric.py -q "medical education" -o results.ris
+```
+
+**CLI Filter Options:**
+| Option | Description |
+|--------|-------------|
+| `--peer-reviewed` | Peer-reviewed articles only |
+| `--year-min YYYY` | Minimum publication year |
+| `--year-max YYYY` | Maximum publication year |
+| `--fulltext` | Full text available only |
+| `--ies-funded` | IES funded research only |
+| `--wwc-reviewed [y/r/n]` | WWC reviewed (y=Meets Standards, r=With Reservations, n=Does Not Meet) |
+
+**Programmatic Query Building with ERICQueryBuilder:**
+```python
+from scripts.search.eric.eric_api import ERICQueryBuilder, search_eric
+
+builder = ERICQueryBuilder()
+query = (builder
+    .add_term("faculty development", field="title")
+    .add_descriptor("Medical School Faculty")
+    .peer_reviewed_only()
+    .set_date_range(min_year=2020)
+    .build())
+
+result = search_eric(query, rows=10)
+print(f"Total: {result.total_count}")
+```
+
+**Available QueryBuilder methods:**
+- `.add_term(term, field=None, required=False, excluded=False)` - Add search term
+- `.add_descriptor(descriptor, exact=False)` - Add thesaurus term
+- `.add_or_group(terms, field=None)` - Add OR-grouped terms
+- `.set_date_range(min_year=None, max_year=None)` - Set year range
+- `.peer_reviewed_only()` - Filter peer-reviewed
+- `.fulltext_only()` - Filter full text available
+- `.ies_funded_only()` - Filter IES funded
+- `.wwc_reviewed(level)` - Filter WWC reviewed (y/r/n)
+- `.build()` - Generate query string
+- `.reset()` - Reset builder
+
+**Convenience search functions:**
+```python
+from scripts.search.eric.eric_api import (
+    search_eric_peer_reviewed,
+    search_eric_with_date_range,
+    search_eric_fulltext,
+    search_eric_ies_funded,
+    search_eric_wwc_reviewed,
+)
+
+# Peer-reviewed only
+result = search_eric_peer_reviewed("faculty development", rows=10)
+
+# With date range
+result = search_eric_with_date_range("medical education", min_year=2020, max_year=2025)
+
+# IES funded
+result = search_eric_ies_funded("reading", rows=10)
 ```
 
 Lookup ERIC Thesaurus terms:

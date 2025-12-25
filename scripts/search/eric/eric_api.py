@@ -42,6 +42,244 @@ class ERICSearchResult:
     message: str = "Success"
 
 
+# ============================================================
+# ERIC Search Fields (from ERIC FAQ)
+# ============================================================
+ERIC_FIELDS = {
+    "abstract": "abstract",
+    "assessment": "assessment",
+    "audience": "audience",
+    "author": "author",
+    "descriptor": "descriptor",      # シソーラス (subject と同義)
+    "subject": "subject",            # シソーラス (descriptor と同義)
+    "educationlevel": "educationlevel",
+    "e_yearadded": "e_yearadded",
+    "iesgrantcontractnum": "iesgrantcontractnum",
+    "institution": "institution",
+    "language": "language",
+    "law": "law",
+    "location": "location",
+    "publicationtype": "publicationtype",
+    "pubyear": "pubyear",
+    "publicationdateyear": "publicationdateyear",
+    "source": "source",
+    "sponsor": "sponsor",
+    "title": "title",
+    "id": "id",                      # ERIC ID (EJ/ED番号)
+    "peerreviewed": "peerreviewed",  # T/F
+}
+
+# Exact match fields (case-sensitive)
+ERIC_EXACT_FIELDS = {
+    "descriptorx": "descriptorx",
+    "sourcex": "sourcex",
+    "locationx": "locationx",
+    "lawx": "lawx",
+    "assessmentx": "assessmentx",
+}
+
+# ERIC Filters (must be combined with other search terms)
+ERIC_FILTERS = {
+    "pubyearmin": "pubyearmin",
+    "pubyearmax": "pubyearmax",
+}
+
+# IES/WWC Options
+ERIC_IES_OPTIONS = {
+    "ies_funded": "funded:y",
+    "wwc_meets_standards": "wwcr:y",           # Meets Evidence Standards without Reservations
+    "wwc_meets_with_reservations": "wwcr:r",   # Meets Evidence Standards with Reservations
+    "wwc_does_not_meet": "wwcr:n",             # Does Not Meet Evidence Standards
+}
+
+
+class ERICQueryBuilder:
+    """
+    ERIC検索クエリを構築するビルダークラス
+    
+    Example:
+        >>> builder = ERICQueryBuilder()
+        >>> query = (builder
+        ...     .add_term("faculty development", field="title")
+        ...     .add_descriptor("Medical School Faculty")
+        ...     .peer_reviewed_only()
+        ...     .set_date_range(min_year=2020)
+        ...     .build())
+        >>> print(query)
+        'title:"faculty development" AND subject:"Medical School Faculty" AND peerreviewed:T pubyearmin:2020'
+    """
+    
+    def __init__(self):
+        self._terms: List[str] = []
+        self._filters: Dict[str, str] = {}
+        self._peer_reviewed: bool = False
+        self._fulltext_only: bool = False
+        self._ies_funded: bool = False
+        self._wwc_reviewed: Optional[str] = None
+    
+    def add_term(self, term: str, field: Optional[str] = None, 
+                 required: bool = False, excluded: bool = False) -> 'ERICQueryBuilder':
+        """
+        検索語を追加
+        
+        Args:
+            term: 検索語
+            field: フィールド名 (title, abstract, author等)
+            required: +演算子を使用するか
+            excluded: -演算子を使用するか
+        """
+        if field:
+            # フレーズ検索の場合はダブルクォートで囲む
+            if ' ' in term and not term.startswith('"'):
+                term_str = f'{field}:"{term}"'
+            else:
+                term_str = f'{field}:{term}'
+        else:
+            if ' ' in term and not term.startswith('"'):
+                term_str = f'"{term}"'
+            else:
+                term_str = term
+        
+        if required:
+            term_str = f'+{term_str}'
+        elif excluded:
+            term_str = f'-{term_str}'
+        
+        self._terms.append(term_str)
+        return self
+    
+    def add_descriptor(self, descriptor: str, exact: bool = False) -> 'ERICQueryBuilder':
+        """
+        シソーラス用語(Descriptor)を追加
+        
+        Args:
+            descriptor: シソーラス用語
+            exact: 大文字小文字を区別する場合True
+        """
+        field = "descriptorx" if exact else "subject"
+        self._terms.append(f'{field}:"{descriptor}"')
+        return self
+    
+    def add_or_group(self, terms: List[str], field: Optional[str] = None) -> 'ERICQueryBuilder':
+        """
+        OR条件でグループ化した検索語を追加
+        
+        Args:
+            terms: 検索語リスト
+            field: フィールド名
+        """
+        if field:
+            parts = [f'{field}:"{t}"' for t in terms]
+        else:
+            parts = [f'"{t}"' if ' ' in t else t for t in terms]
+        
+        group = f'({" OR ".join(parts)})'
+        self._terms.append(group)
+        return self
+    
+    def set_date_range(self, min_year: Optional[int] = None, 
+                       max_year: Optional[int] = None) -> 'ERICQueryBuilder':
+        """
+        年代範囲を設定
+        
+        Args:
+            min_year: 最小出版年
+            max_year: 最大出版年
+        
+        Note:
+            publicationdateyear:[min TO max] 構文を使用します。
+            pubyearmin/pubyearmax はAPI経由では動作しない場合があります。
+        """
+        if min_year or max_year:
+            min_val = str(min_year) if min_year else '*'
+            max_val = str(max_year) if max_year else '*'
+            self._filters['date_range'] = f'publicationdateyear:[{min_val} TO {max_val}]'
+        return self
+    
+    def peer_reviewed_only(self) -> 'ERICQueryBuilder':
+        """Peer-reviewedのみに制限"""
+        self._peer_reviewed = True
+        return self
+    
+    def fulltext_only(self) -> 'ERICQueryBuilder':
+        """フルテキスト利用可能のみに制限"""
+        self._fulltext_only = True
+        return self
+    
+    def ies_funded_only(self) -> 'ERICQueryBuilder':
+        """IES助成研究のみに制限"""
+        self._ies_funded = True
+        return self
+    
+    def wwc_reviewed(self, level: str = "y") -> 'ERICQueryBuilder':
+        """
+        WWCレビュー済みのみに制限
+        
+        Args:
+            level: "y" (Meets Standards), "r" (With Reservations), "n" (Does Not Meet)
+        """
+        if level in ["y", "r", "n"]:
+            self._wwc_reviewed = level
+        return self
+    
+    def build(self) -> str:
+        """クエリ文字列を構築"""
+        parts = []
+        
+        # メイン検索語をANDで結合
+        if self._terms:
+            if len(self._terms) == 1:
+                parts.append(self._terms[0])
+            else:
+                parts.append(' AND '.join(self._terms))
+        
+        # Peer-reviewed フィルター
+        if self._peer_reviewed:
+            parts.append('peerreviewed:T')
+        
+        # フルテキスト フィルター
+        if self._fulltext_only:
+            parts.append('e_fulltextauth:T')
+        
+        # IES Funded フィルター
+        if self._ies_funded:
+            parts.append('funded:y')
+        
+        # WWC Reviewed フィルター
+        if self._wwc_reviewed:
+            parts.append(f'wwcr:{self._wwc_reviewed}')
+        
+        # クエリ部分を結合
+        query = ' AND '.join(parts) if len(parts) > 1 else (parts[0] if parts else '')
+        
+        # フィルターを追加
+        filter_parts = []
+        for k, v in self._filters.items():
+            if k == 'date_range':
+                # date_range はそのまま追加
+                filter_parts.append(v)
+            else:
+                filter_parts.append(f'{k}:{v}')
+        
+        if filter_parts:
+            if query:
+                query = f'{query} AND {" AND ".join(filter_parts)}'
+            else:
+                query = ' AND '.join(filter_parts)
+        
+        return query
+    
+    def reset(self) -> 'ERICQueryBuilder':
+        """ビルダーをリセット"""
+        self._terms = []
+        self._filters = {}
+        self._peer_reviewed = False
+        self._fulltext_only = False
+        self._ies_funded = False
+        self._wwc_reviewed = None
+        return self
+
+
 def search_eric(
     query: str,
     format: str = DEFAULT_FORMAT,
@@ -291,6 +529,141 @@ def format_record_for_display(record: Dict[str, Any]) -> str:
             lines.append(f"  Descriptors: {subjects}")
     
     return '\n'.join(lines)
+
+
+# ============================================================
+# Convenience Search Functions
+# ============================================================
+
+def search_eric_peer_reviewed(
+    query: str,
+    rows: int = DEFAULT_ROWS,
+    start: int = 0,
+    **kwargs
+) -> ERICSearchResult:
+    """
+    Peer-reviewed論文のみを検索
+    
+    Args:
+        query: 検索クエリ
+        rows: 取得件数
+        start: 開始位置
+        **kwargs: search_ericに渡す追加引数
+    
+    Returns:
+        ERICSearchResult: 検索結果
+    """
+    full_query = f'({query}) AND peerreviewed:T'
+    return search_eric(full_query, rows=rows, start=start, **kwargs)
+
+
+def search_eric_with_date_range(
+    query: str,
+    min_year: Optional[int] = None,
+    max_year: Optional[int] = None,
+    rows: int = DEFAULT_ROWS,
+    start: int = 0,
+    **kwargs
+) -> ERICSearchResult:
+    """
+    年代範囲を指定して検索
+    
+    Args:
+        query: 検索クエリ
+        min_year: 最小出版年
+        max_year: 最大出版年
+        rows: 取得件数
+        start: 開始位置
+        **kwargs: search_ericに渡す追加引数
+    
+    Returns:
+        ERICSearchResult: 検索結果
+    
+    Note:
+        publicationdateyear:[min TO max] 構文を使用します。
+    """
+    if min_year or max_year:
+        min_val = str(min_year) if min_year else '*'
+        max_val = str(max_year) if max_year else '*'
+        date_filter = f'publicationdateyear:[{min_val} TO {max_val}]'
+        full_query = f'({query}) AND {date_filter}'
+    else:
+        full_query = query
+    
+    return search_eric(full_query, rows=rows, start=start, **kwargs)
+
+
+def search_eric_fulltext(
+    query: str,
+    rows: int = DEFAULT_ROWS,
+    start: int = 0,
+    **kwargs
+) -> ERICSearchResult:
+    """
+    フルテキスト利用可能な論文のみを検索
+    
+    Args:
+        query: 検索クエリ
+        rows: 取得件数
+        start: 開始位置
+        **kwargs: search_ericに渡す追加引数
+    
+    Returns:
+        ERICSearchResult: 検索結果
+    """
+    full_query = f'({query}) AND e_fulltextauth:T'
+    return search_eric(full_query, rows=rows, start=start, **kwargs)
+
+
+def search_eric_ies_funded(
+    query: str,
+    rows: int = DEFAULT_ROWS,
+    start: int = 0,
+    **kwargs
+) -> ERICSearchResult:
+    """
+    IES助成研究のみを検索
+    
+    Args:
+        query: 検索クエリ
+        rows: 取得件数
+        start: 開始位置
+        **kwargs: search_ericに渡す追加引数
+    
+    Returns:
+        ERICSearchResult: 検索結果
+    """
+    full_query = f'({query}) AND funded:y'
+    return search_eric(full_query, rows=rows, start=start, **kwargs)
+
+
+def search_eric_wwc_reviewed(
+    query: str,
+    level: str = "y",
+    rows: int = DEFAULT_ROWS,
+    start: int = 0,
+    **kwargs
+) -> ERICSearchResult:
+    """
+    WWC (What Works Clearinghouse) レビュー済み研究のみを検索
+    
+    Args:
+        query: 検索クエリ
+        level: レビューレベル
+            - "y": Meets Evidence Standards without Reservations
+            - "r": Meets Evidence Standards with Reservations
+            - "n": Does Not Meet Evidence Standards
+        rows: 取得件数
+        start: 開始位置
+        **kwargs: search_ericに渡す追加引数
+    
+    Returns:
+        ERICSearchResult: 検索結果
+    """
+    if level not in ["y", "r", "n"]:
+        level = "y"
+    full_query = f'({query}) AND wwcr:{level}'
+    return search_eric(full_query, rows=rows, start=start, **kwargs)
 
 
 if __name__ == "__main__":

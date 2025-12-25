@@ -9,8 +9,20 @@ Usage:
     # 基本検索
     python scripts/search/eric/search_eric.py --query "medical education"
     
-    # peer-reviewed のみ
-    python scripts/search/eric/search_eric.py --query "medical education AND peerreviewed:T"
+    # peer-reviewed のみ (フラグ使用)
+    python scripts/search/eric/search_eric.py --query "medical education" --peer-reviewed
+    
+    # 年代指定
+    python scripts/search/eric/search_eric.py --query "faculty development" --year-min 2020
+    
+    # フルテキスト利用可能のみ
+    python scripts/search/eric/search_eric.py --query "reading" --fulltext
+    
+    # IES助成研究のみ
+    python scripts/search/eric/search_eric.py --query "reading" --ies-funded
+    
+    # WWCレビュー済みのみ
+    python scripts/search/eric/search_eric.py --query "reading" --wwc-reviewed y
     
     # シソーラス + フリーワード複合検索
     python scripts/search/eric/search_eric.py --query 'subject:"Medical School Faculty" AND burnout'
@@ -108,6 +120,47 @@ def main():
         help="結果をJSON形式で出力"
     )
     
+    # New filter options
+    parser.add_argument(
+        "--peer-reviewed",
+        action="store_true",
+        help="Peer-reviewed論文のみを検索"
+    )
+    
+    parser.add_argument(
+        "--fulltext",
+        action="store_true",
+        help="フルテキスト利用可能な論文のみを検索"
+    )
+    
+    parser.add_argument(
+        "--ies-funded",
+        action="store_true",
+        help="IES助成研究のみを検索"
+    )
+    
+    parser.add_argument(
+        "--wwc-reviewed",
+        type=str,
+        choices=["y", "r", "n"],
+        default=None,
+        help="WWCレビュー済みを検索 (y=Meets Standards, r=With Reservations, n=Does Not Meet)"
+    )
+    
+    parser.add_argument(
+        "--year-min",
+        type=int,
+        default=None,
+        help="最小出版年 (例: 2020)"
+    )
+    
+    parser.add_argument(
+        "--year-max",
+        type=int,
+        default=None,
+        help="最大出版年 (例: 2025)"
+    )
+    
     args = parser.parse_args()
     
     # Parse fields if provided
@@ -115,22 +168,59 @@ def main():
     if args.fields:
         fields = [f.strip() for f in args.fields.split(',')]
     
+    # Build query with filters
+    query = args.query
+    filters_applied = []
+    
+    if args.peer_reviewed:
+        query = f'({query}) AND peerreviewed:T'
+        filters_applied.append('Peer-reviewed')
+    
+    if args.fulltext:
+        query = f'({query}) AND e_fulltextauth:T'
+        filters_applied.append('Fulltext')
+    
+    if args.ies_funded:
+        query = f'({query}) AND funded:y'
+        filters_applied.append('IES Funded')
+    
+    if args.wwc_reviewed:
+        query = f'({query}) AND wwcr:{args.wwc_reviewed}'
+        wwc_labels = {'y': 'Meets Standards', 'r': 'With Reservations', 'n': 'Does Not Meet'}
+        filters_applied.append(f'WWC: {wwc_labels[args.wwc_reviewed]}')
+    
+    # Year filters using publicationdateyear range syntax
+    if args.year_min or args.year_max:
+        min_val = str(args.year_min) if args.year_min else '*'
+        max_val = str(args.year_max) if args.year_max else '*'
+        date_filter = f'publicationdateyear:[{min_val} TO {max_val}]'
+        query = f'({query}) AND {date_filter}'
+        if args.year_min and args.year_max:
+            filters_applied.append(f'Year: {args.year_min}-{args.year_max}')
+        elif args.year_min:
+            filters_applied.append(f'Year >= {args.year_min}')
+        else:
+            filters_applied.append(f'Year <= {args.year_max}')
+    
     print(f"\n{'='*60}")
     print(f"ERIC Search")
     print(f"{'='*60}")
     print(f"Query: {args.query}")
+    if filters_applied:
+        print(f"Filters: {', '.join(filters_applied)}")
+    print(f"Final Query: {query}")
     print(f"Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"{'='*60}\n")
     
     # Count only mode
     if args.count_only:
-        count = get_eric_record_count(args.query)
+        count = get_eric_record_count(query)
         print(f"Total results: {count:,}")
         return 0
     
     # Execute search
     result = search_eric(
-        query=args.query,
+        query=query,
         format=args.format,
         start=args.start,
         rows=args.rows,
