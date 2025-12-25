@@ -30,15 +30,24 @@
 
 ## PubMed/MEDLINE
 
-### 検索式構造
+### 検索式構造（最適化版 v2 - 2025-12-25）
 
 ```
-#1 "Faculty, Medical"[Mesh] OR medical faculty[tiab] OR clinical educator*[tiab] OR clinician educator*[tiab] OR medical educator*[tiab] OR clinical teacher*[tiab] OR clinical teaching[tiab]
+#1 "Faculty, Medical"[Majr] OR medical faculty[tiab] OR clinical educator*[tiab] OR clinician educator*[tiab] OR medical educator*[tiab] OR clinical teacher*[tiab] OR clinical teaching[tiab]
 
 #2 "Staff Development"[Mesh] OR "Program Development"[Mesh] OR faculty development*[tiab] OR professional development*[tiab] OR teaching skill*[tiab] OR "program design"[tiab]
 
 #3 #1 AND #2
 ```
+
+### 最適化履歴
+
+| バージョン | 変更内容 | #3件数 | シード捕捉 |
+|------------|----------|--------|-----------|
+| v1 (original) | - | ~3,381 | 5/5 |
+| **v2 (current)** | `[Mesh]` → `[Majr]` 変更 | **2,832** | **5/5 ✓** |
+
+> **注**: `[Majr]`（Major Topic）は「Faculty, Medical」が論文の主題の場合のみマッチ。副次的にタグ付けされた論文を除外し、精度を向上。
 
 ### 診療科ブロック（参考・オプション）
 
