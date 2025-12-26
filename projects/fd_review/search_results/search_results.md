@@ -106,6 +106,25 @@
 
 ---
 
+## Deduplication Results
+
+重複削除処理（タイトルのExact Match）を実行し、以下の結果を得た。
+
+| 項目 | 件数 |
+|------|------|
+| 入力レコード総数 | 5,223 |
+| 重複タイトル | 184 |
+| **ユニークレコード数** | **5,039** |
+
+### 処理詳細
+
+- **実行日時**: 2025-12-26
+- **正規化処理**: 小文字化、空白正規化、角括弧`[]`削除
+- **戦略**: keep-first（最初に出現したレコードを保持）
+- **ログファイル**: `dedup_log.txt`
+
+---
+
 ## Source Files
 
 | Database | Export File |
@@ -114,3 +133,5 @@
 | ERIC | `20251226_225_eric.ris` |
 | ProQuest (Dialog) | `ProQuestDocuments-2025-12-25.ris` |
 | CENTRAL | `citation-export.ris` |
+| **Merged (deduplicated)** | **`merged_deduplicated.ris`** |
+

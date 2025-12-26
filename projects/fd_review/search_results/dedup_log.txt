@@ -1,0 +1,533 @@
+================================================================================
+RIS Deduplication Log
+Generated: 2025-12-26 10:31:35
+================================================================================
+
+INPUT FILES:
+  [1] 20251226_225_eric.ris: 225 records
+  [2] 20251226_2832_pubmed.ris: 2832 records
+  [3] ProQuestDocuments-2025-12-25.ris: 2144 records
+  [4] citation-export.ris: 22 records
+  TOTAL INPUT: 5223 records
+
+DEDUPLICATION RESULTS:
+  Unique records: 5039
+  Duplicates removed: 184
+
+DUPLICATE PAIRS:
+  [International Medical School Faculty Development: The Results of a Nee...]
+    - Found in: 20251226_225_eric, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Implementation and Evaluation of a Faculty Development Program to Impr...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [A Theory-based Faculty Development Program for Clinician-Educators.]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [The Impact of a Faculty Development Program: Evaluation Based on the S...]
+    - Found in: 20251226_225_eric, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Can the Faculty Development Door Swing Both Ways? Science and Clinical...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Faculty Development Fellowship Programs in Family Medicine.]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Strategies for Improving Teaching Practices: A Comprehensive Approach ...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Faculty Development in Family Medicine: A Survey of Needs and Resource...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Status of Faculty Affairs and Faculty Development Offices in U.S. Medi...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Faculty Development: A Field of Dreams.]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Family Medicine Educators' Perceptions of the Future of Faculty Develo...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [A Nationwide Study of the Influence of Faculty Development Programs on...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Affective Changes in Faculty Development Fellows in Family Medicine.]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Faculty Development in a Changing Academic Environment.]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [A Systematic Approach to Faculty Development in Women's Health: Lesson...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Faculty Development and Human Resources Management in the Academic Med...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Project to Identify Essential Faculty Skills and Develop Model Curricu...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [A Pilot Study of Faculty Development for Basic Science Teachers.]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Resources for Faculty Development in Family Violence.]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Prioritizing Areas for Faculty Development of Clinical Teachers by Usi...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [What's the Use of Faculty Development? Program Evaluation Using Retros...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Undergraduate Rural Medical Education Program Development: Focus Group...]
+    - Found in: 20251226_225_eric, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [How Mentoring Relationships Evolve: A Longitudinal Study of Academic P...]
+    - Found in: 20251226_225_eric, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Successful Implementation of a Faculty Development Program in Geriatri...]
+    - Found in: 20251226_225_eric, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Being a Clinical Educator]
+    - Found in: 20251226_225_eric, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [A Faculty Development Program Integrating Cross-Cultural Care into a G...]
+    - Found in: 20251226_225_eric, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Evaluation of Primary Care Futures: A Faculty Development Program for ...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Extending the Pipeline for Minority Physicians: A Comprehensive Progra...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Understanding the Challenges of Integrating Scientists and Clinical Te...]
+    - Found in: 20251226_225_eric, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Long-Term Evaluation of Training Residents in Clinical Teaching Skills...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Increasing Women's Leadership in Academic Medicine: Report of the AAMC...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [A Program To Teach Curriculum Development to Junior Faculty.]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [On Whose Shoulders We Stand: Lessons from Exemplar Medical Educators]
+    - Found in: 20251226_225_eric, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Helping Medical School Faculty Realize Their Dreams: An Innovative, Co...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [A Workshop to Improve the Teaching Skills of Physician Faculty Members...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [An Exploration of Metacognitive Practices in Medical Educators]
+    - Found in: 20251226_225_eric, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Medical Educators' Social Acts of Explaining Passing Underperformance ...]
+    - Found in: 20251226_225_eric, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Transcultural Reflection on Clinical Teaching Using an Experiential Te...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Becoming Outstanding Educators: What Do They Say Contributed to Succes...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [A Multi-Component Program to Increase Family Physicians' Faculty Skill...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Developing and Piloting a Form for Student Assessment of Faculty Profe...]
+    - Found in: 20251226_225_eric, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Uncovering the Ecology of Clinical Education: A Dramaturgical Study of...]
+    - Found in: 20251226_225_eric, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [An Integrated Health Care Model in Medical Education: Interviews with ...]
+    - Found in: 20251226_225_eric, 20251226_2832_pubmed
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Anatomy as a Model Environment for Acquiring Professional Competencies...]
+    - Found in: 20251226_225_eric, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Developing the Master Educator: Cross Disciplinary Teaching Scholars P...]
+    - Found in: 20251226_225_eric, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [A Pilot Study for Integrating Volunteers with Core Psychiatry Faculty]
+    - Found in: 20251226_225_eric, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_225_eric (first occurrence)
+
+  [Recommendations From the Medical Education Editor.]
+    - Found in: 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Is Resilience Enough for Health Professions Students During Clinical L...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Ethical concerns surrounding artificial intelligence in anatomy educat...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Every doctor an educator?]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Improving Critical Thinking in New Graduate Nurses: Are Practical Meth...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [What Do Underrepresented in Medicine Junior Family Medicine Faculty Va...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Does the student-led osteopathy clinical learning environment prepare ...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Evaluating Clinical Educators' Competence in an East Asian Context: Wh...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [How best can faculty development support teachers in clinical settings...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [How does a move towards a coaching approach impact the delivery of wri...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Is it feasible and effective to provide faculty development programs o...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [[Pedagogical Quality Cercle: a new tool for ambulatory clinical superv...]
+    - Found in: 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [The Australian and New Zealand Clinician Educator Network (ANZCEN) Unc...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [The Role of Coaches within Academic Medical Departments: Is There Valu...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Group Assessment of Resident Performance: Valuable for Program Directo...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Technological Pedagogical Content Knowledge Among Medical Educators: W...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Internet skills of medical faculty and students: is there a difference...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Implementing competency-based medical education: What changes in curri...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Is It Time for Entrustable Professional Activities for Residency Progr...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Entrustable professional activities (EPAs) for teachers in medical edu...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Accreditation Council for Graduate Medical Education Core Competencies...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [How do medical educators design a curriculum that facilitates student ...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Clinical teaching as part of continuing professional development: Does...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Faculty development.]
+    - Found in: 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Cultural Competence in Rural Nursing Education: Are We There Yet?]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Learning from a role model: A cascade or whirlpool effect?]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Can visual arts training improve physician performance?]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Minority faculty development programs at US medical schools.]
+    - Found in: 20251226_2832_pubmed, 20251226_2832_pubmed
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Sustained change in didactic skills--does teacher training last?]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Faculty development in veterinary education: are we doing enough (or p...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Do the clinical competencies of musculoskeletal outpatient physiothera...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Quality evaluation reports: Can a faculty development program make a d...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Faculty development projects for international health professions educ...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [What is so difficult about managing clinical reasoning difficulties?]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Clinical teachers working in primary care: what would they like change...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [What constitutes a good clinical teacher?]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Travelling educational workshops for clinical teachers: are they worth...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Are online student evaluations of faculty influenced by the timing of ...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [What does it mean to be a good teacher and clinical supervisor in medi...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Faculty development in medical institutions: where do we stand in Paki...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Minority faculty members' resilience and academic productivity: are th...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Do visits help improve the quality of teaching within undergraduate te...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [The evolution of faculty development in Canada since the 1980s: coming...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Learner-centred medical education: Improved learning or increased stre...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Effective teaching and learning on the wards: easier said than done?]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Faculty development: a 'field of dreams'?]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Assessing change in clinical teaching skills: are we up for the challe...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Cognitive apprenticeship in clinical practice: can it stimulate learni...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Can brief workshops improve clinical instruction?]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [The endangered clinical teacher scholar: will this eliminate discovery...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [How to use the core competencies in hospital medicine: a framework for...]
+    - Found in: 20251226_2832_pubmed, 20251226_2832_pubmed
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Core competencies in hospital medicine: development and methodology.]
+    - Found in: 20251226_2832_pubmed, 20251226_2832_pubmed
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [The Rural Physician Associate Program: new directions in education for...]
+    - Found in: 20251226_2832_pubmed, 20251226_2832_pubmed
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Developing the young academic surgeon.]
+    - Found in: 20251226_2832_pubmed, 20251226_2832_pubmed
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Teaching medical students - what's in it for teachers?]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Faculty development: what is faculty development?]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [What do medicine clerkship preceptors do best?]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Programs of the Robert Wood Johnson Foundation to develop minority med...]
+    - Found in: 20251226_2832_pubmed, 20251226_2832_pubmed
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Is there a relationship between attending physicians' and residents' t...]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Faculty development in emergency medicine.]
+    - Found in: 20251226_2832_pubmed, 20251226_2832_pubmed
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Can action research be applied in developing clinical teaching?]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Faculty development for community primary care preceptors.]
+    - Found in: 20251226_2832_pubmed, 20251226_2832_pubmed
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Rethinking faculty development.]
+    - Found in: 20251226_2832_pubmed, 20251226_2832_pubmed, 20251226_2832_pubmed
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [The medical school without walls: who will be the faculty?]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Clinical teaching is more than evaluation alone!]
+    - Found in: 20251226_2832_pubmed, ProQuestDocuments-2025-12-25
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Guidelines for planning faculty development workshops.]
+    - Found in: 20251226_2832_pubmed, 20251226_2832_pubmed
+    - Kept: 20251226_2832_pubmed (first occurrence)
+
+  [Enhancement of role modelling in clinical educators: A randomized cont...]
+    - Found in: ProQuestDocuments-2025-12-25, citation-export
+    - Kept: ProQuestDocuments-2025-12-25 (first occurrence)
+
+  [Nonsurgical Periodontal Therapy in CKD: Findings of the Kidney and Per...]
+    - Found in: ProQuestDocuments-2025-12-25, citation-export
+    - Kept: ProQuestDocuments-2025-12-25 (first occurrence)
+
+  [Evaluating the Career Impact of Faculty Development Using Matched Cont...]
+    - Found in: ProQuestDocuments-2025-12-25, citation-export
+    - Kept: ProQuestDocuments-2025-12-25 (first occurrence)
+
+  [Using simulation pedagogy to teach clinical education skills: A random...]
+    - Found in: ProQuestDocuments-2025-12-25, citation-export
+    - Kept: ProQuestDocuments-2025-12-25 (first occurrence)
+
+  [Calculus detection calibration among dental hygiene faculty members ut...]
+    - Found in: ProQuestDocuments-2025-12-25, citation-export
+    - Kept: ProQuestDocuments-2025-12-25 (first occurrence)
+
+  [AAMC Medical School Faculty Compensation Survey]
+    - Found in: ProQuestDocuments-2025-12-25, ProQuestDocuments-2025-12-25
+    - Kept: ProQuestDocuments-2025-12-25 (first occurrence)
+
+  [Collaborative learning in pre-clinical dental hygiene education]
+    - Found in: ProQuestDocuments-2025-12-25, citation-export
+    - Kept: ProQuestDocuments-2025-12-25 (first occurrence)
+
+  [Peer group reflection helps clinical teachers to critically reflect on...]
+    - Found in: ProQuestDocuments-2025-12-25, citation-export
+    - Kept: ProQuestDocuments-2025-12-25 (first occurrence)
+
+  [Critical appraisal: a template to evaluate scientific literature]
+    - Found in: ProQuestDocuments-2025-12-25, citation-export
+    - Kept: ProQuestDocuments-2025-12-25 (first occurrence)
+
+  [The Rural Physician Associate Program: New directions in education for...]
+    - Found in: ProQuestDocuments-2025-12-25, ProQuestDocuments-2025-12-25
+    - Kept: ProQuestDocuments-2025-12-25 (first occurrence)
+
+  [Experienced clinical educators improve their clinical teaching effecti...]
+    - Found in: ProQuestDocuments-2025-12-25, citation-export
+    - Kept: ProQuestDocuments-2025-12-25 (first occurrence)
+
+  [Does bedrest after embryo transfer cause a worse outcome in in vitro f...]
+    - Found in: ProQuestDocuments-2025-12-25, citation-export
+    - Kept: ProQuestDocuments-2025-12-25 (first occurrence)
+
+  [Beneficial and harmful effects of augmented feedback on physicians' cl...]
+    - Found in: ProQuestDocuments-2025-12-25, citation-export
+    - Kept: ProQuestDocuments-2025-12-25 (first occurrence)
+
+  [Faculty development for community primary care preceptors]
+    - Found in: ProQuestDocuments-2025-12-25, ProQuestDocuments-2025-12-25
+    - Kept: ProQuestDocuments-2025-12-25 (first occurrence)
+
+  [Inflation and medical school faculty salaries]
+    - Found in: ProQuestDocuments-2025-12-25, ProQuestDocuments-2025-12-25
+    - Kept: ProQuestDocuments-2025-12-25 (first occurrence)
+
+  [Guidelines for planning faculty development workshops]
+    - Found in: ProQuestDocuments-2025-12-25, ProQuestDocuments-2025-12-25
+    - Kept: ProQuestDocuments-2025-12-25 (first occurrence)
+
+OUTPUT:
+  File: merged_deduplicated.ris
+  Records: 5039
+================================================================================
