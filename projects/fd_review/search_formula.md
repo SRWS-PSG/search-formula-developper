@@ -20,8 +20,6 @@
   - 提供方法（ワークショップ、セミナー、縦断的プログラム、メンターシップ等）
   - 評価アプローチ
 
-
-
 ### Context（文脈）
 
 - すべての診療科
@@ -42,9 +40,9 @@
 
 ### 最適化履歴
 
-| バージョン | 変更内容 | #3件数 | シード捕捉 |
-|------------|----------|--------|-----------|
-| v1 (original) | - | ~3,381 | 5/5 |
+| バージョン             | 変更内容                      | #3件数          | シード捕捉       |
+| ---------------------- | ----------------------------- | --------------- | ---------------- |
+| v1 (original)          | -                             | ~3,381          | 5/5              |
 | **v2 (current)** | `[Mesh]` → `[Majr]` 変更 | **2,832** | **5/5 ✓** |
 
 > **注**: `[Majr]`（Major Topic）は「Faculty, Medical」が論文の主題の場合のみマッチ。副次的にタグ付けされた論文を除外し、精度を向上。
@@ -95,8 +93,8 @@
 
 ## 調整予定事項
 
-- [x] MeSH用語の階層確認と最適化
-- [x] シード論文100%捕捉の確認
+- [X] MeSH用語の階層確認と最適化
+- [X] シード論文100%捕捉の確認
 - [ ] テキストワードのバリエーション追加
 - [ ] 必要に応じてブロック構造の再編成
 
@@ -118,10 +116,10 @@
 
 ### 件数
 
-| Block | Hits |
-|-------|------|
-| #3 (Combined) | 225 |
-| #4 (+ 10年フィルター) | 47 |
+| Block                 | Hits |
+| --------------------- | ---- |
+| #3 (Combined)         | 225  |
+| #4 (+ 10年フィルター) | 47   |
 
 > **注**: `College Faculty` は除外（医学部focus維持のため）
 
@@ -138,24 +136,24 @@
 ### 検索式
 
 ```
-#1 MESH.EXACT("Faculty, Medical") OR TI("medical faculty" OR "clinical educator*" OR "clinician educator*" OR "medical educator*" OR "clinical teacher*" OR "clinical teaching") OR AB("medical faculty" OR "clinical educator*" OR "clinician educator*" OR "medical educator*" OR "clinical teacher*" OR "clinical teaching")
+#1 MJEMB.EXACT("medical school") OR TI("medical faculty" OR "clinical educator*" OR "clinician educator*" OR "medical educator*" OR "clinical teacher*" OR "clinical teaching") OR AB("medical faculty" OR "clinical educator*" OR "clinician educator*" OR "medical educator*" OR "clinical teacher*" OR "clinical teaching")
 
-#2 MESH.EXACT("Staff Development") OR MESH.EXACT("Program Development") OR TI("faculty development*" OR "professional development*" OR "staff development" OR "program development" OR "teaching skill*" OR "program design") OR AB("faculty development*" OR "professional development*" OR "staff development" OR "program development" OR "teaching skill*" OR "program design")
+#2 EMB.EXACT.EXPLODE("personnel management") OR EMB.EXACT.EXPLODE("program development") OR TI("faculty development*" OR "professional development*" OR "staff development" OR "program development" OR "teaching skill*" OR "program design") OR AB("faculty development*" OR "professional development*" OR "staff development" OR "program development" OR "teaching skill*" OR "program design")
 
 #3 #1 AND #2
 ```
 
 ### Dialog構文メモ
 
-| 要素 | 構文 | 例 |
-|------|------|-----|
+| 要素             | 構文                   | 例                                 |
+| ---------------- | ---------------------- | ---------------------------------- |
 | MeSH（完全一致） | `MESH.EXACT("term")` | `MESH.EXACT("Faculty, Medical")` |
-| 件名（Subject） | `SU("term")` | `SU("faculty development")` |
-| タイトル | `TI(term)` | `TI("medical faculty")` |
-| 抄録 | `AB(term)` | `AB("clinical educator")` |
-| ワイルドカード | `*` | `educator*` |
-| フレーズ | `"phrase"` | `"faculty development"` |
-| 年代 | `yr(YYYY-YYYY)` | `yr(2015-2025)` |
+| 件名（Subject）  | `SU("term")`         | `SU("faculty development")`      |
+| タイトル         | `TI(term)`           | `TI("medical faculty")`          |
+| 抄録             | `AB(term)`           | `AB("clinical educator")`        |
+| ワイルドカード   | `*`                  | `educator*`                      |
+| フレーズ         | `"phrase"`           | `"faculty development"`          |
+| 年代             | `yr(YYYY-YYYY)`      | `yr(2015-2025)`                  |
 
 ### 年代フィルター付き
 
@@ -169,36 +167,57 @@
 
 ### 検索式
 
+> **注**: Advanced Search の Medical terms (MeSH) タブから用語を選択し、Search Manager に追加して実行します。
+> MeSH用語は「Explode all trees」で階層下位語を含めて検索されます。
+> **重要**: Cochrane ではフレーズ内にワイルドカード`*`を使用できません。`NEXT`演算子で隣接語検索を使用します。
+
 ```
-#1 MeSH descriptor: [Faculty, Medical] explode all trees
-#2 ("medical faculty" OR "clinical educator*" OR "clinician educator*" OR "medical educator*" OR "clinical teacher*" OR "clinical teaching"):ti,ab
+#1 [mh "Faculty, Medical"]
+#2 (medical NEXT faculty):ti,ab,kw
+#3 (clinical NEXT educator*):ti,ab,kw
+#4 (clinician NEXT educator*):ti,ab,kw
+#5 (medical NEXT educator*):ti,ab,kw
+#6 (clinical NEXT teacher*):ti,ab,kw
+#7 (clinical NEXT teaching):ti,ab,kw
+#8 #1 OR #2 OR #3 OR #4 OR #5 OR #6 OR #7
 
-#3 MeSH descriptor: [Staff Development] explode all trees
-#4 MeSH descriptor: [Program Development] explode all trees
-#5 ("faculty development*" OR "professional development*" OR "staff development" OR "program development" OR "teaching skill*" OR "program design"):ti,ab
+#9 [mh "Staff Development"]
+#10 [mh "Program Development"]
+#11 (faculty NEXT development*):ti,ab,kw
+#12 (professional NEXT development*):ti,ab,kw
+#13 (staff NEXT development):ti,ab,kw
+#14 (program NEXT development):ti,ab,kw
+#15 (teaching NEXT skill*):ti,ab,kw
+#16 (program NEXT design):ti,ab,kw
+#17 #9 OR #10 OR #11 OR #12 OR #13 OR #14 OR #15 OR #16
 
-#6 #1 OR #2
-#7 #3 OR #4 OR #5
-#8 #6 AND #7
+#18 #8 AND #17
 ```
 
 ### CENTRAL構文メモ
 
 | 要素 | 構文 | 例 |
 |------|------|-----|
-| MeSH（展開） | `MeSH descriptor: [Term] explode all trees` | `MeSH descriptor: [Faculty, Medical] explode all trees` |
-| タイトル・抄録 | `(term):ti,ab` | `("faculty development"):ti,ab` |
+| MeSH（展開） | `[mh "Term"]` | `[mh "Faculty, Medical"]` |
+| MeSH（単一、非展開） | `[mh ^"Term"]` | `[mh ^"Faculty, Medical"]` |
+| タイトル検索 | `term:ti` | `faculty:ti` |
+| 抄録検索 | `term:ab` | `faculty:ab` |
+| キーワード検索 | `term:kw` | `faculty:kw` |
+| 複合フィールド | `term:ti,ab,kw` | `faculty:ti,ab,kw` |
 | ワイルドカード | `*` | `educator*` |
-| フレーズ | `"phrase"` | `"faculty development"` |
+| 隣接語検索 | `(term1 NEXT term2):field` | `(clinical NEXT educator*):ti,ab,kw` |
+| 近接検索 | `NEAR/n` | `medical NEAR/3 faculty` |
 | 年代 | Publication Year filter | 検索画面で設定 |
+
+> **注**: フレーズ検索 `"term"` 内ではワイルドカードが使用できません。ワイルドカードを使う場合は `NEXT` 演算子を使用してください。
 
 ---
 
 ## データベース別サマリー
 
-| Database | 検索式 | 予想件数 |
-|----------|--------|----------|
-| **PubMed/MEDLINE** | v2 (Majr) | 2,832 |
-| **ERIC** | v2 | 225 |
-| **Dialog** | v2 | TBD |
-| **CENTRAL** | v2 | TBD |
+| Database                 | 検索式    | 予想件数 |
+| ------------------------ | --------- | -------- |
+| **PubMed/MEDLINE** | v2 (Majr) | 2,832    |
+| **ERIC**           | v2        | 225      |
+| **Dialog**         | v2        | TBD      |
+| **CENTRAL**        | v2        | TBD      |
