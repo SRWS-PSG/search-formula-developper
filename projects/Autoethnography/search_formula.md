@@ -1,9 +1,18 @@
-# Autoethnography in Medical Education - PubMed Search Formula
+# Autoethnography in Medical Education - Multi-Database Search Formula
 
 ## Research Question
 What autoethnographic approaches are conducted by research groups that include medical students, physicians, and medical education scholars?
 
-## PubMed/MEDLINE
+## Target Databases
+1. **PubMed/MEDLINE** ✅ (136 hits)
+2. **Embase (ProQuest Dialog)** - Pending (manual verification)
+3. **ERIC** ✅ (3 hits) - verified 2025-12-29
+4. **Anthropological Index Online (RAI)** ✅ (71 hits) - verified 2025-12-29
+5. **PsycINFO** - Pending (manual verification)
+
+---
+
+## 1. PubMed/MEDLINE
 
 ### Search Strategy
 
@@ -152,3 +161,125 @@ psychiatrists[tiab]
 - Overlap analysis performed on 2025-12-17
 - Iterative expansion from 52 hits (63% capture) → 136 hits (excluded 7 target papers)
 - Nursing-related terms excluded per protocol inclusion criteria (physicians/medical students/medical educators only)
+
+---
+
+## 2. Embase (ProQuest Dialog)
+
+### Search Strategy
+
+#### #1 Autoethnography Concept
+```
+TI,AB(autoethnography OR autoethnographic OR "auto-ethnography" OR "auto-ethnographic")
+```
+
+#### #2 Population (Emtree + Free text)
+```
+EMB(physician) OR EMB(medical student) OR EMB(medical education) OR
+TI,AB(physician OR physicians OR doctor OR doctors OR clinician* OR 
+      practitioner* OR resident OR residents OR "medical student*" OR 
+      "medical education" OR psychiatr*)
+```
+
+#### #3 Final Query
+```
+#1 AND #2
+```
+**Results:** [To be verified]
+
+### Syntax Notes
+| Element | Dialog Syntax |
+|---------|--------------|
+| Title/Abstract | `TI,AB(term)` |
+| Emtree Subject Heading | `EMB(term)` or `term/exp` |
+| Truncation | `*` |
+| Proximity | `NEAR/n`, `PRE/n` |
+
+---
+
+## 3. ERIC
+
+### Search Strategy
+
+#### #1 Autoethnography Concept
+```
+autoethnography OR autoethnographic
+```
+**Block #1 hits: 1,159** (verified 2025-12-29)
+
+> Note: ERIC uses auto-stemming, truncation `*` not required for title/abstract fields
+
+#### #2 Population (ERIC Descriptors)
+```
+subject:"Medical Education" OR subject:"Medical Students" OR subject:"Physicians"
+```
+**Block #2 hits: ~17,698**
+
+#### #3 Final Query
+```
+autoethnography AND subject:"Medical Education"
+```
+**Final query hits: 3** (verified 2025-12-29)
+
+### Verification Script
+```bash
+python projects/Autoethnography/verify_eric_search.py
+```
+
+---
+
+## 4. Anthropological Index Online (RAI)
+
+### Search Strategy
+
+**Quick Search:**
+```
+Keyword: autoethnography
+```
+**Results: 71** (verified 2025-12-29)
+
+### Notes
+- URL: https://aio.therai.org.uk/
+- RIS download available for all results
+- Rate limiting recommended (100 searches/year free tier)
+
+### Verification Script
+```bash
+python scripts/search/aio/search_aio.py --keyword "autoethnography" --count-only
+```
+
+---
+
+## 5. PsycINFO
+
+### Search Strategy
+
+#### #1 Autoethnography Concept
+```
+TI ( autoethnography OR autoethnographic OR "auto-ethnography" OR "auto-ethnographic" ) OR
+AB ( autoethnography OR autoethnographic OR "auto-ethnography" OR "auto-ethnographic" )
+```
+
+#### #2 Population (APA Thesaurus + Free text)
+```
+DE "Physicians" OR DE "Medical Students" OR DE "Medical Education" OR DE "Psychiatrists" OR
+TI ( physician* OR doctor* OR clinician* OR practitioner* OR resident* OR 
+     "medical student*" OR "medical education" OR psychiatr* ) OR
+AB ( physician* OR doctor* OR clinician* OR practitioner* OR resident* OR 
+     "medical student*" OR "medical education" OR psychiatr* )
+```
+
+#### #3 Final Query
+```
+S1 AND S2
+```
+**Results:** [To be verified manually]
+
+### Syntax Notes
+| Element | PsycINFO Syntax |
+|---------|----------------|
+| Title | `TI (term)` |
+| Abstract | `AB (term)` |
+| APA Thesaurus | `DE "term"` |
+| Truncation | `*` |
+
