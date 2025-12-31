@@ -6,6 +6,36 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a systematic review search strategy development support system (SRWS). The system helps researchers develop, validate, and convert search formulas for systematic reviews and scoping reviews across multiple medical databases.
 
+## Skills Integration
+
+このリポジトリには、Claude Codeの自然言語対話で発動するSkillsが実装されています。Skillsを使用することで、systematic reviewプロジェクトの主要なタスクを効率的に実行できます。
+
+### Available Skills
+
+| Skill名 | 発動キーワード例 | 主な機能 |
+|---------|-----------------|---------|
+| **search-validator** | "検索式を検証して" | 検索式検証、seed paper捕捉確認 |
+| **mesh-analyzer** | "MeSHを抽出して" | MeSH抽出・階層分析・重複チェック |
+| **database-converter** | "全データベース形式に変換" | PubMed → CENTRAL/Embase/ClinicalTrials/ICTRP変換 |
+| **term-counter** | "各キーワードの件数を調べて" | 検索語件数確認・ブロック重複分析 |
+| **project-initializer** | "新しいプロジェクトを作成" | プロジェクト構造初期化 |
+| **eric-searcher** | "ERICで検索" | ERIC検索・シソーラス確認 |
+
+詳細は [.claude/skills/README.md](.claude/skills/README.md) を参照してください。
+
+### Typical Workflow with Skills
+
+```
+1. project-initializer → プロジェクト作成
+2. (手動) protocol.md編集、seed PMIDs登録
+3. mesh-analyzer → MeSH抽出
+4. (外部AI) 検索式作成
+5. search-validator → 検索式検証
+6. term-counter → 検索語最適化
+7. database-converter → 他DB形式変換
+8. eric-searcher → ERIC検索 (教育研究の場合)
+```
+
 **Core Purpose**: Automate the systematic review search process by:
 - Structuring search formulas in markdown format
 - Validating search terms against PubMed/MEDLINE
