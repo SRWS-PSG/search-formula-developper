@@ -307,30 +307,40 @@ python scripts/utils/merge_ris_files.py log/aio_autoethnography.ris log/aio_auto
 
 ### Search Strategy
 
-#### #1 Autoethnography Concept
+```ovid
+# #1 Autoethnography Concept
+1  autoethnography.ti,ab.
+2  autoethnographic.ti,ab.
+3  auto-ethnography.ti,ab.
+4  auto-ethnographic.ti,ab.
+5  1 OR 2 OR 3 OR 4
 
-```
-TI ( autoethnography OR autoethnographic OR "auto-ethnography" OR "auto-ethnographic" ) OR
-AB ( autoethnography OR autoethnographic OR "auto-ethnography" OR "auto-ethnographic" )
-```
+# #2 Population (APA Thesaurus + Free text)
+6  exp Physicians/
+7  exp Medical Students/
+8  exp Medical Education/
+9  exp Psychiatrists/
+10  physician*.ti,ab.
+11  doctor*.ti,ab.
+12  clinician*.ti,ab.
+13  practitioner*.ti,ab.
+14  resident*.ti,ab.
+15  medical student*.ti,ab.
+16  medical education.ti,ab.
+17  psychiatr*.ti,ab.
+18  6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17
 
-#### #2 Population (APA Thesaurus + Free text)
-
-```
-DE "Physicians" OR DE "Medical Students" OR DE "Medical Education" OR DE "Psychiatrists" OR
-TI ( physician* OR doctor* OR clinician* OR practitioner* OR resident* OR 
-     "medical student*" OR "medical education" OR psychiatr* ) OR
-AB ( physician* OR doctor* OR clinician* OR practitioner* OR resident* OR 
-     "medical student*" OR "medical education" OR psychiatr* )
-```
-
-#### #3 Final Query
-
-```
-S1 AND S2
+# #3 Final Query
+19  5 AND 18
 ```
 
 **Results:** [To be verified manually]
+
+
+https://ovidsp.ovid.com/ovidweb.cgi?T=JS&NEWS=N&PAGE=main&SHAREDSEARCHID=4HurOlVgCyD6FKq6MSDFyccuqGgvd7Oe80CGJmO4ygTt06zj1UZM5HGPkqdXK6txE
+
+502件
+
 
 ### Syntax Notes
 
