@@ -253,13 +253,18 @@ def main():
         print(json.dumps(output_data, indent=2, ensure_ascii=False))
         return 0
     
-    # Display records
-    print(f"\n{'-'*60}\n")
-    
-    for i, rec in enumerate(result.records, 1):
-        print(f"[{result.start + i}] {format_record_for_display(rec)}")
-        print()
-    
+    # Display records (skip display if output file is specified to avoid encoding errors)
+    if not args.output:
+        print(f"\n{'-'*60}\n")
+
+        for i, rec in enumerate(result.records, 1):
+            try:
+                print(f"[{result.start + i}] {format_record_for_display(rec)}")
+                print()
+            except UnicodeEncodeError:
+                print(f"[{result.start + i}] [Record contains special characters - see output file]")
+                print()
+
     # Export to file if requested
     if args.output:
         output_path = args.output
