@@ -264,26 +264,30 @@ re-authoring:ti,ab,kw OR
 ```
 S1: EMB.EXACT.EXPLODE("medically unexplained symptom")
 S2: EMB.EXACT.EXPLODE("somatoform disorder")
-S3: EMB.EXACT.EXPLODE("psychophysiologic disorder")
+S3: EMB.EXACT.EXPLODE("psychosomatic disorder")
 S4: EMB.EXACT.EXPLODE("chronic pain")
 S5: EMB.EXACT.EXPLODE("central sensitization")
 S6: EMB.EXACT.EXPLODE("nociplastic pain")
-S7: EMB.EXACT.EXPLODE("psychogenic polydipsia")
-S8: EMB.EXACT.EXPLODE("psychogenic nonepileptic seizure")
+S7: EMB.EXACT.EXPLODE("polydipsia")
+S8: EMB.EXACT.EXPLODE("nonepileptic seizure")
 S9: EMB.EXACT.EXPLODE("functional hearing loss")
 S10: EMB.EXACT.EXPLODE("orthostatic intolerance")
 S11: EMB.EXACT.EXPLODE("fibromyalgia")
 S12: EMB.EXACT.EXPLODE("chronic fatigue syndrome")
-S13: EMB.EXACT.EXPLODE("functional colonic disease")
-S14: EMB.EXACT.EXPLODE("temporomandibular joint dysfunction")
+S13: EMB.EXACT.EXPLODE("irritable colon")
+S14: EMB.EXACT.EXPLODE("temporomandibular joint disorder")
 S15: EMB.EXACT.EXPLODE("interstitial cystitis")
 S16: EMB.EXACT.EXPLODE("multiple chemical sensitivity")
-S17: ("persistent somatic symptom*" OR "persistent physical symptom*" OR "medically unexplained symptom*" OR "Medically Unexplained Physical Symptom*" OR "functional somatic disorder*" OR "Somatic symptom disorder*" OR "functional somatic syndrome*" OR "somatisation" OR "somatization" OR "bodily distress syndrome*" OR "chronic pain" OR "Chronic primary pain" OR "Chronic widespread pain" OR "Functional Pain" OR "Central Nervous System Sensitization" OR "Nociplastic Pain" OR "Psychogenic Polydipsia" OR "Psychogenic Nonepileptic Seizure*" OR "Functional Hearing Loss" OR "psychogenic syncope" OR "Orthostatic Intolerance" OR "Postural Orthostatic Tachycardia Syndrome" OR "somatic cough syndrome*" OR "Fibromyalgia" OR "Chronic Fatigue Syndrome*" OR "Chronic fatigue" OR "Irritable bowel syndrome" OR "Functional Neurological Disorder*" OR "Temporomandibular Joint Dysfunction Syndrome" OR "interstitial cystitis" OR "dyspareunia" OR "Multiple Chemical Sensitivity" OR "Disorders of gut brain interaction" OR "Myalgic Encephalopathy" OR "Myalgic Encephalomyelitis" OR "Non-organic").ti,ab.
-S18: Persistent ADJ2 symptoms
-S19: Functional ADJ2 symptoms
-S20: Functional ADJ2 syndrome
-S21: Functional ADJ2 gut
-S22: S1 OR S2 OR S3 OR S4 OR S5 OR S6 OR S7 OR S8 OR S9 OR S10 OR S11 OR S12 OR S13 OR S14 OR S15 OR S16 OR S17 OR S18 OR S19 OR S20 OR S21
+S17: TI,AB(persistent somatic symptom* OR persistent physical symptom* OR medically unexplained symptom* OR Medically Unexplained Physical Symptom* OR functional somatic disorder* OR Somatic symptom disorder* OR functional somatic syndrome* OR somatisation OR somatization OR bodily distress syndrome*)
+S18: TI,AB(chronic pain OR Chronic primary pain OR Chronic widespread pain OR Functional Pain OR Central Nervous System Sensitization OR Nociplastic Pain)
+S19: TI,AB(Psychogenic Polydipsia OR Psychogenic Nonepileptic Seizure* OR Functional Hearing Loss OR psychogenic syncope OR Orthostatic Intolerance OR Postural Orthostatic Tachycardia Syndrome)
+S20: TI,AB(somatic cough syndrome* OR Fibromyalgia OR Chronic Fatigue Syndrome* OR Chronic fatigue OR Irritable bowel syndrome OR Functional Neurological Disorder*)
+S21: TI,AB(Temporomandibular Joint Dysfunction Syndrome OR interstitial cystitis OR dyspareunia OR Multiple Chemical Sensitivity OR Disorders of gut brain interaction OR Myalgic Encephalopathy OR Myalgic Encephalomyelitis OR Non-organic)
+S22: TI,AB(Persistent NEAR/2 symptoms)
+S23: TI,AB(Functional NEAR/2 symptoms)
+S24: TI,AB(Functional NEAR/2 syndrome)
+S25: TI,AB(Functional NEAR/2 gut)
+S26: S1 OR S2 OR S3 OR S4 OR S5 OR S6 OR S7 OR S8 OR S9 OR S10 OR S11 OR S12 OR S13 OR S14 OR S15 OR S16 OR S17 OR S18 OR S19 OR S20 OR S21 OR S22 OR S23 OR S24 OR S25
 ```
 
 **User Action Required**: Verify Emtree term equivalents for all MeSH terms above.
@@ -291,11 +295,11 @@ S22: S1 OR S2 OR S3 OR S4 OR S5 OR S6 OR S7 OR S8 OR S9 OR S10 OR S11 OR S12 OR 
 #### #2 Concept Block (Dialog Format Example)
 
 ```
-S23: EMB.EXACT.EXPLODE("narrative medicine")
-S24: EMB.EXACT.EXPLODE("narration")
-S25: EMB.EXACT.EXPLODE("patient-centered care")
-S26: ("narrative approach*" OR "narrative medicine" OR "narrative based medicine" OR "illness narrative*" OR "storytelling" OR "meaning making" OR "Patient-Centered Care" OR "re-authoring" OR "expert generalist" OR "narrative construction" OR "illness experience*").ti,ab.
-S27: S23 OR S24 OR S25 OR S26
+S27: EMB.EXACT.EXPLODE("narrative medicine")
+S28: EMB.EXACT.EXPLODE("verbal communication")
+S29: EMB.EXACT.EXPLODE("person centered care")
+S30: TI,AB(narrative approach* OR narrative medicine OR narrative based medicine OR illness narrative* OR storytelling OR meaning making OR Patient-Centered Care OR re-authoring OR expert generalist OR narrative construction OR illness experience*)
+S31: S27 OR S28 OR S29 OR S30
 ```
 
 **User Action Required**: Verify Emtree equivalents for "Narrative Medicine", "Narration", "Patient-Centered Care".
@@ -303,11 +307,11 @@ S27: S23 OR S24 OR S25 OR S26
 #### #3 Context Block (Dialog Format Example)
 
 ```
-S28: EMB.EXACT.EXPLODE("primary health care")
-S29: EMB.EXACT.EXPLODE("general practice")
-S30: EMB.EXACT.EXPLODE("family physician")
-S31: ("primary care" OR "general practice" OR "family practice" OR "family medicine" OR "general practitioner*").ti,ab.
-S32: S28 OR S29 OR S30 OR S31
+S32: EMB.EXACT.EXPLODE("primary health care")
+S33: EMB.EXACT.EXPLODE("general practice")
+S34: EMB.EXACT.EXPLODE("general practitioner")
+S35: TI,AB(primary care OR general practice OR family practice OR family medicine OR general practitioner*)
+S36: S32 OR S33 OR S34 OR S35
 ```
 
 **User Action Required**: Verify Emtree equivalents for primary care terms.
@@ -315,7 +319,7 @@ S32: S28 OR S29 OR S30 OR S31
 #### #4 Final Query
 
 ```
-S33: S22 AND S27 AND S32
+S37: S26 AND S31 AND S36
 ```
 
 ---
