@@ -28,7 +28,7 @@ var/
 logs/
 *.log
 *.zip
-
+*.docx
 
 # IDE files
 .vscode/
