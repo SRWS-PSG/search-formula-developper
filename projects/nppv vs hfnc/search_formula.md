@@ -89,14 +89,35 @@
 (EMB.EXACT.EXPLODE("respiratory failure") OR TI("Respiratory Failure") OR AB("Respiratory Failure") OR TI("Acute respiratory failure") OR AB("Acute respiratory failure") OR EMB.EXACT.EXPLODE("hypercapnia") OR TI(hypercapnia) OR AB(hypercapnia) OR TI(hypercapnic) OR AB(hypercapnic))
 ```
 
-### S3 RCT Filter
+### S3 RCT Filter (Cochrane Embase RCT Filter - Dialog format)
 ```
-(EMB.EXACT.EXPLODE("randomized controlled trial") OR EMB.EXACT.EXPLODE("controlled clinical trial") OR TI(randomized) OR AB(randomized) OR TI(placebo) OR AB(placebo) OR TI(randomly) OR AB(randomly) OR TI(trial) OR AB(trial) OR TI(groups) OR AB(groups)) NOT (EMB.EXACT(animal) NOT EMB.EXACT(human))
+EMB.EXACT.EXPLODE("randomized controlled trial")
+EMB.EXACT.EXPLODE("controlled clinical trial")
+TI(random*) OR AB(random*)
+EMB.EXACT.EXACT("randomization")
+EMB.EXACT.EXACT("intermethod comparison")
+TI(placebo) OR AB(placebo)
+TI(compare OR compared OR comparison) OR AB(compare OR compared OR comparison)
+AB(evaluated OR evaluate OR evaluating OR assessed OR assess) AND AB(compare OR compared OR comparing OR comparison)
+TI(open NEAR/1 label) OR AB(open NEAR/1 label)
+(TI(double OR single OR doubly OR singly) NEAR/1 TI(blind OR blinded OR blindly)) OR (AB(double OR single OR doubly OR singly) NEAR/1 AB(blind OR blinded OR blindly))
+EMB.EXACT.EXACT("double blind procedure")
+TI(parallel NEAR/1 group*) OR AB(parallel NEAR/1 group*)
+TI(crossover OR "cross over") OR AB(crossover OR "cross over")
+(TI(assign* OR match OR matched OR allocation) NEAR/6 TI(alternate OR group OR groups OR intervention OR interventions OR patient OR patients OR subject OR subjects OR participant OR participants)) OR (AB(assign* OR match OR matched OR allocation) NEAR/6 AB(alternate OR group OR groups OR intervention OR interventions OR patient OR patients OR subject OR subjects OR participant OR participants))
+TI(assigned OR allocated) OR AB(assigned OR allocated)
+(TI(controlled) NEAR/8 TI(study OR design OR trial)) OR (AB(controlled) NEAR/8 AB(study OR design OR trial))
+TI(volunteer OR volunteers) OR AB(volunteer OR volunteers)
+EMB.EXACT.EXACT("human experiment")
+TI(trial)
+S3 OR S4 OR S5 OR S6 OR S7 OR S8 OR S9 OR S10 OR S11 OR S12 OR S13 OR S14 OR S15 OR S16 OR S17 OR S18 OR S19 OR S20 OR S21
 ```
 
-### S4 最終検索式
+> **Source**: [Cochrane Handbook Chapter 4.4.7](https://training.cochrane.org/handbook/current/chapter-04#section-4-4-7)
+
+### S22 最終検索式
 ```
-S1 AND S2 AND S3
+S1 AND S2 AND S21
 ```
 
 ---
