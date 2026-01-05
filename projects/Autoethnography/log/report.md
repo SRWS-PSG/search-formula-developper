@@ -6,21 +6,21 @@
 
 ## Search Summary
 
-| Database | Search Date | Results |
-|----------|-------------|---------|
-| PubMed/MEDLINE | 2026-01-01 | 138 |
-| Embase (ProQuest Dialog) | 2025-12-31 | 160 |
-| ERIC | 2026-01-01 | 65 |
-| Anthropological Index Online (AIO) | 2026-01-01 | 99 |
-| PsycINFO (Ovid) | 2026-01-01 | 502 |
-| **Total** | | **964** |
+| Database                           | Search Date | Results       |
+| ---------------------------------- | ----------- | ------------- |
+| PubMed/MEDLINE                     | 2026-01-01  | 138           |
+| Embase (ProQuest Dialog)           | 2025-12-31  | 160           |
+| ERIC                               | 2026-01-01  | 65            |
+| Anthropological Index Online (AIO) | 2026-01-01  | 99            |
+| PsycINFO (Ovid)                    | 2026-01-01  | 502           |
+| **Total**                    |             | **964** |
 
 ---
 
 ## 1. PubMed/MEDLINE
 
-**Platform:** PubMed  
-**Search Date:** 2026-01-01  
+**Platform:** PubMed
+**Search Date:** 2026-01-01
 **Results:** 138
 
 ### Search Strategy
@@ -42,8 +42,8 @@
 
 ## 2. Embase (ProQuest Dialog)
 
-**Platform:** ProQuest Dialog  
-**Search Date:** 2025-12-31  
+**Platform:** ProQuest Dialog
+**Search Date:** 2025-12-31
 **Results:** 160
 
 ### Search Strategy
@@ -65,8 +65,8 @@ EMB.EXACT.EXPLODE("physician") OR EMB.EXACT.EXPLODE("medical student") OR EMB.EX
 
 ## 3. ERIC
 
-**Platform:** ERIC (Education Resources Information Center)  
-**Search Date:** 2026-01-01  
+**Platform:** ERIC (Education Resources Information Center)
+**Search Date:** 2026-01-01
 **Results:** 65
 
 ### Search Strategy
@@ -81,9 +81,9 @@ EMB.EXACT.EXPLODE("physician") OR EMB.EXACT.EXPLODE("medical student") OR EMB.EX
 
 ## 4. Anthropological Index Online (AIO)
 
-**Platform:** Royal Anthropological Institute (RAI)  
-**URL:** https://aio.therai.org.uk/  
-**Search Date:** 2026-01-01  
+**Platform:** Royal Anthropological Institute (RAI)
+**URL:** https://aio.therai.org.uk/
+**Search Date:** 2026-01-01
 **Results:** 99 (deduplicated)
 
 ### Search Strategy
@@ -102,8 +102,8 @@ Combined (deduplicated): 99 hits
 
 ## 5. PsycINFO (Ovid)
 
-**Platform:** Ovid  
-**Search Date:** 2026-01-01  
+**Platform:** Ovid
+**Search Date:** 2026-01-01
 **Results:** 502
 
 ### Search Strategy

@@ -1,0 +1,7 @@
+検索件数: 681
+
+=== Seed trials確認 ===
+✅ ヒット: JAMA 2025 - BRIC-NET (PMID: 39657981)
+✅ ヒット: Respir Med 2024 - Pantazopoulos (PMID: 39111544)
+
+🎉 全てのseed trialsがヒットしました！

@@ -439,6 +439,58 @@ Search formulas are written in markdown with specific structure:
     Filters: Humans, English
 ```
 
+### search_formula.md フォーマット注意点
+
+**重要**: `download_pubmed_results.py` スクリプトは `search_formula.md` から検索式を自動パースしますが、特定のフォーマットを期待しています。手動で検索式を作成する場合は以下の形式を使用してください：
+
+#### 推奨フォーマット（スクリプト互換）
+
+```markdown
+# プロジェクト名
+
+## PubMed/MEDLINE
+
+```
+#1 ("term1"[tiab] OR "term2"[Mesh])
+#2 ("term3"[tiab] OR term4[tiab])
+#3 #1 AND #2
+```
+```
+
+**パース要件**:
+- `## PubMed/MEDLINE` セクションヘッダーが必要
+- 検索式はコードブロック（``` ```）内に記述
+- 各行は `#N ` で始まる（Nは行番号）
+- 最終行は `#N AND #M` 形式の組み合わせ式
+
+#### 代替フォーマット（直接実行用）
+
+スクリプトを使わず直接APIで検索する場合は、以下のような自由形式でも可：
+
+```markdown
+# プロジェクト名
+
+## 検索式構造
+#1 AND #2 AND #3
+
+## #1 ブロック名
+```
+(検索式)
+```
+
+## #2 ブロック名
+```
+(検索式)
+```
+
+## 最終検索式
+```
+(完全な検索式)
+```
+```
+
+**注意**: この形式は `download_pubmed_results.py` では自動パースされません。直接検索スクリプトを作成するか、手動でコピー&ペーストしてください。
+
 ### Field Tags
 
 PubMed field tags used throughout:
