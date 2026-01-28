@@ -102,13 +102,38 @@ def export_to_ris(records: List[str], filename: str, output_dir: str) -> None:
             # RISエントリの開始
             f.write('TY  - JOUR\n')
 
-            # アブストラクトを蓄積
+            # タイトルとアブストラクトを蓄積
+            title = []
+            in_title = False
             abstract = []
             in_abstract = False
 
             for line in entry.split('\n'):
                 if not line.strip():
                     continue
+
+                # タイトル開始
+                if line.startswith('TI  -'):
+                    # 前のタイトルがあれば出力
+                    if title:
+                        f.write(f'T1  - {" ".join(title)}\n')
+                        title = []
+                    in_title = True
+                    title.append(line.split('- ', 1)[1] if '- ' in line else '')
+                    continue
+
+                # タイトル継続行（先頭がスペースのみ）
+                if in_title:
+                    if line[:4].strip() and not line.startswith('TI'):
+                        # 新しいフィールド開始 = タイトル終了
+                        if title:
+                            f.write(f'T1  - {" ".join(title)}\n')
+                            title = []
+                        in_title = False
+                    else:
+                        # タイトル継続
+                        title.append(line.strip())
+                        continue
 
                 # アブストラクト開始
                 if line.startswith('AB  -'):
@@ -132,8 +157,6 @@ def export_to_ris(records: List[str], filename: str, output_dir: str) -> None:
                 # その他のフィールド変換
                 if line.startswith('PMID-'):
                     f.write(f'ID  - {line.split("- ", 1)[1]}\n')
-                elif line.startswith('TI  -'):
-                    f.write(f'T1  - {line.split("- ", 1)[1]}\n')
                 elif line.startswith('AU  -'):
                     f.write(f'A1  - {line.split("- ", 1)[1]}\n')
                 elif line.startswith('JT  -'):
@@ -148,6 +171,10 @@ def export_to_ris(records: List[str], filename: str, output_dir: str) -> None:
                     f.write(f'SP  - {line.split("- ", 1)[1]}\n')
                 elif line.startswith('DOI -'):
                     f.write(f'DO  - {line.split("- ", 1)[1]}\n')
+
+            # 残っているタイトルを書き込み
+            if title:
+                f.write(f'T1  - {" ".join(title)}\n')
 
             # 残っているアブストラクトを書き込み
             if abstract:
