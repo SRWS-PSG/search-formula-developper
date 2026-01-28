@@ -92,37 +92,40 @@ def convert_medline_to_ris(medline_data: str) -> str:
     MEDLINEフォーマットをRISフォーマットに変換する（抄録含む）
     """
     ris_output = []
-    
+
     # レコードを分割
     records = re.split(r'\n(?=PMID-)', medline_data)
-    
+
     for record in records:
         if not record.strip():
             continue
-        
+
         ris_entry = ['TY  - JOUR']
-        
+
         # フィールドをパース
         current_field = None
         current_value = []
-        
+
         lines = record.split('\n')
         for line in lines:
-            # 新しいフィールドの開始を検出
-            if len(line) >= 4 and line[4:6] == '- ':
+            # 新しいフィールドの開始を検出（FIELD-形式も含む）
+            # MEDLINEフィールドは "XXXX- " または "XX  - " の形式
+            field_match = re.match(r'^([A-Z]{2,4})(\s*)-\s+(.*)$', line)
+            if field_match:
                 # 前のフィールドを処理
                 if current_field:
                     value = ' '.join(current_value).strip()
                     ris_line = convert_field_to_ris(current_field, value)
                     if ris_line:
                         ris_entry.extend(ris_line if isinstance(ris_line, list) else [ris_line])
-                
-                current_field = line[:4].strip()
-                current_value = [line[6:]]
-            elif line.startswith('      '):
-                # 継続行
+
+                current_field = field_match.group(1).strip()
+                current_value = [field_match.group(3)]
+            elif line.startswith('      ') and current_field:
+                # 継続行（6つのスペースで始まる）
                 current_value.append(line.strip())
             elif line.strip() and current_field:
+                # その他の継続行
                 current_value.append(line.strip())
         
         # 最後のフィールドを処理
