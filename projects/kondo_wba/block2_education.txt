@@ -1,0 +1,23 @@
+"medical education"[tiab] OR
+"clinical education"[tiab] OR
+"graduate medical education"[tiab] OR
+"undergraduate medical education"[tiab] OR
+"postgraduate medical education"[tiab] OR
+"health profession* education"[tiab] OR
+"residency training"[tiab] OR
+residency[tiab] OR
+"medical student*"[tiab] OR
+"resident physician*"[tiab] OR
+"clinical clerkship*"[tiab] OR
+"clinical training"[tiab] OR
+"clinical teach*"[tiab] OR
+trainee*[tiab] OR
+"medical trainee*"[tiab] OR
+"clinical rotation*"[tiab] OR
+clerkship*[tiab] OR
+"clinical supervisor*"[tiab] OR
+"medical curriculum"[tiab] OR
+"Education, Medical"[mh] OR
+"Internship and Residency"[mh] OR
+"Students, Medical"[mh] OR
+"Clinical Clerkship"[mh]

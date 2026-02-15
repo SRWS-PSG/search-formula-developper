@@ -1,0 +1,18 @@
+"generative artificial intelligence"[tiab] OR
+"generative AI"[tiab] OR
+"large language model*"[tiab] OR
+ChatGPT[tiab] OR
+GPT*[tiab] OR
+GPT4[tiab] OR
+Claude[tiab] OR
+Gemini[tiab] OR
+llama[tiab] OR
+DeepSeek[tiab] OR
+"multimodal AI"[tiab] OR
+"AI chatbot*"[tiab] OR
+"foundation model*"[tiab] OR
+"text generat*"[tiab] OR
+"Natural Language Processing"[mh] OR
+"Generative Artificial Intelligence"[mh] OR
+"Large Language Models"[mh] OR
+Chatbot[mh]
