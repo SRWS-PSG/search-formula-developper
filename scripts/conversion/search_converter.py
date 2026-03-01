@@ -48,7 +48,7 @@ def convert_line_to_central(line_content: str) -> str:
     print(f"After Proximity (CENTRAL): {processed_content}")
     
     # 2. MeSH変換 (finditerで全てのマッチを取得し、末尾から置換)
-    mesh_pattern = re.compile(r'("([^"]+)")\[(Mesh|mh)\]')
+    mesh_pattern = re.compile(r'("([^"]+)")\[(Mesh|MeSH|MeSH Terms|mh)\]')
     mesh_matches = list(mesh_pattern.finditer(processed_content))
     for match in reversed(mesh_matches):
         term_only = match.group(2)      # Term
@@ -193,7 +193,7 @@ def convert_line_to_dialog(line_content: str) -> str:
     print(f"After Proximity (Dialog): {processed_content}")
     
     # 2. MeSH変換
-    mesh_pattern = re.compile(r'("([^"]+)")\[(Mesh|mh)\]')
+    mesh_pattern = re.compile(r'("([^"]+)")\[(Mesh|MeSH|MeSH Terms|mh)\]')
     mesh_matches = list(mesh_pattern.finditer(processed_content))
     for match in reversed(mesh_matches):
         term_only = match.group(2)
