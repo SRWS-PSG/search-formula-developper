@@ -20,6 +20,7 @@ This is a systematic review search strategy development support system (SRWS). T
 | **term-counter** | "各キーワードの件数を調べて" | 検索語件数確認・ブロック重複分析 |
 | **project-initializer** | "新しいプロジェクトを作成" | プロジェクト構造初期化 |
 | **eric-searcher** | "ERICで検索" | ERIC検索・シソーラス確認 |
+| **search-formula-reviewer** | "検索式をレビューして" | Protocol対応確認・Pearl Growing・MeSH検証一括実行 |
 
 詳細は [.claude/skills/README.md](.claude/skills/README.md) を参照してください。
 
@@ -30,10 +31,11 @@ This is a systematic review search strategy development support system (SRWS). T
 2. (手動) protocol.md編集、seed PMIDs登録
 3. mesh-analyzer → MeSH抽出
 4. (外部AI) 検索式作成
-5. search-validator → 検索式検証
-6. term-counter → 検索語最適化
-7. database-converter → 他DB形式変換
-8. eric-searcher → ERIC検索 (教育研究の場合)
+5. search-formula-reviewer → 包括的レビュー（Protocol対応・Pearl Growing・MeSH検証）
+6. search-validator → 検索式検証
+7. term-counter → 検索語最適化
+8. database-converter → 他DB形式変換
+9. eric-searcher → ERIC検索 (教育研究の場合)
 ```
 
 **Core Purpose**: Automate the systematic review search process by:

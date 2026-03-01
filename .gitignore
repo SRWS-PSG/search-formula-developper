@@ -24,7 +24,6 @@ var/
 
 # dotenv
 .env
-.claude/
 
 # Logs
 logs/
