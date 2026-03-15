@@ -4,16 +4,28 @@
 
 ### 1.1 目的と概要
 
-このシステムは、以下の機能を提供することでシステマティックレビューのための検索式開発を支援します：
+このシステムは、システマティックレビュー・スコーピングレビューのための検索式開発を支援するツール群です。以下の機能を提供します：
 
-- **検索式の構造化**: ユーザーがコピペした検索式をMarkdownファイルとして構造化
-- **検索結果件数の確認**: PubMedを検索して、各検索行の件数を確認
-- **MeSH用語分析**: 確定論文のPMIDからMeSH情報を抽出し、階層性を図示して最適なMeSH用語を選定
-- **検索式の実行**: 全体の検索式を実行して結果を評価
-- **データベース間変換**: PubMed検索式をCochrane CENTRAL、Embase(Dialog)、ClinicalTrials.gov、ICTRP形式に変換
-- **Ovid→PubMed変換**: MEDLINE via Ovidの検索式をPubMed形式に変換し、既存のチェックフローへ取り込む
+- **検索式の構造化**: 検索式をMarkdownファイルとして構造化・管理
+- **検索結果件数の確認**: PubMedを検索して各検索行の件数を確認
+- **MeSH用語分析**: 確定論文のPMIDからMeSH情報を抽出し、階層構造を可視化して最適なMeSH用語を選定
+- **検索式の検証**: シード論文の捕捉率を確認して検索式の妥当性を評価
+- **データベース間変換**: PubMed検索式をCochrane CENTRAL、Embase（Dialog）、ClinicalTrials.gov、ICTRP形式に変換
+- **Ovid→PubMed変換**: MEDLINE via Ovidの検索式をPubMed形式に変換
+- **ブロック重複分析**: OR接続された検索語の貢献度を分析し、冗長な用語を特定
+- **ERIC検索**: 教育研究データベースERICでの検索・シソーラス確認
+- **検索結果処理**: 複数データベースの結果を統合し、Rayyan互換CSVに変換
 
-### 1.2 対象読者
+### 1.2 リポジトリの役割
+
+このリポジトリは**検証・変換・分析ツール**を提供します。検索式の作成自体は外部のAIアシスタント（ChatGPT、Claude、GitHub Copilotなど）との対話で行い、本ツールで検証・最適化することを想定しています。
+
+- ✅ 検索式の検証（シード論文捕捉率、MeSH確認）
+- ✅ データベース形式変換（PubMed ↔ CENTRAL ↔ Embase等）
+- ✅ 分析ユーティリティ（用語重複、ブロック最適化）
+- ❌ 検索式の自動生成（外部AIを推奨）
+
+### 1.3 対象読者
 
 - システマティックレビューを実施する研究者
 - 医学図書館司書・情報専門家
@@ -23,363 +35,298 @@
 
 ### 2.1 必要な環境
 
-- **Python 3.7以上**: 各種スクリプトの実行に必要
-- **必要パッケージ**: requests, datetime, time など（`pip install requests` でインストール）
+- **Python 3.7以上**
+- **必要パッケージ**:
 
-### 2.2 推奨ディレクトリ構造
+```bash
+pip install -r requirements.txt
+```
 
-システムは以下のディレクトリ構造で運用することを推奨します：
+主な依存パッケージ:
+| パッケージ | 用途 |
+|-----------|------|
+| requests | HTTP通信（PubMed API等） |
+| beautifulsoup4 | HTMLパース（ERICシソーラス等） |
+| lxml | XMLパース |
+| pandas | データ分析 |
+| python-dotenv | 環境変数管理 |
+| loguru | ログ管理 |
+| pytest | テストフレームワーク |
+
+### 2.2 環境変数の設定
+
+`.env.example` を `.env` にコピーし、必要なAPIキーを設定します：
+
+```bash
+cp .env.example .env
+```
+
+```env
+# NCBI E-utilities（PubMed）APIキー
+NCBI_API_KEY=your_api_key_here
+NCBI_TOOL=your_tool_name
+NCBI_EMAIL=your_email@example.com
+NCBI_RATE_LIMIT_RPS=3  # APIキーなし:3、あり:10
+
+# Gemini APIキー（一部検証スクリプトで使用）
+GEMINI_API_KEY=
+```
+
+### 2.3 ディレクトリ構造
 
 ```
 search-formula-developper/
 ├── Readme.md                       # 本ドキュメント
-├── scripts/                         # 検索式評価用スクリプト群
-│   ├── search/                      # 検索関連スクリプト
-│   ├── conversion/                  # 変換関連スクリプト
-│   └── ... 
-└── search_formula/                  # 検索式プロジェクト用ディレクトリ
-    ├── project1/                    # プロジェクト1のディレクトリ
-    │   ├── pico_definition.md       # PICOの定義
-    │   ├── search_formula.md        # 構造化された検索式
-    │   ├── mesh_analysis.md         # MeSH用語分析結果
-    │   ├── central_search.md        # CENTRAL用検索式
-    │   ├── dialog_search.md         # Dialog(Embase)用検索式
-    │   └── final_report.md          # 最終報告書
-    └── project2/                    # プロジェクト2のディレクトリ
-        └── ...
+├── CLAUDE.md                       # Claude Code用ガイド
+├── requirements.txt                # Python依存パッケージ
+├── .env.example                    # 環境変数テンプレート
+├── scripts/                        # ツール群
+│   ├── search/                     # 検索・検証関連スクリプト
+│   │   ├── term_validator/         # 検索語・検索行の検証
+│   │   ├── mesh_analyzer/          # MeSH用語分析
+│   │   ├── query_executor/         # 最終クエリ実行・評価
+│   │   ├── eric/                   # ERIC検索連携
+│   │   ├── validation/             # 高度な検証ツール
+│   │   └── extract_mesh.py         # MeSH抽出
+│   ├── conversion/                 # データベース変換
+│   │   ├── ovid/                   # Ovid → PubMed変換
+│   │   ├── clinicaltrials/         # ClinicalTrials.gov変換
+│   │   ├── ictrp/                  # ICTRP変換
+│   │   ├── search_converter.py     # 汎用コンバータ
+│   │   └── generate_all_database_search.py  # 全DB一括変換
+│   ├── initialize/                 # プロジェクト初期化
+│   ├── validation/                 # 包括的検証
+│   │   ├── seed_analyzer/          # シード論文分析
+│   │   └── result_validator/       # 結果検証
+│   ├── search_results_to_review/   # 検索結果処理（Rayyan用）
+│   ├── ris/                        # RISファイル処理
+│   └── utils/                      # ユーティリティ
+├── projects/                       # プロジェクト作業ディレクトリ
+│   └── PROJECT_NAME/
+│       ├── protocol.md             # 研究プロトコル（RQ・PICO定義）
+│       ├── seed_papers/            # キー論文の書誌情報
+│       ├── seed_pmids.txt          # シード論文PMID一覧
+│       ├── search_formula.md       # 検索式
+│       ├── mesh_analysis.md        # MeSH分析結果
+│       └── log/                    # 検証結果・検索ログ
+├── templates/                      # テンプレート
+│   ├── rq_template.md              # リサーチクエスチョンテンプレート
+│   ├── pico_definition.md          # PICO定義テンプレート
+│   ├── sr_filter.md                # システマティックレビューフィルタ
+│   ├── prom_search_filter.md       # PROMs検索フィルタ
+│   ├── blocks/                     # 検索式ブロックテンプレート
+│   └── database/                   # DB別テンプレート
+├── .claude/skills/                 # Claude Code Skills定義
+└── tests/                          # テストスイート
 ```
 
-各検索プロジェクトは `search_formula` ディレクトリの下に専用のサブディレクトリを作成し管理します。ログや検索結果（RISファイルなど）もプロジェクトディレクトリ直下に保存します。
+## 3. Claude Code Skills統合
 
-### 2.3 既存ファイル群の概要と役割
+Claude Code（VSCode拡張機能またはCLI）を使用する場合、自然言語の対話で以下のSkillsが自動的に発動し、各タスクを効率的に実行できます。
 
-- **テンプレートファイル**:
-  - `pico_definition.md`: PICOフレームワークの定義シート
-  - `search_formula_template.md`: データベース別の検索式テンプレート
-  - `mesh_analysis.md`: MeSH用語の分析と検索式の最終形
+### 利用可能なSkills
 
-- **Pythonスクリプト**:
-  - `check_search_lines.py`: 各検索行のヒット件数確認
-  - `check_mesh.py`: MeSH用語の存在確認と文献数取得
-  - `check_final_query.py`: 最終検索式の評価とRISファイル出力
-  - `check_specific_papers.py`: 特定論文の検索条件分析
-  - `check_mesh_overlap.py`: MeSH用語間の重複分析
-  - その他の補助スクリプト
+| Skill名 | 発動キーワード例 | 主な機能 |
+|---------|-----------------|---------|
+| **search-validator** | "検索式を検証して" | 検索式検証、seed paper捕捉確認 |
+| **mesh-analyzer** | "MeSHを抽出して" | MeSH抽出・階層分析・重複チェック |
+| **database-converter** | "全データベース形式に変換" | PubMed → CENTRAL/Embase/ClinicalTrials/ICTRP変換 |
+| **term-counter** | "各キーワードの件数を調べて" | 検索語件数確認・ブロック重複分析 |
+| **project-initializer** | "新しいプロジェクトを作成" | プロジェクト構造初期化 |
+| **eric-searcher** | "ERICで検索" | ERIC検索・シソーラス確認 |
+| **search-formula-reviewer** | "検索式をレビューして" | Protocol対応確認・Pearl Growing・MeSH検証一括実行 |
 
-## 3. 検索式開発ワークフローと使用方法
+### Skills使用例
 
-### 3.1 プロジェクトディレクトリの準備
+```
+User: "ppsプロジェクトの検索式を検証して"
+Claude: search-validatorスキルを実行 → 検証結果を表示
 
-新しい検索プロジェクトを開始する際は、まず専用のディレクトリを作成します。
+User: "全データベース形式に変換"
+Claude: database-converterスキルを実行 → CENTRAL/Embase/ClinicalTrials/ICTRP形式を生成
+```
+
+詳細は [.claude/skills/README.md](.claude/skills/README.md) を参照してください。
+
+## 4. 検索式開発ワークフロー
+
+### 4.1 推奨ワークフロー
+
+```
+1. プロジェクト初期化     → project-initializer Skill or 手動
+2. プロトコル作成         → protocol.md にRQ・PICOを定義（手動）
+3. シード論文登録         → seed_pmids.txt にPMIDを記載（手動）
+4. MeSH分析             → mesh-analyzer Skill
+5. 検索式作成            → 外部AI（ChatGPT、Claude等）で対話的に作成
+6. 検索式包括レビュー     → search-formula-reviewer Skill
+7. 検索式検証            → search-validator Skill
+8. 検索語最適化          → term-counter Skill
+9. データベース変換       → database-converter Skill
+10. ERIC検索             → eric-searcher Skill（教育研究の場合）
+11. 検索結果処理          → search_results_processor.py
+```
+
+### 4.2 プロジェクトの準備
+
+#### Step 1: プロジェクトフォルダ作成
 
 ```bash
-# search_formulaディレクトリがなければ作成
-mkdir -p search_formula
-
-# プロジェクト用ディレクトリを作成（例：乳がん放射線療法）
-mkdir -p search_formula/乳がん放射線療法
-
-# 必要なサブディレクトリを作成
-mkdir -p search_formula/乳がん放射線療法/log
+mkdir -p projects/PROJECT_NAME/seed_papers
 ```
 
-### 3.2 検索式の初期入力と構造化
-
-#### 3.2.1 PICOフレームワークの定義
-
-まず、PICOフレームワークを定義します。既存の `pico_definition.md` を参考に、プロジェクトの PICO 定義ファイルを作成します。
-
-1. `pico_definition.md` をテンプレートとして新しいファイルを作成：
-```bash
-cp templates/pico_definition.md search_formula/プロジェクト名/pico_definition.md
+または Claude Code Skills で:
+```
+User: "PROJECT_NAMEという新しいプロジェクトを作成"
 ```
 
-2. プロジェクトの要件に合わせて PICO 定義ファイルを編集します。
-
-#### 3.2.2 検索式の構造化
-
-ユーザーが用意した検索式（テキスト形式）を構造化します：
-
-1. **保存先の確認**: まず、どの検索プロジェクトに属する検索式かを確認します。対応するプロジェクトディレクトリ（例: `search_formula/プロジェクト名/`）が存在しない場合は、作成を促します。
-2. **ファイルへの保存**: 確認したプロジェクトディレクトリ配下に `search_formula.md` というファイル名で検索式を保存します。
-3. **構文の初期チェック**: 保存された `search_formula.md` の内容について、PubMedの標準的な検索構文と比較し、特に以下の点を確認します。
-    *   セミコロン（`;`）やコンマ（`,`）が意図しない箇所で使用されていないか。セミコロンを使用する場合は、PubMedでは通常ORとして解釈されない点に注意します。
-    *   **論理演算子（AND, OR, NOT）が適切に使用されているか**。論理演算子の適切な使用は、スクリプトによる解析や実行時の正確さに直接影響します。
-    *   **括弧 `()` の対応が取れているか、また意図した優先順位でグループ化されているか**。括弧は検索式の階層と優先順位を決定する重要な要素です。
-    *   複数の検索条件がある場合、適切な論理演算子で接続されているか。
-    *   1行内に複数のOR条件や括弧でグループ化された複雑な条件がある場合も、正しく構造化されているか確認します。
-    *   もし構文に曖昧さや、PubMedで直接実行した際に意図しない結果を生む可能性のある記述が見つかった場合は、ユーザーに確認し、必要に応じて修正を提案します。
-4. **構造化**: (構文チェック後) 保存された `search_formula.md` の内容を元に、検索式をブロックごとに分割し（Population, Intervention, Comparison, Outcome など）、各ブロック内の検索語をMeSH用語とフリーテキスト用語に分類します。
-5. `templates/blocks/search_formula_template.md` を参考に、Markdownフォーマットで構造化します。
-
-例：
-```markdown
-# プロジェクト名の検索式
-
-## PubMed/MEDLINE
-
-### 基本構造
-```
-#1 Population（対象集団）
-    "Disease"[Mesh] OR
-    disease[tiab] OR
-    condition[tiab]
-
-#2 Intervention（介入）
-    "Therapy"[Mesh] OR
-    treatment[tiab] OR
-    therapy[tiab]
-
-#3 最終検索式
-    #1 AND #2
-    Filters: Language
-```
-```
-
-### 3.3 各検索行（ブロック）のヒット数確認
-
-構造化した検索式の各行（またはブロック）のPubMedでのヒット件数を確認します。改良版では、各検索行を構成する個別のキーワード（OR演算子で区切られた要素）のヒット件数も確認できるようになりました。
-
-#### 3.3.1 `check_search_lines.py` の使用方法
-
-1. スクリプトにコマンドライン引数として入力ファイルと出力ファイルを指定して実行します：
+#### Step 2: プロトコル作成
 
 ```bash
-python scripts/search/term_validator/check_search_lines.py --input-formula search_formula/プロジェクト名/search_formula.md --output search_formula/プロジェクト名/search_lines_results.md
+cp templates/rq_template.md projects/PROJECT_NAME/protocol.md
+# protocol.md を編集してRQとPICOを定義
 ```
 
-2. 出力される `search_lines_results.md` には以下の情報が含まれます：
-   - 各検索行のオリジナルクエリ
-   - 行内の個別キーワード（ORで区切られた要素）とそれぞれのヒット件数
-   - 行全体（すべての要素をORで結合）のヒット件数
-   - 最終検索式の構造と展開後の検索式、およびその検索結果
+#### Step 3: シード論文の準備
 
-3. 出力された結果を分析し、必要に応じて検索式を調整します。
+- キー論文の書誌情報を `seed_papers/` に配置（RIS, NBIB, RTF等）
+- PMIDを `seed_pmids.txt` に記載（1行1 PMID、`#` でコメント可）
 
-### 3.4 MeSH用語自動分析システム
-
-#### 3.4.1 概要と機能
-
-システマティックレビューのための検索式開発において、MeSH用語の適切な選定は極めて重要です。このシステムは論文PMIDリストから自動的にMeSH用語を抽出し、その階層構造を可視化、分析するツールです。
-
-主な機能：
-- PMIDリストからMeSH用語の自動抽出・集計
-- MeSH用語の階層構造の取得と可視化（Mermaidダイアグラム）
-- カテゴリ別のMeSH用語分析
-- 詳細なMarkdownレポート生成
-
-#### 3.4.2 使用方法
-
-##### 必要なファイル構成
-
-各RQの作業ディレクトリ（例：`search_formula/RQ1/`）に以下のファイルを配置します。
-
-```
-search_formula/RQ名/
-└── seed_pmids.txt     # 分析対象論文のPMIDリスト（1行に1 PMID）
-```
-
-MeSH分析スクリプト `extract_mesh.py` はプロジェクトのトップディレクトリに配置されています。
-
-##### seed_pmids.txtの準備
-
-分析対象とする論文のPMIDを1行に1つずつ記載したテキストファイルを準備します。コメント行は `#` で始めることで無視されます。
-
-例 (`search_formula/RQ名/seed_pmids.txt`):
 ```
 # シード論文リスト
 18442104
 10675426
 39073822
-# 以下続く
 ```
 
-##### 実行コマンド
+#### Step 4: 検索式の開発
 
-RQの作業ディレクトリ（例：`search_formula/RQ1/`）に移動してから、以下のコマンドを実行します。
+外部AIアシスタントと対話的に検索式を開発し、`search_formula.md` に保存します。
+
+**推奨フォーマット（スクリプト互換）**:
+
+```markdown
+# プロジェクト名
+
+## PubMed/MEDLINE
+
+\```
+#1 ("Disease"[Mesh] OR disease[tiab] OR condition[tiab])
+#2 ("Therapy"[Mesh] OR treatment[tiab])
+#3 #1 AND #2
+\```
+```
+
+**パース要件**:
+- `## PubMed/MEDLINE` セクションヘッダーが必要
+- 検索式はコードブロック内に記述
+- 各行は `#N ` で始まる（Nは行番号）
+- 最終行は `#N AND #M` 形式の組み合わせ式
+
+#### Step 5: 検証・最適化
+
+本リポジトリのツール群で検索式を検証・最適化します（詳細は以下のセクション参照）。
+
+## 5. スクリプト使用ガイド
+
+### 5.1 検索式のヒット件数確認
+
+各検索行のPubMedでのヒット件数を確認します。行内の個別キーワード（ORで区切られた要素）のヒット件数も表示されます。
 
 ```bash
-# 例：search_formula/RQ1/ ディレクトリで実行
-python ../../scripts/search/extract_mesh.py --pmid-file ./seed_pmids.txt --output-dir ./
+python scripts/search/term_validator/check_search_lines.py \
+  --input-formula projects/PROJECT_NAME/search_formula.md \
+  --output projects/PROJECT_NAME/log/search_lines_results.md
 ```
 
-または、プロジェクトのトップディレクトリから実行する場合：
+### 5.2 最終検索式の実行とシード論文検証
+
+最終検索式を実行し、シード論文が検索結果に含まれるかを確認します。各PMIDを個別に `query AND pmid[PMID]` で検証するため、大規模な検索結果（>10,000件）でも正確に検証できます。
 
 ```bash
-python scripts/search/extract_mesh.py --pmid-file ./search_formula/RQ名/seed_pmids.txt --output-dir ./search_formula/RQ名/
+python scripts/search/query_executor/check_final_query.py \
+  --formula-file projects/PROJECT_NAME/search_formula.md \
+  --pmid-file projects/PROJECT_NAME/seed_pmids.txt \
+  --output-dir projects/PROJECT_NAME/
 ```
 
-これにより、指定した`seed_pmids.txt`を読み込み、結果（`mesh_analysis.md`と`mesh_analysis_results.json`）を指定した出力ディレクトリに保存します。
+**出力内容**:
+- 検索結果の総件数
+- 各シード論文の捕捉状況（✅ captured / ❌ missed）
+- 全体の捕捉率（例: 5/5 = 100%）
 
-#### 3.4.3 `extract_mesh.py` スクリプトの概要
+### 5.3 MeSH用語分析
 
-このスクリプト (`scripts/search/extract_mesh.py`) は以下の主要な処理を行います：
-
-- **PMIDからの情報取得**: `get_paper_details`関数でPubMed APIを叩き、論文のXMLデータを取得します。
-- **MeSH用語抽出**: `extract_mesh_terms`関数でXMLからMeSH記述子、UI、修飾語、主要トピック情報を抽出します。
-- **タイトル・抄録抽出**: `extract_title_abstract`関数で論文のタイトルと抄録を抽出します。
-- **出版情報抽出**: `extract_publication_info`関数でジャーナル名、出版年、著者情報を抽出します。
-- **MeSH階層取得**: `get_mesh_hierarchy`関数でMeSH UIを基にNCBIのMeSHブラウザやE-utilities APIを利用してツリー番号を取得します。
-- **ツリー番号からのMeSH情報取得**: `fetch_mesh_term_by_tree_number`関数でSPARQLクエリを使用し、ツリー番号から対応するMeSH用語名やUIを補完します。
-- **Mermaid図生成**: `generate_mermaid_diagram`関数で収集したMeSH階層情報からカテゴリ別のMermaid図を生成します。
-- **レポート生成**: `main`関数全体でこれらの処理を統括し、最終的にMarkdown形式の分析レポート (`mesh_analysis.md`) とJSON形式のデータ (`mesh_analysis_results.json`) を出力します。
-
-#### 3.4.4 分析結果の解釈と活用
-
-生成される `mesh_analysis.md` には以下の情報が含まれます。
-
-- **分析サマリー**: 分析対象となった論文数、ユニークMeSH用語数。
-- **主要なMeSH用語**: 出現頻度順の上位MeSH用語リスト。
-- **MeSH用語の階層構造**: カテゴリ別にMermaid図で可視化された階層構造。シード論文に含まれる用語は強調表示されます。
-- **論文別MeSH用語**: 各論文に付与されたMeSH用語の詳細リスト。
-
-これらの情報を基に、検索式に含めるべきMeSH用語の選定や、検索戦略の妥当性評価を行います。
-
-#### 3.4.5 検索式へのMeSH用語採用の判断基準
-
-以下の基準でMeSH用語を検索式に採用するかを判断します：
-
-1. 複数の論文で共通して使用されているMeSH用語を優先
-2. 階層構造の上位にあるMeSH用語はより広い概念をカバーするため、展開（explode）して使用するか検討
-3. 階層構造の下位にあるMeSH用語は特異度が高いため、必要に応じて追加
-4. 各MeSH用語の検索結果件数を `scripts/search/mesh_analyzer/check_mesh.py` で確認し、適切な粒度を選択
-
-### 3.5 全体検索式の実行と評価
-
-構造化・最適化された最終検索式を作成し、評価します。
-
-#### 3.5.1 最終検索式の作成
-
-ブロックごとの検索式を `AND` で結合して最終検索式を作成します：
-
-```
-(Population) AND (Intervention) AND (Optional filters)
-```
-
-#### 3.5.2 `check_final_query.py` による検索式の実行と評価
-
-このスクリプトは、指定された検索式ファイルとPMIDリストファイルに基づき、最終検索式を実行し、シード論文が検索結果に含まれるかを確認します。
-
-1. コマンドライン引数を使用してスクリプトを実行します。
-   - `--formula-file`: 検索式が記述されたMarkdownファイルのパス (例: `search_formula/プロジェクト名/search_formula.md`)
-   - `--pmid-file`: シード論文のPMIDが記述されたテキストファイルのパス (例: `search_formula/プロジェクト名/seed_pmids.txt`)
-   - `--output-dir` (任意): 生成されるRISファイルなどの出力先ディレクトリ。
+シード論文からMeSH用語を抽出し、階層構造をMermaidダイアグラムで可視化します。
 
 ```bash
-python scripts/search/query_executor/check_final_query.py --formula-file search_formula/プロジェクト名/search_formula.md --pmid-file search_formula/プロジェクト名/seed_pmids.txt
+python scripts/search/extract_mesh.py \
+  --pmid-file projects/PROJECT_NAME/seed_pmids.txt \
+  --output-dir projects/PROJECT_NAME/
 ```
 
-2. 実行結果を確認：
-   - 検索結果の総件数
-   - シードスタディの包含状況
-   - RISファイルの出力（log/search_results_*.ris）
+出力: `mesh_analysis.md`（分析レポート）、`mesh_analysis_results.json`（構造化データ）
 
-#### 3.5.3 検索結果の解釈と評価
+#### MeSH用語の個別確認
 
-1. **検索結果数の評価**:
-   - 検索結果数の目安は条件によって2,000〜5,000件程度が一般的ですが、これはあくまで目安であり、研究テーマの特性や目的によって適切な件数は大きく異なります。
-   - 件数が多すぎる場合は、より具体的な用語の追加や絞り込み条件の検討が必要です。
-   - 件数が少なすぎる場合は、同義語の追加や用語の上位概念への拡張を検討します。
+```bash
+# MeSH用語の存在確認と文献数取得
+python scripts/search/mesh_analyzer/check_mesh.py --terms "Term1,Term2,Term3"
 
-2. **シード論文の包含確認**:
-   - すべてのシードPMIDが検索結果に含まれることは検索式の妥当性を示す重要な指標です。
-   - シードPMIDが検索結果に含まれない場合は、以下の対応を検討します：
-     - 検索されなかった論文のMeSH用語と使用されている用語を確認
-     - 検索式に不足している用語やMeSH用語の追加
-     - 検索構造（AND/OR条件）の見直し
-
-### 3.6 他データベースへの検索式変換
-
-#### 3.6.1 CENTRALへの変換
-
-PubMed検索式をCochrane CENTRAL形式に変換します。
-
-主な変換ルール：
-- `[Mesh]` → `MeSH descriptor: [用語] explode all trees`
-- `[tiab]` → `:ti,ab,kw`
-- PubMedの演算子の調整（特に近接演算子）
-
-例：
-```
-# PubMed形式
-"Breast Neoplasms"[Mesh] OR breast cancer[tiab]
-
-# CENTRAL形式
-MeSH descriptor: [Breast Neoplasms] explode all trees OR (breast NEXT cancer):ti,ab,kw
+# MeSH用語間の重複分析
+python scripts/search/mesh_analyzer/check_mesh_overlap.py --terms "Term1,Term2,Term3"
 ```
 
-詳細は `templates/database/central_search.md` を参照してください。
+### 5.4 ブロック重複分析
 
-#### 3.6.2 Dialog (Embase)への変換
+ORで接続された検索語の個別貢献度を分析し、冗長な用語を特定します。
 
-PubMed検索式をDialog形式に変換します。
-
-主な変換ルール：
-- `[Title/Abstract]` または `[tiab]` → `TI() OR AB()`
-- `[MeSH Terms]` または `[Mesh]` → `EMB.EXACT.EXPLODE()`
-- 行番号 `#1` → `S1`
-- 日付制限 `2018/12/1:2024/9/30[DP]` → `PD(20181201-20240930)`
-
-例：
-```
-# PubMed形式
-"Breast Neoplasms"[Mesh] OR breast cancer[tiab]
-
-# Dialog形式
-EMB.EXACT.EXPLODE("breast cancer") OR (TI(breast cancer) OR AB(breast cancer))
+```bash
+python scripts/search/term_validator/check_block_overlap.py \
+  -i block_input.txt \
+  -o projects/PROJECT_NAME/log/block_analysis.md \
+  --block-name "Block Description"
 ```
 
-詳細は `templates/database/Embase(Dialog)_search.md` を参照してください。
-
-#### 3.6.3 ClinicalTrials.govへの変換
-
-PubMed検索式をClinicalTrials.gov形式に変換します。
-
-主な変換ルール：
-- MeSH用語は同義語リストに展開: `"Essential Tremor"[Mesh]` → `"essential tremor" OR "benign tremor" OR "familial tremor"`
-- 検索フィールドの変換: タグに基づいてCondition/Intervention/Other Termsに分類
-- 近接演算子はANDに変換: `"tremor therapy"[tiab:~2]` → `(tremor AND therapy)`
-
-例：
+**入力フォーマット**（テキストファイル）:
 ```
-# PubMed形式
-"Essential Tremor"[Mesh] OR "tremor therapy"[tiab:~2]
-
-# ClinicalTrials.gov形式
-Condition: "essential tremor" OR "benign tremor" OR "familial tremor"
-Intervention: (tremor AND therapy)
+#### #2A Block Name
+"Term1"[Mesh] OR
+"Term2"[Mesh] OR
+term3[tiab] OR
+term4[tiab]
 ```
 
-#### 3.6.4 ICTRPへの変換
+**出力**: 各用語のヒット件数、累積ヒット数、追加文献数、貢献率、低寄与用語（< 1%）・高重複用語（> 80%）の識別
 
-PubMed検索式をICTRP形式に変換します。
+### 5.5 データベース変換
 
-主な変換ルール：
-- MeSH用語は同義語に展開
-- すべての検索フィールドタグを削除
-- 近接演算子はANDに変換
-- 括弧の深さを制限（ICTRPでは浅い括弧構造が推奨）
+#### 全データベース一括変換
 
-例：
-```
-# PubMed形式
-"Essential Tremor"[Mesh] OR "tremor therapy"[tiab:~2]
-
-# ICTRP形式
-("essential tremor" OR "benign tremor" OR "familial tremor") OR (tremor AND therapy)
+```bash
+python scripts/conversion/generate_all_database_search.py \
+  --input projects/PROJECT_NAME/search_formula.md \
+  --output-dir projects/PROJECT_NAME/
 ```
 
-### 3.7 Ovid検索式のPubMed形式への変換
+#### 個別フォーマット変換
 
-#### 3.7.1 概要
+```bash
+python scripts/conversion/search_converter.py \
+  --input search_formula.md \
+  --output output.md \
+  --target-db [central|dialog|clinicaltrials|ictrp]
+```
 
-- `scripts/conversion/ovid/converter.py` には、MEDLINE via Ovid の検索式をPubMed形式へ変換するユーティリティが含まれています。
-- フィールドタグ、MeSH展開（`exp`）、フォーカス指定（`*`）、サブヘッディング、近接演算子（`adjN`）、主要なワイルドカードに対応し、PubMedで表現できない構文は警告として通知します。
-- 変換結果は既存のPubMedチェックフロー（ヒット件数確認、MeSH分析、他データベース変換など）へそのまま組み込めます。
+#### 変換ルール概要
 
-#### 3.7.2 使用方法
+| 変換先 | MeSH変換 | フィールドタグ | 行番号 |
+|-------|----------|-------------|--------|
+| CENTRAL | `MeSH descriptor: [Term] explode all trees` | `:ti,ab,kw` | — |
+| Dialog/Embase | `EMB.EXACT.EXPLODE()` | `TI() OR AB()` | `S1, S2...` |
+| ClinicalTrials.gov | 同義語に展開 | Condition/Intervention/Other分類 | — |
+| ICTRP | 同義語に展開、タグ削除 | — | — |
 
-Python REPL あるいはスクリプトから `convert_ovid_to_pubmed` 関数を呼び出します。
+#### Ovid → PubMed変換
 
 ```python
 from scripts.conversion.ovid.converter import convert_ovid_to_pubmed
@@ -388,188 +335,157 @@ ovid_query = '(heart adj3 failure).ti,ab. OR exp Cardiomyopathies/.'
 pubmed_query, warnings = convert_ovid_to_pubmed(ovid_query)
 print(pubmed_query)
 # => "heart failure"[tiab:~3] OR Cardiomyopathies[mh]
-print(warnings)
-# => 変換時の注意点（必要な場合のみ）
 ```
 
-#### 3.7.3 自動テスト
+### 5.6 ERIC検索（教育データベース）
 
-- 変換ロジックは `tests/test_ovid_to_pubmed.py` で網羅的に検証しています。
-- ユニットテストのみ実行する場合は `pytest tests/test_ovid_to_pubmed.py -q` を利用してください。
-- プロジェクト全体のテストは `pytest -q` で実行でき、外部依存パッケージが未インストールの場合は該当テストが自動的にスキップされます。
+教育研究データベースERICでの検索をサポートします。
 
-## 4. 既存Pythonスクリプトの詳細と利用ガイド
-
-### 4.1 `check_search_lines.py`
-
-**機能**: 指定された検索クエリ（個別の検索語や検索ブロック）のPubMedでのヒット件数を取得します。また、各検索行を構成する個別の検索語（ORで区切られた要素）のヒット件数も表示します。
-
-**使用方法**:
-1. コマンドライン引数として入力ファイルと出力ファイルを指定して実行します：
-   ```
-   python scripts/search/term_validator/check_search_lines.py --input-formula 入力ファイル --output 出力ファイル
-   ```
-
-2. 結果を確認：
-   - 各検索行内の個別キーワード（ORで区切られた要素）のヒット件数
-   - 各検索語の個別ヒット数、ブロックごとのOR検索結果
-   - 最終的な検索式の構造と展開後の検索式、およびその検索結果
-
-### 4.2 `check_mesh.py`
-
-**機能**: 指定されたMeSH用語の存在確認とPubMedでの文献数を取得します。
-
-**使用方法**:
-1. コマンドライン引数を使用してスクリプトを実行します：
-   ```
-   python scripts/search/mesh_analyzer/check_mesh.py --terms "Term1,Term2,Term3"
-   ```
-   または、ファイル内の `mesh_terms` リストを編集して実行：
-   ```
-   python scripts/search/mesh_analyzer/check_mesh.py
-   ```
-
-2. 結果を確認：各MeSH用語の存在有無、MeSHデータベースでの出現数、PubMedでの文献数
-
-### 4.3 `check_final_query.py`
-
-**機能**: 最終検索式を実行し、総ヒット件数、PMIDリストを取得。シードスタディの包含確認とRISファイル出力も行います。
-
-**使用方法**:
 ```bash
-python scripts/search/query_executor/check_final_query.py --formula-file search_formula/プロジェクト名/search_formula.md --pmid-file search_formula/プロジェクト名/seed_pmids.txt --output-dir search_formula/プロジェクト名/
+# 基本検索
+python scripts/search/eric/search_eric.py -q "medical education" -r 20
+
+# シソーラス（descriptor）+ フリーワード検索
+python scripts/search/eric/search_eric.py -q "subject:\"Medical School Faculty\" AND burnout"
+
+# 査読済みのみ + 年範囲フィルタ
+python scripts/search/eric/search_eric.py -q "faculty development" \
+  --peer-reviewed --year-min 2020 --count-only
+
+# RISエクスポート
+python scripts/search/eric/search_eric.py -q "medical education" -o results.ris
 ```
 
-結果を確認：検索結果件数、シードスタディの包含状況、RISファイルの出力
+**CLIフィルタオプション**:
 
-### 4.4 その他の有用なスクリプト
+| オプション | 説明 |
+|-----------|------|
+| `--peer-reviewed` | 査読済み論文のみ |
+| `--year-min YYYY` | 最小出版年 |
+| `--year-max YYYY` | 最大出版年 |
+| `--fulltext` | 全文利用可能のみ |
+| `--ies-funded` | IES助成研究のみ |
+| `--wwc-reviewed [y/r/n]` | WWCレビュー済み |
 
-- `check_specific_papers.py`: 特定論文が検索式のどの部分に一致するかを分析します
-  ```bash
-  python scripts/validation/seed_analyzer/check_specific_papers.py --formula-file 検索式ファイル --pmid-file PMIDリストファイル
-  ```
+**ERICシソーラス確認**:
 
-- `check_mesh_overlap.py`: 複数のMeSH用語間の重複を分析します
-  ```bash
-  python scripts/search/mesh_analyzer/check_mesh_overlap.py --terms "Term1,Term2,Term3"
-  ```
-
-- `check_modified_search.py`: 修正後の検索式の評価を行います
-  ```bash
-  python scripts/validation/result_validator/check_modified_search.py --original 元の検索式ファイル --modified 修正後の検索式ファイル --pmids PMIDリストファイル
-  ```
-
-- `analyze_papers.py`: 検索結果の詳細分析を行います
-  ```bash
-  python scripts/utils/analyze_papers.py --input 検索結果RISファイル --output 出力先ディレクトリ
-  ```
-
-### 4.5 `search_results_processor.py`
-
-**機能**: 複数のデータベースから取得した検索結果ファイル（RIS, NBIB, ClinicalTrials.gov RIS, ICTRP XML）を処理し、Rayyanでレビュー可能なCSVファイルに変換します。データの統合、重複排除、PRISMAフローチャート用統計の生成も行います。
-
-**主な特徴**:
-- 複数のデータソース（PubMed, Embase, CENTRAL, ClinicalTrials.gov, ICTRP）から検索結果を処理
-- ファイル形式の自動認識と適切な処理
-- DOIとタイトルベースの重複排除
-- Rayyan互換CSV形式への変換
-- PRISMAフローチャート用の統計情報生成
-- 大量の文献を効率的に処理するための分割出力
-
-**使用方法**:
 ```bash
-python scripts/search_results_to_review/search_results_processor.py --input-dir search_formula/プロジェクト名/ --output-dir search_formula/プロジェクト名/processed/ [--verbose]
+# 用語情報の取得（カテゴリ、関連語）
+python scripts/search/eric/check_eric_thesaurus.py -t "Medical School Faculty"
+
+# 関連語を含む検索クエリ生成
+python scripts/search/eric/check_eric_thesaurus.py -t "Faculty Development" --build-query
+
+# 用語の存在確認
+python scripts/search/eric/check_eric_thesaurus.py -t "Some Term" --check-only
 ```
 
-**入力ファイル**:
-- RISファイル（.ris, .txt拡張子）: PubMed, Embase, CENTRALなどからエクスポート
-- NBIBファイル（.nbib拡張子）: PubMedからのエクスポート
-- ClinicalTrials.gov RISファイル
-- ICTRP XMLファイル（.xml拡張子）
+### 5.7 検索結果処理
+
+複数データベースの検索結果を統合し、Rayyanでスクリーニング可能なCSVに変換します。
+
+```bash
+python scripts/search_results_to_review/search_results_processor.py \
+  --input-dir projects/PROJECT_NAME/ \
+  --output-dir projects/PROJECT_NAME/processed/
+```
+
+**対応入力フォーマット**: RIS (.ris)、NBIB (.nbib)、ClinicalTrials.gov RIS、ICTRP XML (.xml)
 
 **出力**:
 - テストレビュー用CSV（50件）
 - 本レビュー用CSV（500件ごとに分割）
-- 圧縮ZIPファイル（全CSVを含む）
-- 統計情報レポート
+- 圧縮ZIPファイル
+- PRISMAフローチャート用統計情報
 
-**出力例**:
+### 5.8 その他のツール
+
+```bash
+# 特定論文が検索式のどの部分に一致するかを分析
+python scripts/validation/seed_analyzer/check_specific_papers.py \
+  --formula-file projects/PROJECT_NAME/search_formula.md \
+  --pmid-file projects/PROJECT_NAME/seed_pmids.txt
+
+# 修正前後の検索式を比較
+python scripts/validation/result_validator/check_modified_search.py \
+  --original original.md --modified modified.md --pmids seed_pmids.txt
 ```
-総レコード数: 8,768件
-重複排除後のレコード数: 5,807件
-重複率: 33.77%
+
+## 6. 検索式フォーマット
+
+### フィールドタグ
+
+| タグ | 説明 |
+|-----|------|
+| `[Mesh]` / `[MeSH Terms]` | MeSH記述子 |
+| `[tiab]` | Title/Abstract |
+| `[ti]` | Titleのみ |
+| `[ab]` | Abstractのみ |
+| `[tw]` | Text Word |
+
+### 近接演算子
+
+PubMedでは指定語数以内に出現する用語の検索が可能です：
+
+```
+"hip pain"[Title/Abstract:~2]
+# → "hip"と"pain"が2語以内に出現する文献
 ```
 
-詳細なオプションや使用方法は `scripts/search_results_to_review/README.md` を参照してください。
+### ブロック構造の例
 
-## 5. 付録
+```markdown
+# プロジェクト名
 
-### 5.1 PubMed API利用時の注意点
+## PubMed/MEDLINE
 
-- **APIキー**: 多数のリクエストを行う場合はNCBIのAPIキーを取得して使用（1秒あたり10リクエストまで可能）
-- **リクエスト制限**: APIキーなしの場合は1秒あたり3リクエストまで。スクリプト内の `time.sleep()` で調整
-- **エラー処理**: 一時的なAPIエラーに対応するため、リトライ機能を実装することを推奨
+\```
+#1 ("Disease"[Mesh] OR disease[tiab] OR condition[tiab])
+#2 ("Therapy"[Mesh] OR treatment[tiab])
+#3 #1 AND #2
+Filters: Humans, English
+\```
+```
 
-### 5.2 トラブルシューティング
+## 7. テスト
 
-1. **APIリクエストエラー**:
-   - `time.sleep()` の値を大きくしてリクエスト間隔を延長
-   - 一時的なサーバーエラーの場合は再試行
+```bash
+# 全テスト実行
+pytest -q
 
-2. **検索結果が多すぎる場合**:
-   - より特異的な用語を追加
-   - フィルターを追加（出版年、言語、研究タイプなど）
+# 特定テスト実行
+pytest tests/test_ovid_to_pubmed.py -q
+```
 
-3. **シードスタディが検索結果に含まれない場合**:
-   - 各論文のMeSH用語とフリーテキストを確認
-   - 検索式に不足している用語を追加
+## 8. 技術詳細
 
-4. **RISファイルのエクスポートエラー**:
-   - APIからの応答データを確認
-   - フォーマット変換処理を見直し
+### API利用
 
-## 6. ファイル構成とガイドライン
+- NCBI E-utilities API（PubMed）を使用
+- レート制限: APIキーなし3 req/s、APIキーあり10 req/s
+- `NCBI_API_KEY` 環境変数で設定
 
-### 6.1 ファイル構成
+### MeSH階層取得の仕組み
 
-- **Pythonスクリプト群** (`scripts/`)
-  - 検索関連スクリプト: `scripts/search/`
-  - 変換関連スクリプト: `scripts/conversion/`
-  - 検証スクリプト: `scripts/validation/`
-  - ユーティリティスクリプト: `scripts/utils/`
+1. PubMed APIで論文詳細取得
+2. MeSH記述子・修飾語を抽出
+3. NCBI MeSHブラウザからツリー番号取得
+4. RDFエンドポイントで階層情報照会
+5. Mermaidダイアグラム生成
 
-- **検索式プロジェクト用ディレクトリ** (`search_formula/`)
-  - 各検索プロジェクトは専用ディレクトリで管理
-  - 検索結果や分析レポートもプロジェクトディレクトリ内に保存
+### レポートファイルのメタデータ
 
-- **テンプレート** (`templates/`)
-  - PICO定義テンプレート: `templates/pico_definition.md`
-  - 検索式ブロックテンプレート: `templates/blocks/search_formula_template.md`
-  - データベース別テンプレート: `templates/database/`
+すべての分析レポートには再現性のため以下のメタデータを含めます：
 
-### 6.2 ファイル命名規則
+```markdown
+<!--
+Generated by: scripts/path/to/script.py
+Command: python scripts/path/to/script.py --arg1 value1
+Input data: path/to/input/data.txt
+Generated on: YYYY-MM-DD HH:MM:SS
+-->
+```
 
-- データベース名は小文字（pubmed, central, embase）
-- 日付形式：YYYYMMDD（例：20250328）
-- ステータス接頭辞：draft_, final_, validated_
-- 複数バージョンはv1, v2等の接尾辞で管理
+## 9. ライセンス
 
-### 6.3 コーディングスタイルと開発ガイドライン
-
-- Pythonコードは PEP 8 に準拠
-- 分析スクリプトは明確な命名規則に従う
-- 各スクリプトは明確な役割と責任を持つよう設計
-- 個人情報を含むデータは取り扱わない
-- API キーなどの認証情報は環境変数で管理
-
-## 7. 検証と品質保証
-
-自動化された検証ツールを使用して検索式の品質を確保します。主な検証ポイント：
-
-- 各検索用語の妥当性と検索結果
-- シード論文の包含確認
-- 検索式の構造的問題の特定
-- データベース間変換の正確性
-- 最終検索結果の評価
-
-詳細な検証レポートを生成し、検索式の改善に役立てることができます。
+MIT License
