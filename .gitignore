@@ -19,6 +19,8 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+*.ris
+
 
 # dotenv
 .env
@@ -26,6 +28,8 @@ var/
 # Logs
 logs/
 *.log
+*.zip
+*.docx
 
 # IDE files
 .vscode/
@@ -34,9 +38,20 @@ logs/
 # OS specific
 .DS_Store
 
-# search_formulaフォルダ以下の全ての下位フォルダを除外
-search_formula/*
+# search_formulaフォルダ以下の全ての下位フォルダを除外（直下のファイルは追跡対象）
+search_formula/*/
 # README.mdだけは除外しない（追跡する）
 !search_formula/README.md
+!search_formula/fd_review
+
 # サンプルフォルダだけは除外しない（追跡する）
 !search_formula/sample/
+
+
+# Projects folder (contains project-specific data, not for GitHub)
+projects/
+
+# Block overlap analysis input files
+tests/block_overlap_*/*.txt
+# Block overlap session logs (ignore dated block_overlap_*.md, keep narrative reports)
+tests/block_overlap_*/block_overlap_*_[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9].md

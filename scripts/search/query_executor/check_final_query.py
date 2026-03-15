@@ -246,41 +246,36 @@ def main():
     print(f"PMIDファイル: {args.pmid_file}")
     print(f"最終検索式: {final_query}")
 
-    # 最終検索式の実行
-    result = get_pubmed_results(final_query)
+    # 最終検索式の実行（件数のみ取得）
+    result = get_pubmed_results(final_query, retmax=0)  # retmax=0で件数のみ取得
     print(f"検索結果総数: {result['count']:,}件")
 
-    # シード論文の包含確認
-    found_ids = set(result['ids'])
+    # シード論文の包含確認（各PMIDごとに個別にAPIでチェック）
     included_pmids = []
     not_found_pmids = []
 
+    print(f"\n--- シード論文の包含状況 ---")
     for pmid in pmids_to_check:
-        if pmid in found_ids:
+        # 最終検索式 AND PMID で検索してcount=1になるかチェック
+        check_query = f"({final_query}) AND {pmid}[PMID]"
+        check_result = get_pubmed_results(check_query, retmax=0)
+
+        if check_result['count'] > 0:
             included_pmids.append(pmid)
+            print(f"  ✅ PMID {pmid}: 捕捉されています")
         else:
             not_found_pmids.append(pmid)
+            print(f"  ❌ PMID {pmid}: 捕捉されていません")
 
-    print(f"\n--- シード論文の包含状況 ---")
-    print(f"含まれていたPMID ({len(included_pmids)}件): {', '.join(included_pmids) if included_pmids else 'なし'}")
+        time.sleep(0.34)  # API rate limit対策
+
+    print(f"\n捕捉されたPMID ({len(included_pmids)}/{len(pmids_to_check)}件): {', '.join(included_pmids) if included_pmids else 'なし'}")
     if not_found_pmids:
-        print(f"含まれていなかったPMID ({len(not_found_pmids)}件): {', '.join(not_found_pmids)}")
+        print(f"捕捉されなかったPMID ({len(not_found_pmids)}件): {', '.join(not_found_pmids)}")
 
-    # RISファイルの出力
-    if result['count'] > 0:
-        date = datetime.now().strftime('%Y%m%d')
-        # プロジェクト名を取得しようと試みる (output_dirから)
-        project_name_match = re.search(r"search_formula/([^/]+)", output_dir)
-        project_name_prefix = f"{project_name_match.group(1)}_" if project_name_match else ""
-        
-        # データベース名とヒット数をファイル名に含める
-        ris_filename = f"{project_name_prefix}PubMed_{result['count']}hits_{date}.ris"
-        
-        print(f"\nRISファイルを出力中: {os.path.join(output_dir, ris_filename)}")
-        export_to_ris(result['ids'], ris_filename, output_dir)
-        print("RISファイルの出力が完了しました。")
-    else:
-        print("\n検索結果が0件のため、RISファイルは出力されませんでした。")
+    # RISファイルの出力（全件取得が必要な場合のみ）
+    print(f"\nRISファイル出力をスキップします（シード検証のみ実行しました）。")
+    print(f"RISファイルが必要な場合は、PubMed Web UIで検索式を実行してください。")
 
 if __name__ == "__main__":
     main()

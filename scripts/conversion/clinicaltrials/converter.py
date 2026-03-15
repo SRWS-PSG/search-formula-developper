@@ -16,7 +16,7 @@ class ClinicalTrialsConverter:
     def _expand_mesh_terms(self, mesh_term: str) -> str:
         """MeSH用語を同義語リストに展開"""
         # MeSH用語から[]タグを除去
-        clean_term = re.sub(r'\[Mesh\]|\[MeSH Terms\]|\[mh\]', '', mesh_term).strip().strip('"\'')
+        clean_term = re.sub(r'\[Mesh\]|\[MeSH\]|\[MeSH Terms\]|\[mh\]', '', mesh_term).strip().strip('"\'')
         
         # 同義語マップに存在する場合は展開、なければそのまま返す
         if clean_term in self.mesh_synonym_map:
@@ -52,7 +52,7 @@ class ClinicalTrialsConverter:
             Tuple[変換後のクエリ, フィールド名（"Condition"/"Intervention"/"Title"/"Other Terms"）]
         """
         # タグパターン
-        mesh_pattern = r'\[Mesh\]|\[MeSH Terms\]|\[mh\]'
+        mesh_pattern = r'\[Mesh\]|\[MeSH\]|\[MeSH Terms\]|\[mh\]'
         tiab_pattern = r'\[Title/Abstract\]|\[tiab\]'
         title_pattern = r'\[Title\]|\[ti\]'
         ad_pattern = r'\[Affiliation\]|\[ad\]'
@@ -107,51 +107,81 @@ class ClinicalTrialsConverter:
         
         return cleaned, field
 
-    def convert_line(self, line_content: str) -> Dict[str, str]:
-        """単一の検索行をClinicalTrials.gov形式に変換"""
-        # 近接演算子を含む場合
-        if ":~" in line_content:
-            # タグパターン
-            mesh_pattern = r'\[Mesh\]|\[MeSH Terms\]|\[mh\]'
-            tiab_pattern = r'\[Title/Abstract\]|\[tiab\]'
-            title_pattern = r'\[Title\]|\[ti\]'
-            ad_pattern = r'\[Affiliation\]|\[ad\]'
-            
-            # 近接演算子パターン
+    def convert_line(self, line_content: str) -> Dict[str, List[str]]:
+        """単一の検索行をClinicalTrials.gov形式に変換
+
+        OR区切りの各用語を個別にフィールド分類し、フィールド別にグループ化する。
+        """
+        # OR区切りで用語を分割（括弧内のORは分割しない）
+        terms = self._split_or_terms(line_content)
+
+        field_groups: Dict[str, List[str]] = {}
+        for term in terms:
+            term = term.strip()
+            if not term:
+                continue
+
+            # 近接演算子を含む用語
             prox_pattern = r'"([^"]+)"\[([a-z]+):~(\d+)\]'
-            
-            match = re.search(prox_pattern, line_content)
-            if match:
-                terms = match.group(1).split()
-                field_tag = match.group(2)
-                proximity = match.group(3)
-                
-                # フィールドタグに基づいてフィールドを決定
-                if field_tag in ['Mesh', 'MeSH Terms', 'mh']:
+            prox_match = re.search(prox_pattern, term)
+            if prox_match:
+                words = prox_match.group(1).split()
+                field_tag = prox_match.group(2)
+
+                if field_tag in ['Mesh', 'MeSH Terms', 'mh', 'MeSH']:
                     field = "Condition"
                 elif field_tag in ['Title', 'ti']:
                     field = "Title"
                 elif field_tag in ['Title/Abstract', 'tiab']:
-                    if any(term in line_content.lower() for term in ["treatment", "therapy", "drug", "medication"]):
+                    if any(kw in term.lower() for kw in ["treatment", "therapy", "drug", "medication"]):
                         field = "Intervention"
                     else:
                         field = "Other Terms"
-                elif field_tag in ['Affiliation', 'ad']:
-                    field = "Other Terms"
                 else:
                     field = "Other Terms"
-                
-                # 近接演算子をANDに変換
-                if len(terms) == 2:
-                    cleaned = f"({terms[0]} AND {terms[1]})"
+
+                if len(words) == 2:
+                    cleaned = f"({words[0]} AND {words[1]})"
                 else:
-                    cleaned = f"({' AND '.join(terms)})"
-                
-                return {field: cleaned}
-        
-        # 標準的な変換ルートを使用
-        cleaned, field = self._convert_field_tags(line_content)
-        return {field: cleaned}
+                    cleaned = f"({' AND '.join(words)})"
+            else:
+                cleaned, field = self._convert_field_tags(term)
+
+            if field not in field_groups:
+                field_groups[field] = []
+            field_groups[field].append(cleaned)
+
+        # 各フィールドの用語をOR結合
+        result = {}
+        for field, values in field_groups.items():
+            result[field] = " OR ".join(values)
+        return result
+
+    def _split_or_terms(self, line: str) -> List[str]:
+        """トップレベルのOR演算子で用語を分割する。括弧内のORは分割しない。"""
+        terms = []
+        depth = 0
+        current = []
+        i = 0
+        while i < len(line):
+            ch = line[i]
+            if ch == '(':
+                depth += 1
+                current.append(ch)
+            elif ch == ')':
+                depth -= 1
+                current.append(ch)
+            elif depth == 0 and line[i:i+4].upper() == ' OR ' and i > 0:
+                terms.append(''.join(current).strip())
+                current = []
+                i += 4
+                continue
+            else:
+                current.append(ch)
+            i += 1
+        if current:
+            terms.append(''.join(current).strip())
+        return terms
     
     def convert(self, pubmed_query: str) -> Dict[str, str]:
         """PubMed検索式をClinicalTrials.gov形式に変換
@@ -188,32 +218,18 @@ class ClinicalTrialsConverter:
             # 単純なAND結合
             final_query = " AND ".join([f"({query})" for query in query_blocks.values()])
         
-        # 結合条件を解析（#1 OR #2 AND #3 など）
-        block_relations = {}
-        
         # 各ブロックの内容をフィールド別に変換
-        converted_blocks = {}
+        ct_query = {}
         for block_id, query in query_blocks.items():
             # 他のブロックを参照していない場合のみ変換
             if not any(other_id in query for other_id in query_blocks.keys() if other_id != block_id):
                 converted = self.convert_line(query)
-                converted_blocks[block_id] = converted
-        
-        # 最終検索式の構造を解析（例: (#1 OR #2) AND (#3 OR #4)）
-        final_structure = final_query
-        for block_id, converted in converted_blocks.items():
-            # block_idが最終構造の中でどのように使われているか特定
-            for field, value in converted.items():
-                if field not in block_relations:
-                    block_relations[field] = []
-                block_relations[field].append(value)
-        
-        # フィールド別に条件をグループ化
-        ct_query = {}
-        for field, values in block_relations.items():
-            # 同じフィールド内の条件をORで結合
-            ct_query[field] = " OR ".join(values)
-        
+                for field, value in converted.items():
+                    if field in ct_query:
+                        ct_query[field] += " OR " + value
+                    else:
+                        ct_query[field] = value
+
         return ct_query
 
 def convert_to_clinicaltrials(pubmed_query: str) -> Dict[str, str]:
