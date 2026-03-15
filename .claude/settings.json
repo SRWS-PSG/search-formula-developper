@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -d /c/Users/youki/codes/search-formula-developper/projects/*/)",
+      "Read(//c/Users/youki/codes/search-formula-developper/**)",
+      "Bash(done)",
+      "Bash(PYTHONIOENCODING=utf-8 python scripts/search/query_executor/check_final_query.py --formula-file projects/yamamoto/search_formula.md --pmid-file projects/yamamoto/seed.txt --output-dir projects/yamamoto/)",
+      "Bash(PYTHONIOENCODING=utf-8 python scripts/search/term_validator/check_search_lines.py --input-formula projects/yamamoto/search_formula.md --output projects/yamamoto/log/search_lines_results.md)",
+      "Bash(PYTHONIOENCODING=utf-8 python -c \":*)",
+      "Bash(python:*)"
+    ]
+  }
+}

@@ -16,7 +16,7 @@ class ICTRPConverter:
     def _expand_mesh_terms(self, mesh_term: str) -> str:
         """MeSH用語を同義語リストに展開"""
         # MeSH用語から[]タグを除去
-        clean_term = re.sub(r'\[Mesh\]|\[MeSH Terms\]|\[mh\]', '', mesh_term).strip().strip('"\'')
+        clean_term = re.sub(r'\[Mesh\]|\[MeSH\]|\[MeSH Terms\]|\[mh\]', '', mesh_term).strip().strip('"\'')
         
         # 同義語マップに存在する場合は展開、なければそのまま返す
         if clean_term in self.mesh_synonym_map:
@@ -51,7 +51,7 @@ class ICTRPConverter:
         if ":~" in query_part:
             # 近接演算子パターン
             prox_pattern = r'"([^"]+)"\[([a-z]+):~(\d+)\]'
-            
+
             match = re.search(prox_pattern, query_part)
             if match:
                 terms = match.group(1).split()
@@ -60,34 +60,15 @@ class ICTRPConverter:
                     return f"({terms[0]} AND {terms[1]})"
                 else:
                     return f"({' AND '.join(terms)})"
-            
+
             # パターンにマッチしない場合はそのまま
             return query_part
-            
-        # タグパターン
-        mesh_pattern = r'\[Mesh\]|\[MeSH Terms\]|\[mh\]'
-        tiab_pattern = r'\[Title/Abstract\]|\[tiab\]'
-        title_pattern = r'\[Title\]|\[ti\]'
-        ad_pattern = r'\[Affiliation\]|\[ad\]'
-        
-        # タグに基づいて変換
-        if re.search(mesh_pattern, query_part):
-            # MeSH用語の展開
-            cleaned = self._expand_mesh_terms(query_part)
-        elif re.search(title_pattern, query_part) or re.search(tiab_pattern, query_part) or re.search(ad_pattern, query_part):
-            # タグの削除
-            cleaned = re.sub(r'\[[^\]]+\]', '', query_part).strip()
-            
-            # 引用符内のスペースで区切られた単語を処理
-            if cleaned.startswith('"') and cleaned.endswith('"'):
-                terms = cleaned.strip('"').split()
-                if len(terms) > 1:
-                    # ICTRPではスペースで区切られた複数単語をそのまま使用
-                    cleaned = f'"{" ".join(terms)}"'
-        else:
-            # その他のタグなし検索語
-            cleaned = query_part
-        
+
+        # 全てのフィールドタグを削除
+        cleaned = re.sub(r'\[(Mesh|MeSH|MeSH Terms|mh|tiab|ti|ab|tw|Title/Abstract|Title|Affiliation|ad)\]', '', query_part).strip()
+        # ワイルドカードを削除
+        cleaned = cleaned.replace('*', '')
+
         return cleaned
 
     def convert_line(self, line_content: str) -> str:

@@ -1,0 +1,19 @@
+============================================================
+ERIC Search Formula Test
+============================================================
+
+#1 Target Audience (対象者):
+subject:"Medical School Faculty" OR subject:"College Faculty" OR "medical faculty" OR "clinical educator" OR "clinician educator" OR "medical educator" OR "clinical teacher" OR "clinical teaching"
+→ Hits: 0
+
+#2 Intervention (介入):
+subject:"Faculty Development" OR subject:"Professional Development" OR subject:"Staff Development" OR subject:"Program Development" OR subject:"Program Design" OR "faculty development" OR "professional development" OR "teaching skill" OR "program design"
+→ Hits: 0
+
+#3 Combined (#1 AND #2):
+(subject:"Medical School Faculty" OR subject:"College Faculty" OR "medical faculty" OR "clinical educator" OR "clinician educator" OR "medical educator" OR "clinical teacher" OR "clinical teaching") AND (subject:"Faculty Development" OR subject:"Professional Development" OR subject:"Staff Development" OR subject:"Program Development" OR subject:"Program Design" OR "faculty development" OR "professional development" OR "teaching skill" OR "program design")
+→ Hits: 0
+
+============================================================
+Sample Results (top 3):
+============================================================
