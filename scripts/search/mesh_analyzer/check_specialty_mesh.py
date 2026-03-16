@@ -3,58 +3,10 @@
 """
 19の医療専門領域のMeSH term存在確認スクリプト
 """
-import requests
 import time
 from typing import Dict, List
 
-def check_mesh_term(term: str) -> Dict:
-    """
-    PubMed E-utilities APIを使用してMeSH用語の存在を確認する
-    """
-    base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
-    search_url = f"{base_url}/esearch.fcgi"
-    
-    params = {
-        'db': 'mesh',
-        'term': term,
-        'retmode': 'json'
-    }
-    
-    try:
-        response = requests.get(search_url, params=params)
-        response.raise_for_status()
-        data = response.json()
-        
-        count = int(data['esearchresult'].get('count', 0))
-        exists = count > 0
-        
-        # PubMedでの文献数も確認
-        pubmed_params = {
-            'db': 'pubmed',
-            'term': f'{term}[mh]',
-            'retmode': 'json'
-        }
-        pubmed_response = requests.get(search_url, params=pubmed_params)
-        pubmed_response.raise_for_status()
-        pubmed_data = pubmed_response.json()
-        pubmed_count = int(pubmed_data['esearchresult'].get('count', 0))
-        
-        return {
-            'exists': exists,
-            'term': term,
-            'mesh_count': count,
-            'pubmed_count': pubmed_count,
-            'message': 'Success'
-        }
-        
-    except requests.exceptions.RequestException as e:
-        return {
-            'exists': False,
-            'term': term,
-            'mesh_count': 0,
-            'pubmed_count': 0,
-            'message': f'Error: {str(e)}'
-        }
+from scripts.search.mesh_analyzer.check_mesh import check_mesh_term  # noqa: F401
 
 def main():
     # 19の医療専門領域と候補MeSH term

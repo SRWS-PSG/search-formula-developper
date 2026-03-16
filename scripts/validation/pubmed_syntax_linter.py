@@ -14,8 +14,16 @@ PubMedの動作仕様:
 """
 
 import re
-from typing import List, Dict, Tuple
+import time
+import xml.etree.ElementTree as ET
+from typing import List, Dict, Tuple, Optional
 from dataclasses import dataclass
+
+try:
+    import requests
+    HAS_REQUESTS = True
+except ImportError:
+    HAS_REQUESTS = False
 
 
 @dataclass
@@ -202,12 +210,136 @@ def check_redundant_hyphen_variants(query: str) -> List[LintWarning]:
     return warnings
 
 
-def lint_pubmed_query(query: str) -> List[LintWarning]:
+def extract_mesh_terms_from_query(query: str) -> List[str]:
+    """
+    検索式から[Mesh]タグ付きの用語を抽出する
+
+    Args:
+        query: PubMed検索式
+
+    Returns:
+        MeSH用語のリスト
+    """
+    pattern = re.compile(r'"([^"]+)"\s*\[Mesh\]', re.IGNORECASE)
+    return [m.group(1) for m in pattern.finditer(query)]
+
+
+def fetch_mesh_preferred_name(term: str) -> Optional[str]:
+    """
+    MeSHデータベースから用語を検索し、正式なDescriptorName（優先用語）を取得する。
+
+    Entry Term（同義語）で検索した場合でも、対応する正式なDescriptorNameを返す。
+    例: "Respiratory Distress Syndrome, Adult" → "Respiratory Distress Syndrome"
+
+    Args:
+        term: 検索するMeSH用語
+
+    Returns:
+        正式なDescriptorName。見つからない場合はNone。
+    """
+    if not HAS_REQUESTS:
+        return None
+
+    base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+    search_url = f"{base_url}/esearch.fcgi"
+    fetch_url = f"{base_url}/efetch.fcgi"
+
+    try:
+        # Step 1: MeSHデータベースでUIDを検索
+        search_params = {
+            'db': 'mesh',
+            'term': term,
+            'retmode': 'json'
+        }
+        response = requests.get(search_url, params=search_params, timeout=30)
+        response.raise_for_status()
+        data = response.json()
+
+        id_list = data.get('esearchresult', {}).get('idlist', [])
+        if not id_list:
+            return None
+
+        # Step 2: efetchでDescriptorレコードのXMLを取得
+        time.sleep(0.34)  # API rate limit
+        fetch_params = {
+            'db': 'mesh',
+            'id': id_list[0],
+            'retmode': 'xml'
+        }
+        fetch_resp = requests.get(fetch_url, params=fetch_params, timeout=30)
+        fetch_resp.raise_for_status()
+
+        root = ET.fromstring(fetch_resp.content)
+        descriptor_name_elem = root.find('.//DescriptorName/String')
+        if descriptor_name_elem is not None and descriptor_name_elem.text:
+            return descriptor_name_elem.text
+
+        return None
+
+    except Exception:
+        return None
+
+
+def check_mesh_exact_match(query: str) -> List[LintWarning]:
+    """
+    MeSH用語が正式なDescriptorName（優先用語）と一致するかを検証する。
+
+    Entry Term（同義語）のみの一致の場合、[Mesh]タグでは正確にヒットしない
+    ため、正式なDescriptorNameへの修正を推奨する警告を生成する。
+
+    注: requestsライブラリが利用できない場合、またはAPI呼び出しが失敗した場合は
+    警告を生成しない（オフラインでも他のチェックは動作する）。
+
+    Args:
+        query: PubMed検索式
+
+    Returns:
+        検出された警告のリスト
+    """
+    warnings = []
+
+    if not HAS_REQUESTS:
+        return warnings
+
+    mesh_terms = extract_mesh_terms_from_query(query)
+
+    for term in mesh_terms:
+        preferred_name = fetch_mesh_preferred_name(term)
+        if preferred_name is None:
+            # API失敗またはMeSHデータベースに存在しない
+            warnings.append(LintWarning(
+                rule_id="MESH_NOT_FOUND",
+                message=f'MeSHデータベースで "{term}" が見つかりませんでした。用語名を確認してください。',
+                original_term=f'"{term}"[Mesh]',
+                suggestion='NLM MeSH Browser (https://meshb.nlm.nih.gov/) で正しい用語を確認してください。',
+                severity="warning"
+            ))
+        elif term.lower() != preferred_name.lower():
+            # Entry Term（同義語）であり、正式なDescriptorNameではない
+            warnings.append(LintWarning(
+                rule_id="MESH_NOT_PREFERRED",
+                message=(
+                    f'"{term}" はEntry Term（同義語）であり、正式なMeSH Descriptor Nameではありません。'
+                    f'[Mesh]タグで正確にヒットしない可能性があります。'
+                ),
+                original_term=f'"{term}"[Mesh]',
+                suggestion=f'"{preferred_name}"[Mesh] に修正してください。',
+                severity="warning"
+            ))
+        # else: 正式なDescriptorNameと一致 → 問題なし
+
+        time.sleep(0.34)  # API rate limit between terms
+
+    return warnings
+
+
+def lint_pubmed_query(query: str, check_mesh: bool = False) -> List[LintWarning]:
     """
     PubMed検索式に対してすべてのリントチェックを実行する
 
     Args:
         query: PubMed検索式
+        check_mesh: MeSH用語のexact matchチェックを行うか（APIアクセスが必要）
 
     Returns:
         検出された警告のリスト
@@ -219,6 +351,10 @@ def lint_pubmed_query(query: str) -> List[LintWarning]:
 
     # 2. ハイフン付きバリエーションの冗長性チェック
     warnings.extend(check_redundant_hyphen_variants(query))
+
+    # 3. MeSH用語のexact matchチェック（オプション、API必要）
+    if check_mesh:
+        warnings.extend(check_mesh_exact_match(query))
 
     return warnings
 
@@ -284,6 +420,12 @@ def main():
         default='text',
         help='出力フォーマット（デフォルト: text）'
     )
+    parser.add_argument(
+        '--check-mesh',
+        action='store_true',
+        default=False,
+        help='MeSH用語のexact matchチェックを有効にする（APIアクセスが必要）'
+    )
 
     args = parser.parse_args()
 
@@ -301,7 +443,7 @@ def main():
         query = sys.stdin.read()
 
     # リントチェックの実行
-    warnings = lint_pubmed_query(query)
+    warnings = lint_pubmed_query(query, check_mesh=args.check_mesh)
 
     # 結果の出力
     if args.format == 'json':
