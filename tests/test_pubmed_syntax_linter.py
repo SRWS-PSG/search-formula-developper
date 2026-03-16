@@ -8,11 +8,15 @@ PubMed検索式リンターのテスト
 2. ハイフン付きバリエーションの冗長性検出
 """
 
+from unittest.mock import patch
+
 import pytest
 from scripts.validation.pubmed_syntax_linter import (
     normalize_term_for_comparison,
     check_phrase_wildcard,
     check_redundant_hyphen_variants,
+    extract_mesh_terms_from_query,
+    check_mesh_exact_match,
     lint_pubmed_query,
     format_lint_report,
     LintWarning,
@@ -144,6 +148,129 @@ class TestLintPubmedQuery:
         # ワイルドカード警告が2つあるはず
         wildcard_warnings = [w for w in warnings if w.rule_id == "PHRASE_WILDCARD"]
         assert len(wildcard_warnings) == 2
+
+
+class TestExtractMeshTermsFromQuery:
+    """MeSH用語抽出のテスト"""
+
+    def test_extract_quoted_mesh_terms(self):
+        """引用符付きMeSH用語が正しく抽出されることを確認"""
+        query = '"Respiratory Distress Syndrome"[Mesh] OR "Acute Lung Injury"[Mesh]'
+        terms = extract_mesh_terms_from_query(query)
+        assert len(terms) == 2
+        assert "Respiratory Distress Syndrome" in terms
+        assert "Acute Lung Injury" in terms
+
+    def test_extract_with_space_before_tag(self):
+        """タグ前にスペースがあっても抽出されることを確認"""
+        query = '"Shock, Cardiogenic" [Mesh]'
+        terms = extract_mesh_terms_from_query(query)
+        assert len(terms) == 1
+        assert "Shock, Cardiogenic" in terms
+
+    def test_no_mesh_terms(self):
+        """MeSH用語がない場合は空リストを返すことを確認"""
+        query = 'ARDS[tiab] OR "acute respiratory distress syndrome"[tiab]'
+        terms = extract_mesh_terms_from_query(query)
+        assert len(terms) == 0
+
+    def test_case_insensitive_tag(self):
+        """[Mesh]タグの大文字小文字を区別しないことを確認"""
+        query = '"Pulmonary Edema"[MESH] OR "Shock"[mesh]'
+        terms = extract_mesh_terms_from_query(query)
+        assert len(terms) == 2
+
+    def test_mixed_tags(self):
+        """MeSHタグとtiabタグが混在する場合、MeSHのみ抽出されることを確認"""
+        query = '"Extracorporeal Membrane Oxygenation"[Mesh] OR ecmo[tiab] OR "ARDS"[tiab]'
+        terms = extract_mesh_terms_from_query(query)
+        assert len(terms) == 1
+        assert "Extracorporeal Membrane Oxygenation" in terms
+
+
+class TestCheckMeshExactMatch:
+    """MeSH exact matchチェックのテスト（APIはモックで代替）"""
+
+    @patch('scripts.validation.pubmed_syntax_linter.fetch_mesh_preferred_name')
+    def test_entry_term_detected(self, mock_fetch):
+        """Entry Termが検出され警告が生成されることを確認"""
+        # "Respiratory Distress Syndrome, Adult" はEntry Term
+        # 正式名は "Respiratory Distress Syndrome"
+        mock_fetch.return_value = "Respiratory Distress Syndrome"
+        query = '"Respiratory Distress Syndrome, Adult"[Mesh]'
+        warnings = check_mesh_exact_match(query)
+        assert len(warnings) == 1
+        assert warnings[0].rule_id == "MESH_NOT_PREFERRED"
+        assert "Entry Term" in warnings[0].message
+        assert '"Respiratory Distress Syndrome"[Mesh]' in warnings[0].suggestion
+
+    @patch('scripts.validation.pubmed_syntax_linter.fetch_mesh_preferred_name')
+    def test_preferred_term_no_warning(self, mock_fetch):
+        """正式なDescriptorNameでは警告が出ないことを確認"""
+        mock_fetch.return_value = "Respiratory Distress Syndrome"
+        query = '"Respiratory Distress Syndrome"[Mesh]'
+        warnings = check_mesh_exact_match(query)
+        assert len(warnings) == 0
+
+    @patch('scripts.validation.pubmed_syntax_linter.fetch_mesh_preferred_name')
+    def test_not_found_term(self, mock_fetch):
+        """MeSHに存在しない用語でMESH_NOT_FOUND警告が生成されることを確認"""
+        mock_fetch.return_value = None
+        query = '"Nonexistent Term XYZ"[Mesh]'
+        warnings = check_mesh_exact_match(query)
+        assert len(warnings) == 1
+        assert warnings[0].rule_id == "MESH_NOT_FOUND"
+
+    @patch('scripts.validation.pubmed_syntax_linter.fetch_mesh_preferred_name')
+    def test_multiple_terms_mixed(self, mock_fetch):
+        """複数のMeSH用語が混在する場合のテスト"""
+        def side_effect(term):
+            mapping = {
+                "Respiratory Distress Syndrome, Adult": "Respiratory Distress Syndrome",
+                "Acute Lung Injury": "Acute Lung Injury",
+                "Shock, Cardiogenic": "Shock, Cardiogenic",
+            }
+            return mapping.get(term)
+
+        mock_fetch.side_effect = side_effect
+        query = (
+            '"Respiratory Distress Syndrome, Adult"[Mesh] '
+            'OR "Acute Lung Injury"[Mesh] '
+            'OR "Shock, Cardiogenic"[Mesh]'
+        )
+        warnings = check_mesh_exact_match(query)
+        # 1件のみ: "Respiratory Distress Syndrome, Adult" がEntry Term
+        assert len(warnings) == 1
+        assert warnings[0].rule_id == "MESH_NOT_PREFERRED"
+        assert "Respiratory Distress Syndrome, Adult" in warnings[0].message
+
+    @patch('scripts.validation.pubmed_syntax_linter.fetch_mesh_preferred_name')
+    def test_case_insensitive_match(self, mock_fetch):
+        """大文字小文字を無視した一致確認"""
+        mock_fetch.return_value = "Extracorporeal Membrane Oxygenation"
+        query = '"extracorporeal membrane oxygenation"[Mesh]'
+        warnings = check_mesh_exact_match(query)
+        assert len(warnings) == 0
+
+
+class TestLintPubmedQueryWithMesh:
+    """check_mesh=Trueでの統合テスト"""
+
+    @patch('scripts.validation.pubmed_syntax_linter.fetch_mesh_preferred_name')
+    def test_mesh_check_included_when_enabled(self, mock_fetch):
+        """check_mesh=Trueの場合MeSHチェックが実行されることを確認"""
+        mock_fetch.return_value = "Respiratory Distress Syndrome"
+        query = '"Respiratory Distress Syndrome, Adult"[Mesh]'
+        warnings = lint_pubmed_query(query, check_mesh=True)
+        mesh_warnings = [w for w in warnings if w.rule_id == "MESH_NOT_PREFERRED"]
+        assert len(mesh_warnings) == 1
+
+    def test_mesh_check_not_included_by_default(self):
+        """デフォルトではMeSHチェックが実行されないことを確認"""
+        query = '"Respiratory Distress Syndrome, Adult"[Mesh]'
+        warnings = lint_pubmed_query(query)
+        mesh_warnings = [w for w in warnings if w.rule_id in ("MESH_NOT_PREFERRED", "MESH_NOT_FOUND")]
+        assert len(mesh_warnings) == 0
 
 
 class TestFormatLintReport:
